@@ -66,7 +66,7 @@ void Canvas::generateCode()
         codeGenerator->addText(textInfo.text, textInfo.position);  // 添加文字的代码
     }
 
-    QString filename = QFileDialog::getSaveFileName(this, "Save Code", "", "Text Files (*.txt)");
+    QString filename = QFileDialog::getSaveFileName(this, "Save Code", "", "Text Files (*.txt)");//决定保存类型在mainwindow.cpp-zjx
     if (!filename.isEmpty())
     {
         codeGenerator->getCode();

@@ -8,6 +8,7 @@
 class EasyXCodeGenerator
 {
 public:
+
     struct TextInfo {
         QString text;
         QPoint position;
@@ -19,7 +20,7 @@ public:
     QString getCode() const;  // 新增的方法
 
 private:
-    QString code;
+
 };
 
 #endif // EASYXCODEGENERATOR_H
