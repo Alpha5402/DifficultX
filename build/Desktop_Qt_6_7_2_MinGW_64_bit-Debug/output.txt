@@ -1,0 +1,9 @@
+#include <graphics.h>
+int main() {
+initgraph(640, 480);
+settextstyle(20, 0, "Arial");
+circle(676, 244, 20);
+getch();
+closegraph();
+return 0;
+}

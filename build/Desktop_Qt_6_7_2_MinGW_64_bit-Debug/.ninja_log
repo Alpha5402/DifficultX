@@ -1,0 +1,44 @@
+# ninja log v6
+49	1110	7416061021095544	circle_autogen/timestamp	dbc959eac0bdb3de
+5749	6297	7416061068652888	circle.exe	798a9874e9a71e5c
+1122	5468	7416061022371817	CMakeFiles/circle.dir/mainwindow.cpp.obj	eabb9e46ad9acb37
+1019	4581	7416053988670317	CMakeFiles/circle.dir/displaywindow.cpp.obj	b149841bb6ecf8e3
+49	1110	7416061021095544	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
+1117	4679	7416061022331799	CMakeFiles/circle.dir/main.cpp.obj	4b8337e4358856cd
+49	1110	7416061021095544	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
+49	1110	7416061021095544	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
+1135	4030	7416061022511796	CMakeFiles/circle.dir/easyxcodegenerator.cpp.obj	e8c2207318933bd0
+1111	4806	7416061022271927	CMakeFiles/circle.dir/circle_autogen/mocs_compilation.cpp.obj	d92e3ae663679bce
+1126	5749	7416061022421813	CMakeFiles/circle.dir/canvas.cpp.obj	53bf500c71719f2f
+1024	4279	7416053988715255	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
+1031	4305	7416053988792789	CMakeFiles/circle.dir/customgraphicsscene.cpp.obj	8f430c848e8919cf
+1045	4361	7416053988927287	CMakeFiles/circle.dir/TextItem.cpp.obj	1dc10a459734eefe
+55	1793	7416062953730084	circle_autogen/timestamp	dbc959eac0bdb3de
+55	1793	7416062953730084	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
+55	1793	7416062953730084	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
+55	1793	7416062953730084	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
+1830	7253	7416062955600459	CMakeFiles/circle.dir/easyxcodegenerator.cpp.obj	e8c2207318933bd0
+1856	7255	7416062955870456	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
+1902	7410	7416062956330428	CMakeFiles/circle.dir/TextItem.cpp.obj	1dc10a459734eefe
+1888	7543	7416062956190404	CMakeFiles/circle.dir/customgraphicsscene.cpp.obj	8f430c848e8919cf
+1838	8071	7416062955680449	CMakeFiles/circle.dir/displaywindow.cpp.obj	b149841bb6ecf8e3
+1806	8152	7416062955370464	CMakeFiles/circle.dir/main.cpp.obj	4b8337e4358856cd
+1797	8166	7416062955280464	CMakeFiles/circle.dir/circle_autogen/mocs_compilation.cpp.obj	d92e3ae663679bce
+1815	8876	7416062955460467	CMakeFiles/circle.dir/mainwindow.cpp.obj	eabb9e46ad9acb37
+1823	9156	7416062955530456	CMakeFiles/circle.dir/canvas.cpp.obj	53bf500c71719f2f
+9157	9718	7416063028870666	circle.exe	798a9874e9a71e5c
+23	296	7416070689663623	circle_autogen/timestamp	dbc959eac0bdb3de
+23	296	7416070689663623	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
+23	296	7416070689663623	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
+23	296	7416070689663623	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
+302	3192	7416070692442898	CMakeFiles/circle.dir/easyxcodegenerator.cpp.obj	e8c2207318933bd0
+297	4772	7416070692402803	CMakeFiles/circle.dir/canvas.cpp.obj	53bf500c71719f2f
+4772	5342	7416070737146943	circle.exe	798a9874e9a71e5c
+51	328	7416091853088291	circle_autogen/timestamp	dbc959eac0bdb3de
+51	328	7416091853088291	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
+51	328	7416091853088291	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
+51	328	7416091853088291	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
+335	4177	7416091855924683	CMakeFiles/circle.dir/easyxcodegenerator.cpp.obj	e8c2207318933bd0
+341	4207	7416091855983823	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
+329	6038	7416091855864653	CMakeFiles/circle.dir/canvas.cpp.obj	53bf500c71719f2f
+6038	6590	7416091912956682	circle.exe	798a9874e9a71e5c
