@@ -29,6 +29,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         easyxcodegenerator.cpp
         displaywindow.h
         displaywindow.cpp
+        customcircleitem.h customcircleitem.cpp
+        customgraphicsscene.h customgraphicsscene.cpp
+        TextItem.h
+        TextItem.cpp
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET circle APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

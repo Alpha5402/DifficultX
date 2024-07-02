@@ -2,19 +2,24 @@
 #define EASYXCODEGENERATOR_H
 
 #include <QString>
+#include <QPointF>
 #include <vector>
-#include <QPoint>
 
-class EasyXCodeGenerator {
+class EasyXCodeGenerator
+{
 public:
-    EasyXCodeGenerator();
+    struct TextInfo {
+        QString text;
+        QPoint position;
+    };
     void clear();
-    void addCircle(const QPoint &position);
-    void addText(const QString &text, const QPoint &position);
-    void generateCode();
+    void addCircle(const QPointF &position);
+    void addText(const QString &text, const QPointF &position);
+    void generateCode(const QString &filename);
+    QString getCode() const;  // 新增的方法
 
 private:
-    std::vector<QString> codeLines;
+    QString code;
 };
 
 #endif // EASYXCODEGENERATOR_H
