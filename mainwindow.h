@@ -5,12 +5,9 @@
 #include <QGraphicsView>
 #include <QPushButton>
 #include "CustomGraphicsScene.h"
-#include "CustomCircleItem.h"
-#include "TextItem.h"
-#include "EasyXCodeGenerator.h"
+#include "easyxcodegenerator.h"
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
@@ -21,7 +18,8 @@ private slots:
     void onAddCircleButtonClicked();
     void onAddTextButtonClicked();
     void onGenerateCodeButtonClicked();
-    void onSceneClicked(QGraphicsSceneMouseEvent *event);
+    void handleCircleAdded(const QPointF &center);
+    void handleTextAdded(const QString &text, const QPointF &pos);
 
 private:
     CustomGraphicsScene *scene;
@@ -29,12 +27,9 @@ private:
     QPushButton *addCircleButton;
     QPushButton *addTextButton;
     QPushButton *generateCodeButton;
+    EasyXCodeGenerator generator;
     bool isAddingCircle;
     bool isAddingText;
-    QPointF firstPoint;
-    std::vector<QPointF> circleCenters;
-    std::vector<EasyXCodeGenerator::TextInfo> texts;
-    EasyXCodeGenerator generator;  // 将生成器对象放在这里，确保它的状态在整个MainWindow类中保持一致
 };
 
 #endif // MAINWINDOW_H

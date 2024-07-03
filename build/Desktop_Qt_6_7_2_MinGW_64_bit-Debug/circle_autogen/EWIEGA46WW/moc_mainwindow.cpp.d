@@ -31,7 +31,6 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/6.7.2/mingw_64/include/QtCore/qcontainerinfo.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qcontainertools_impl.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qcontiguouscache.h \
-  C:/Qt/6.7.2/mingw_64/include/QtCore/qcoreevent.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qdarwinhelpers.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qdatastream.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qdebug.h \
@@ -133,7 +132,6 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/6.7.2/mingw_64/include/QtGui/qkeysequence.h \
   C:/Qt/6.7.2/mingw_64/include/QtGui/qpaintdevice.h \
   C:/Qt/6.7.2/mingw_64/include/QtGui/qpainter.h \
-  C:/Qt/6.7.2/mingw_64/include/QtGui/qpainterpath.h \
   C:/Qt/6.7.2/mingw_64/include/QtGui/qpalette.h \
   C:/Qt/6.7.2/mingw_64/include/QtGui/qpen.h \
   C:/Qt/6.7.2/mingw_64/include/QtGui/qpixelformat.h \
@@ -149,19 +147,14 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/6.7.2/mingw_64/include/QtGui/qtransform.h \
   C:/Qt/6.7.2/mingw_64/include/QtGui/qwindowdefs.h \
   C:/Qt/6.7.2/mingw_64/include/QtGui/qwindowdefs_win.h \
-  C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsEllipseItem \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsScene \
-  C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsSceneMouseEvent \
-  C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsTextItem \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsView \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QMainWindow \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QPushButton \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qabstractbutton.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qabstractscrollarea.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qframe.h \
-  C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsitem.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsscene.h \
-  C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicssceneevent.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsview.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qmainwindow.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qpushbutton.h \
@@ -371,7 +364,5 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/time.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/vadefs.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wchar.h \
-  D:/QTtasks/prictical\ training/circle/CustomCircleItem.h \
   D:/QTtasks/prictical\ training/circle/CustomGraphicsScene.h \
-  D:/QTtasks/prictical\ training/circle/EasyXCodeGenerator.h \
-  D:/QTtasks/prictical\ training/circle/TextItem.h
+  D:/QTtasks/prictical\ training/circle/easyxcodegenerator.h

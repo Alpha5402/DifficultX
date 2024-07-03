@@ -1,93 +1,69 @@
 #include "MainWindow.h"
-#include"displaywindow.h"
+#include "DisplayWindow.h"
 #include <QToolBar>
-#include <QGraphicsSceneMouseEvent>
 #include <QFileDialog>
 #include <QInputDialog>
 #include <QLineEdit>
+#include <QTextStream>
 
 QTextStream test_is_code_right(stdout);
 using Qt::endl;
 
-// 构造函数，初始化主窗口
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), isAddingCircle(false), isAddingText(false)
-{
-    scene = new CustomGraphicsScene(this);
-    view = new QGraphicsView(scene, this);
-    setCentralWidget(view);
+    : QMainWindow(parent), isAddingCircle(false), isAddingText(false) {
+    scene = new CustomGraphicsScene(this);  // 创建自定义图形场景
+    view = new QGraphicsView(scene, this);  // 创建图形视图，并将场景设置为中心部件
+    setCentralWidget(view);  // 设置中心部件为图形视图
 
-    addCircleButton = new QPushButton("Add Circle", this);
-    addTextButton = new QPushButton("Add Text", this);
-    generateCodeButton = new QPushButton("Generate Code", this);
+    addCircleButton = new QPushButton("Add Circle", this);  // 创建添加圆形按钮
+    addTextButton = new QPushButton("Add Text", this);  // 创建添加文本按钮
+    generateCodeButton = new QPushButton("Generate Code", this);  // 创建生成代码按钮
 
-    QToolBar *toolBar = new QToolBar(this);
-    toolBar->addWidget(addCircleButton);
-    toolBar->addWidget(addTextButton);
-    toolBar->addWidget(generateCodeButton);
-    addToolBar(toolBar);
+    QToolBar *toolBar = new QToolBar(this);  // 创建工具栏
+    toolBar->addWidget(addCircleButton);  // 将添加圆形按钮添加到工具栏
+    toolBar->addWidget(addTextButton);  // 将添加文本按钮添加到工具栏
+    toolBar->addWidget(generateCodeButton);  // 将生成代码按钮添加到工具栏
+    addToolBar(toolBar);  // 添加工具栏到主窗口
 
-    connect(addCircleButton, &QPushButton::clicked, this, &MainWindow::onAddCircleButtonClicked);
-    connect(addTextButton, &QPushButton::clicked, this, &MainWindow::onAddTextButtonClicked);
-    connect(generateCodeButton, &QPushButton::clicked, this, &MainWindow::onGenerateCodeButtonClicked);
-    //connect(scene, &CustomGraphicsScene::sceneClicked, this, &MainWindow::onSceneClicked);
+    connect(addCircleButton, &QPushButton::clicked, this, &MainWindow::onAddCircleButtonClicked);  // 连接添加圆形按钮点击事件
+    connect(addTextButton, &QPushButton::clicked, this, &MainWindow::onAddTextButtonClicked);  // 连接添加文本按钮点击事件
+    connect(generateCodeButton, &QPushButton::clicked, this, &MainWindow::onGenerateCodeButtonClicked);  // 连接生成代码按钮点击事件
+    connect(scene, &CustomGraphicsScene::circleAdded, this, &MainWindow::handleCircleAdded);  // 连接图形场景的圆形添加信号
+    connect(scene, &CustomGraphicsScene::textAdded, this, &MainWindow::handleTextAdded);  // 连接图形场景的文本添加信号
 
-    setFixedSize(800, 600);
+    setFixedSize(640, 480);  // 设置主窗口固定大小
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {}  // 析构函数为空实现
+
+void MainWindow::onAddCircleButtonClicked() {
+    isAddingCircle = !isAddingCircle;  // 切换添加圆形状态
+    isAddingText = false;  // 确保添加文本状态为false
+    scene->setAddingCircle(isAddingCircle);  // 通知场景更新添加圆形状态
+    scene->setAddingText(false);  // 确保场景的添加文本状态为false
 }
 
-void MainWindow::onAddCircleButtonClicked()
-{
-    isAddingCircle = !isAddingCircle;
-    isAddingText = false;
+void MainWindow::onAddTextButtonClicked() {
+    isAddingText = !isAddingText;  // 切换添加文本状态
+    isAddingCircle = false;  // 确保添加圆形状态为false
+    scene->setAddingCircle(false);  // 确保场景的添加圆形状态为false
+    scene->setAddingText(isAddingText);  // 通知场景更新添加文本状态
 }
 
-void MainWindow::onAddTextButtonClicked()
-{
-    isAddingText = !isAddingText;
-    isAddingCircle = false;
-}
-
-void MainWindow::onGenerateCodeButtonClicked()
-{
-    QString filename = QFileDialog::getSaveFileName(this, "Save Code", "", "Text Files (*.txt)");
-    if (!filename.isEmpty()) {
-        generator.generateCode(filename);
-
-        // 创建和显示代码窗口
-        test_is_code_right<<"ready to display"<<endl;
-        DisplayWindow *displayWindow = new DisplayWindow(filename);
-        //displayWindow->setText(generator.getCode());
-        displayWindow->show();
+void MainWindow::onGenerateCodeButtonClicked() {
+    QString filename = QFileDialog::getSaveFileName(this, "Save Code", "", "Text Files (*.txt)");  // 获取保存文件名
+    if (!filename.isEmpty()) {  // 如果文件名非空
+        generator.generateCode(filename);  // 生成代码文件
+        test_is_code_right << "ready to display" << endl;  // 输出调试信息
+        DisplayWindow *displayWindow = new DisplayWindow(filename);  // 创建显示窗口
+        displayWindow->show();  // 显示显示窗口
     }
 }
 
-void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
-{
-    QPointF pos = event->scenePos();
+void MainWindow::handleCircleAdded(const QPointF &center) {
+    generator.addCircle(center);  // 将圆形添加到生成器中
+}
 
-    if (isAddingCircle) {
-        if (firstPoint.isNull()) {
-            firstPoint = pos;
-        } else {
-            qreal radius = QLineF(firstPoint, pos).length();
-            CustomCircleItem *circle = new CustomCircleItem(firstPoint.x(), firstPoint.y(), radius * 2);
-            scene->addItem(circle);
-            generator.addCircle(firstPoint);
-            firstPoint = QPointF();
-            isAddingCircle = false;
-        }
-    } else if (isAddingText) {
-        bool ok;
-        QString text = QInputDialog::getText(this, "输入文字", "请输入文字:", QLineEdit::Normal, "", &ok);
-        if (ok && !text.isEmpty()) {
-            TextItem *textItem = new TextItem(pos, text);
-            scene->addItem(textItem);
-            generator.addText(text, pos);
-            isAddingText = false;
-        }
-    }
+void MainWindow::handleTextAdded(const QString &text, const QPointF &pos) {
+    generator.addText(text, pos);  // 将文本添加到生成器中
 }
