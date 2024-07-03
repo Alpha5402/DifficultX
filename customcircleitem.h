@@ -3,6 +3,9 @@
 
 #include <QGraphicsEllipseItem>
 #include <QGraphicsItemGroup>
+#include <QGraphicsScene>
+#include <QGraphicsSceneMouseEvent>
+
 
 class CustomCircleItem : public QGraphicsEllipseItem {
 public:

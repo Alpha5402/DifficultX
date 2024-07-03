@@ -6,7 +6,7 @@
 #include <QInputDialog>
 #include <QPen>
 #include <QBrush>
-
+#include<QDebug>
 
 
 CustomGraphicsScene::CustomGraphicsScene(QObject *parent)
@@ -23,6 +23,7 @@ CustomGraphicsScene::CustomGraphicsScene(QObject *parent)
 
 
 void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+
     if (isAddingCircle) {  // 如果正在添加圆形
         if (firstPoint.isNull()) {  // 如果第一个点为空
             firstPoint = event->scenePos();  // 记录第一个点的场景位置
@@ -30,6 +31,7 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             drawing = true;  // 开始绘制
         } else {
             removeItem(tempLine);  // 移除临时线条
+            qDebug()<<"removed"<<Qt::endl;
             qreal radius = QLineF(firstPoint, event->scenePos()).length();  // 计算半径
             circle = new CustomCircleItem(firstPoint.x(), firstPoint.y(), radius * 2);  // 创建自定义圆形项
             addItem(circle);  // 添加圆形项到场景

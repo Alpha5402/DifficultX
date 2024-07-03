@@ -29,6 +29,7 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/6.7.2/mingw_64/include/QtCore/qcontainerinfo.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qcontainertools_impl.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qcontiguouscache.h \
+  C:/Qt/6.7.2/mingw_64/include/QtCore/qcoreevent.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qdarwinhelpers.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qdatastream.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qdebug.h \
@@ -139,8 +140,10 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsEllipseItem \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsItemGroup \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsScene \
+  C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsSceneMouseEvent \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsitem.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsscene.h \
+  C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicssceneevent.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qtwidgets-config.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qtwidgetsexports.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qtwidgetsglobal.h \

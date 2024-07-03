@@ -33,6 +33,7 @@ D:/QTtasks/prictical training/circle/customgraphicsscene.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qcontainerinfo.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qcontainertools_impl.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qcontiguouscache.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qcoreevent.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qdarwinhelpers.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qdatastream.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qdebug.h
@@ -143,8 +144,10 @@ D:/QTtasks/prictical training/circle/customgraphicsscene.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsEllipseItem
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsItemGroup
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsScene
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsSceneMouseEvent
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsitem.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsscene.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicssceneevent.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qtwidgets-config.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qtwidgetsexports.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qtwidgetsglobal.h
@@ -747,6 +750,7 @@ D:/QTtasks/prictical training/circle/mainwindow.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qcontainerinfo.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qcontainertools_impl.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qcontiguouscache.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qcoreevent.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qdarwinhelpers.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qdatastream.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qdebug.h
@@ -867,6 +871,7 @@ D:/QTtasks/prictical training/circle/mainwindow.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsEllipseItem
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsItemGroup
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsScene
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsSceneMouseEvent
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsView
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QMainWindow
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QPushButton
@@ -875,6 +880,7 @@ D:/QTtasks/prictical training/circle/mainwindow.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qframe.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsitem.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsscene.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicssceneevent.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsview.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qmainwindow.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qpushbutton.h

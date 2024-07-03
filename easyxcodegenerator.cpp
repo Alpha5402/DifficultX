@@ -34,9 +34,9 @@ void EasyXCodeGenerator::addText(const QString &text, const QPointF &position)
 
 void EasyXCodeGenerator::generateCode(const QString &filename)
 {
-    code.clear();
+    // code.clear();
     for (const CircleItem &circle : circles) {
-        code+=QString("circle(%1, %2，%3);\n").arg(circle.center.x()).arg(circle.center.y() - 6).arg(circle.radius);
+        code+=QString("circle(%1,%2,%3);\n").arg(circle.center.x()).arg(circle.center.y() - 6).arg(circle.radius);
          // 将圆的信息写入文件
     }
     QFile file(filename);
