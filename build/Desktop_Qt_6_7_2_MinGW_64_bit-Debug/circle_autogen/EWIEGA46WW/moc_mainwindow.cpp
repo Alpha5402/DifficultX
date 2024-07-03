@@ -42,6 +42,7 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "onGenerateCodeButtonClicked",
     "handleCircleAdded",
     "center",
+    "r",
     "handleTextAdded",
     "text",
     "pos"
@@ -68,15 +69,15 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        1,    0,   44,    2, 0x08,    1 /* Private */,
        3,    0,   45,    2, 0x08,    2 /* Private */,
        4,    0,   46,    2, 0x08,    3 /* Private */,
-       5,    1,   47,    2, 0x08,    4 /* Private */,
-       7,    2,   50,    2, 0x08,    6 /* Private */,
+       5,    2,   47,    2, 0x08,    4 /* Private */,
+       8,    2,   52,    2, 0x08,    7 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QPointF,    6,
-    QMetaType::Void, QMetaType::QString, QMetaType::QPointF,    8,    9,
+    QMetaType::Void, QMetaType::QPointF, QMetaType::QReal,    6,    7,
+    QMetaType::Void, QMetaType::QString, QMetaType::QPointF,    9,   10,
 
        0        // eod
 };
@@ -98,7 +99,8 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'handleCircleAdded'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QPointF &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QPointF, std::false_type>,
+        QtPrivate::TypeAndForceComplete<qreal, std::false_type>,
         // method 'handleTextAdded'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
@@ -116,7 +118,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: _t->onAddCircleButtonClicked(); break;
         case 1: _t->onAddTextButtonClicked(); break;
         case 2: _t->onGenerateCodeButtonClicked(); break;
-        case 3: _t->handleCircleAdded((*reinterpret_cast< std::add_pointer_t<QPointF>>(_a[1]))); break;
+        case 3: _t->handleCircleAdded((*reinterpret_cast< std::add_pointer_t<QPointF>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<qreal>>(_a[2]))); break;
         case 4: _t->handleTextAdded((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QPointF>>(_a[2]))); break;
         default: ;
         }

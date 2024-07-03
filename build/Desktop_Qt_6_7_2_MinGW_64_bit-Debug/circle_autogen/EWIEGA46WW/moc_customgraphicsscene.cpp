@@ -39,6 +39,7 @@ constexpr auto qt_meta_stringdata_CLASSCustomGraphicsSceneENDCLASS = QtMocHelper
     "circleAdded",
     "",
     "center",
+    "r",
     "textAdded",
     "text",
     "pos"
@@ -62,12 +63,12 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSCustomGraphicsSceneENDCLASS[] = 
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   26,    2, 0x06,    1 /* Public */,
-       4,    2,   29,    2, 0x06,    3 /* Public */,
+       1,    2,   26,    2, 0x06,    1 /* Public */,
+       5,    2,   31,    2, 0x06,    4 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::QPointF,    3,
-    QMetaType::Void, QMetaType::QString, QMetaType::QPointF,    5,    6,
+    QMetaType::Void, QMetaType::QPointF, QMetaType::QReal,    3,    4,
+    QMetaType::Void, QMetaType::QString, QMetaType::QPointF,    6,    7,
 
        0        // eod
 };
@@ -83,7 +84,8 @@ Q_CONSTINIT const QMetaObject CustomGraphicsScene::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<CustomGraphicsScene, std::true_type>,
         // method 'circleAdded'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QPointF &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QPointF, std::false_type>,
+        QtPrivate::TypeAndForceComplete<qreal, std::false_type>,
         // method 'textAdded'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
@@ -98,14 +100,14 @@ void CustomGraphicsScene::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
         auto *_t = static_cast<CustomGraphicsScene *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->circleAdded((*reinterpret_cast< std::add_pointer_t<QPointF>>(_a[1]))); break;
+        case 0: _t->circleAdded((*reinterpret_cast< std::add_pointer_t<QPointF>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<qreal>>(_a[2]))); break;
         case 1: _t->textAdded((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QPointF>>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (CustomGraphicsScene::*)(const QPointF & );
+            using _t = void (CustomGraphicsScene::*)(QPointF , qreal );
             if (_t _q_method = &CustomGraphicsScene::circleAdded; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
                 *result = 0;
                 return;
@@ -152,9 +154,9 @@ int CustomGraphicsScene::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void CustomGraphicsScene::circleAdded(const QPointF & _t1)
+void CustomGraphicsScene::circleAdded(QPointF _t1, qreal _t2)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 

@@ -60,8 +60,8 @@ void MainWindow::onGenerateCodeButtonClicked() {
     }
 }
 
-void MainWindow::handleCircleAdded(const QPointF &center) {
-    generator.addCircle(center);  // 将圆形添加到生成器中
+void MainWindow::handleCircleAdded(QPointF center,qreal r) {
+    generator.addCircle(center,r);  // 将圆形添加到生成器中
 }
 
 void MainWindow::handleTextAdded(const QString &text, const QPointF &pos) {

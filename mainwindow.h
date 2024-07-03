@@ -18,7 +18,7 @@ private slots:
     void onAddCircleButtonClicked();
     void onAddTextButtonClicked();
     void onGenerateCodeButtonClicked();
-    void handleCircleAdded(const QPointF &center);
+    void handleCircleAdded(QPointF center,qreal r);
     void handleTextAdded(const QString &text, const QPointF &pos);
 
 private:

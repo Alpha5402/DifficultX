@@ -132,6 +132,7 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/6.7.2/mingw_64/include/QtGui/qkeysequence.h \
   C:/Qt/6.7.2/mingw_64/include/QtGui/qpaintdevice.h \
   C:/Qt/6.7.2/mingw_64/include/QtGui/qpainter.h \
+  C:/Qt/6.7.2/mingw_64/include/QtGui/qpainterpath.h \
   C:/Qt/6.7.2/mingw_64/include/QtGui/qpalette.h \
   C:/Qt/6.7.2/mingw_64/include/QtGui/qpen.h \
   C:/Qt/6.7.2/mingw_64/include/QtGui/qpixelformat.h \
@@ -147,6 +148,8 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/6.7.2/mingw_64/include/QtGui/qtransform.h \
   C:/Qt/6.7.2/mingw_64/include/QtGui/qwindowdefs.h \
   C:/Qt/6.7.2/mingw_64/include/QtGui/qwindowdefs_win.h \
+  C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsEllipseItem \
+  C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsItemGroup \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsScene \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsView \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QMainWindow \
@@ -154,6 +157,7 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qabstractbutton.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qabstractscrollarea.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qframe.h \
+  C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsitem.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsscene.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsview.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qmainwindow.h \
@@ -365,4 +369,5 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/vadefs.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wchar.h \
   D:/QTtasks/prictical\ training/circle/CustomGraphicsScene.h \
+  D:/QTtasks/prictical\ training/circle/customcircleitem.h \
   D:/QTtasks/prictical\ training/circle/easyxcodegenerator.h

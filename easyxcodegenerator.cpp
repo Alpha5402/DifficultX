@@ -6,17 +6,21 @@ using Qt::endl;
 
 QTextStream test_is_code_right_generator(stdout); // 将输出流绑定到标准输出,检查code是否成功添加代码
 
+vector<CircleItem>circles;//储存圆信息
+
 void EasyXCodeGenerator::clear()
 {
     test_is_code_right_generator << "clear" << endl;
     code.clear();
 }
 
-void EasyXCodeGenerator::addCircle(const QPointF &position)
+void EasyXCodeGenerator::addCircle(QPointF c,qreal r)
 {
-    QString circle_code = QString("circle(%1, %2);\n").arg(position.x()).arg(position.y() - 6);
-    test_is_code_right_generator << circle_code << Qt::endl; // test code
-    code.append(circle_code);
+    CircleItem circle(c,r);
+    circles.push_back(circle);
+    // QString circle_code = QString("circle(%1, %2，%3);\n").arg(position.x()).arg(position.y() - 6.arg());
+    // test_is_code_right_generator << circle_code << Qt::endl; // test code
+    // code.append(circle_code);
     test_is_code_right_generator << "add circle." << code << Qt::endl; // test code
 }
 
@@ -30,6 +34,11 @@ void EasyXCodeGenerator::addText(const QString &text, const QPointF &position)
 
 void EasyXCodeGenerator::generateCode(const QString &filename)
 {
+    code.clear();
+    for (const CircleItem &circle : circles) {
+        code+=QString("circle(%1, %2，%3);\n").arg(circle.center.x()).arg(circle.center.y() - 6).arg(circle.radius);
+         // 将圆的信息写入文件
+    }
     QFile file(filename);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {

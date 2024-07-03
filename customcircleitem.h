@@ -13,7 +13,7 @@ protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
-private:
+public:
     QPointF center; // 圆心
     qreal radius; // 半径
     QGraphicsEllipseItem *centerPoint;
@@ -22,6 +22,7 @@ private:
     bool selected;
 
     void updateCircle();
+
 };
 
 #endif // CUSTOMCIRCLEITEM_H

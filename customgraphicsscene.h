@@ -2,6 +2,7 @@
 #define CUSTOMGRAPHICSSCENE_H
 
 #include <QGraphicsScene>
+#include"customcircleitem.h"
 
 QT_BEGIN_NAMESPACE
 class QGraphicsEllipseItem;
@@ -31,7 +32,7 @@ private:
     QPointF firstPoint;
 
 signals:
-    void circleAdded(const QPointF &center);
+    void circleAdded(QPointF center,qreal r);
     void textAdded(const QString &text, const QPointF &pos);
 };
 

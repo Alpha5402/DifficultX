@@ -7,6 +7,8 @@
 #include <QPen>
 #include <QBrush>
 
+
+
 CustomGraphicsScene::CustomGraphicsScene(QObject *parent)
     : QGraphicsScene(parent),
     circle(nullptr),  // 初始化圆形项为nullptr
@@ -14,7 +16,11 @@ CustomGraphicsScene::CustomGraphicsScene(QObject *parent)
     tempLine(nullptr),  // 初始化临时线条项为nullptr
     drawing(false),  // 初始化绘制标志为false
     isAddingCircle(false),  // 初始化添加圆形标志为false
-    isAddingText(false) {}  // 初始化添加文本标志为false
+    isAddingText(false)  // 初始化添加文本标志为false
+{
+    setSceneRect(0, 0, 640, 480); // 设置场景大小为640x480
+}
+
 
 void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     if (isAddingCircle) {  // 如果正在添加圆形
@@ -32,7 +38,7 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             firstPoint = QPointF();  // 第一个点置为空点
             drawing = false;  // 结束绘制
             isAddingCircle = false;  // 结束添加圆形
-            emit circleAdded(circle->rect().center());  // 发送圆形添加信号，传递圆形的中心点
+            emit circleAdded(circle->rect().center(),radius);  // 发送圆形添加信号，传递圆形的中心点
         }
     } else if (isAddingText) {  // 如果正在添加文本
         bool ok;
