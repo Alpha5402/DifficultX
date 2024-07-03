@@ -2,25 +2,20 @@
 #define CUSTOMCIRCLEITEM_H
 
 #include <QGraphicsEllipseItem>
-#include <QGraphicsSceneMouseEvent>
 
-// 自定义圆形项类，继承自 QGraphicsEllipseItem
-class CustomCircleItem : public QGraphicsEllipseItem
-{
+class CustomCircleItem : public QGraphicsEllipseItem {
 public:
-    CustomCircleItem(const QPointF &center, qreal radius);
+    CustomCircleItem(qreal x, qreal y, qreal diameter, QGraphicsItem *parent = nullptr);
 
 protected:
-    // 重写鼠标拖动事件处理方法
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
-    // 重写鼠标按下事件处理方法
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
-    // 重写鼠标释放事件处理方法
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
 private:
-    bool isResizing;
-    QPointF initialPos;
+    QPointF center; // 圆心
+    qreal radius; // 半径
 };
 
 #endif // CUSTOMCIRCLEITEM_H

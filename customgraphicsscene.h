@@ -2,22 +2,27 @@
 #define CUSTOMGRAPHICSSCENE_H
 
 #include <QGraphicsScene>
-#include <QGraphicsSceneMouseEvent>
 
-// 自定义场景类，继承自 QGraphicsScene
-class CustomGraphicsScene : public QGraphicsScene
-{
+QT_BEGIN_NAMESPACE
+class QGraphicsEllipseItem;
+class QGraphicsLineItem;
+QT_END_NAMESPACE
+
+class CustomGraphicsScene : public QGraphicsScene {
     Q_OBJECT
-
 public:
-    CustomGraphicsScene(QObject *parent = nullptr);
-
-signals:
-    void sceneClicked(QGraphicsSceneMouseEvent *event); // 定义一个信号，传递鼠标事件
+    explicit CustomGraphicsScene(QObject *parent = nullptr);
 
 protected:
-    // 重写鼠标按下事件处理方法
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
+
+private:
+    QGraphicsEllipseItem *circle;
+    QGraphicsEllipseItem *centerPoint;
+    QGraphicsEllipseItem *edgePoint;
+    QGraphicsLineItem *tempLine;
+    bool drawing;
 };
 
 #endif // CUSTOMGRAPHICSSCENE_H

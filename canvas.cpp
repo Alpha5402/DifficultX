@@ -1,11 +1,12 @@
 #include "canvas.h"
 #include "easyxcodegenerator.h"
-#include"displaywindow.h"
+#include "displaywindow.h"
 #include <QMouseEvent>
 #include <QPainter>
 #include <QFileDialog>
 #include <QTextStream>
 #include <QMessageBox>
+#include <QInputDialog>
 
 Canvas::Canvas(QWidget *parent)
     : QGraphicsView(parent), codeGenerator(new EasyXCodeGenerator()), isDrawing(false), isAddingText(false)
@@ -28,6 +29,7 @@ void Canvas::mousePressEvent(QMouseEvent *event)
         QGraphicsEllipseItem *circle = new QGraphicsEllipseItem(event->pos().x() - 25, event->pos().y() - 25, 50, 50);
         circles.push_back(circle);
         scene->addItem(circle);
+        codeGenerator->addCircle(event->pos());  // 添加圆的代码到生成器中
     } else if (isAddingText) {
         bool ok;
         QString text = QInputDialog::getText(this, tr("输入文字"), tr("文字:"), QLineEdit::Normal, "", &ok);
@@ -66,12 +68,12 @@ void Canvas::generateCode()
         codeGenerator->addText(textInfo.text, textInfo.position);  // 添加文字的代码
     }
 
-    QString filename = QFileDialog::getSaveFileName(this, "Save Code", "", "Text Files (*.txt)");//决定保存类型在mainwindow.cpp-zjx
+    QString filename = QFileDialog::getSaveFileName(this, "保存代码", "", "Text Files (*.txt)"); // 显示文件保存对话框
     if (!filename.isEmpty())
     {
-        codeGenerator->getCode();
+        codeGenerator->generateCode(filename);  // 生成代码并保存到文件
 
-        DisplayWindow *displayWindow = new DisplayWindow(filename,this);  // 创建显示窗口对象
+        DisplayWindow *displayWindow = new DisplayWindow(filename, this);  // 创建显示窗口对象
         displayWindow->show();  // 显示代码窗口
     }
 }

@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <QGraphicsView>
 #include <QPushButton>
-#include <QTextEdit>
 #include "CustomGraphicsScene.h"
 #include "CustomCircleItem.h"
 #include "TextItem.h"
@@ -35,6 +34,7 @@ private:
     QPointF firstPoint;
     std::vector<QPointF> circleCenters;
     std::vector<EasyXCodeGenerator::TextInfo> texts;
+    EasyXCodeGenerator generator;  // 将生成器对象放在这里，确保它的状态在整个MainWindow类中保持一致
 };
 
 #endif // MAINWINDOW_H

@@ -4,30 +4,28 @@
 
 using Qt::endl;
 
-QString code;
-QTextStream test_is_code_right(stdout); // 将输出流绑定到标准输出,检查code是否成功添加代码
-
+QTextStream test_is_code_right_generator(stdout); // 将输出流绑定到标准输出,检查code是否成功添加代码
 
 void EasyXCodeGenerator::clear()
 {
-    test_is_code_right<<"clear"<<endl;
+    test_is_code_right_generator << "clear" << endl;
     code.clear();
 }
 
 void EasyXCodeGenerator::addCircle(const QPointF &position)
 {
-    QString circle_code = QString("circle(%1, %2);\n").arg(position.x()).arg(position.y()-6);
-    test_is_code_right<<circle_code<<Qt::endl;//test code
+    QString circle_code = QString("circle(%1, %2);\n").arg(position.x()).arg(position.y() - 6);
+    test_is_code_right_generator << circle_code << Qt::endl; // test code
     code.append(circle_code);
-    test_is_code_right<<"add circle."<<code<<Qt::endl;//test code
+    test_is_code_right_generator << "add circle." << code << Qt::endl; // test code
 }
 
 void EasyXCodeGenerator::addText(const QString &text, const QPointF &position)
 {
     QString text_code = QString("outtextxy(%1, %2,_T(\"%3\"));\n").arg(position.x()).arg(position.y()).arg(text);
-    test_is_code_right<<text_code<<Qt::endl;//test code
+    test_is_code_right_generator << text_code << Qt::endl; // test code
     code.append(text_code);
-    test_is_code_right<<"add text."<<code<<Qt::endl;
+    test_is_code_right_generator << "add text." << code << Qt::endl;
 }
 
 void EasyXCodeGenerator::generateCode(const QString &filename)
@@ -37,7 +35,7 @@ void EasyXCodeGenerator::generateCode(const QString &filename)
     {
         QTextStream out(&file);
 
-        test_is_code_right <<"code is: " <<code << Qt::endl; // 将字符串输出到标准输出
+        test_is_code_right_generator << "code is: " << code << Qt::endl; // 将字符串输出到标准输出
         out << code;
         file.close();
     }

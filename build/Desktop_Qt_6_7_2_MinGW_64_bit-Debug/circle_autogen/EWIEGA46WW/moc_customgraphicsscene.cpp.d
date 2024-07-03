@@ -28,7 +28,6 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/6.7.2/mingw_64/include/QtCore/qcontainerfwd.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qcontainerinfo.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qcontainertools_impl.h \
-  C:/Qt/6.7.2/mingw_64/include/QtCore/qcoreevent.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qdarwinhelpers.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qdatastream.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qendian.h \
@@ -41,7 +40,6 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/6.7.2/mingw_64/include/QtCore/qgenericatomic.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qglobal.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qglobalstatic.h \
-  C:/Qt/6.7.2/mingw_64/include/QtCore/qhash.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qhashfunctions.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qiodevicebase.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qiterable.h \
@@ -70,7 +68,6 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/6.7.2/mingw_64/include/QtCore/qrefcount.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qscopedpointer.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qscopeguard.h \
-  C:/Qt/6.7.2/mingw_64/include/QtCore/qset.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qshareddata.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qsize.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/qstring.h \
@@ -128,9 +125,7 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/6.7.2/mingw_64/include/QtGui/qwindowdefs.h \
   C:/Qt/6.7.2/mingw_64/include/QtGui/qwindowdefs_win.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsScene \
-  C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsSceneMouseEvent \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsscene.h \
-  C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicssceneevent.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qtwidgets-config.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qtwidgetsexports.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/qtwidgetsglobal.h \
