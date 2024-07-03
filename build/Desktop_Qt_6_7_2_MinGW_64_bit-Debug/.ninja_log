@@ -1,93 +1,33 @@
 # ninja log v6
-934	3555	7416932926417926	CMakeFiles/circle.dir/displaywindow.cpp.obj	b149841bb6ecf8e3
-1820	2092	7417008094453795	circle.exe	798a9874e9a71e5c
+130	424	7417195235534384	circle_autogen/timestamp	dbc959eac0bdb3de
+3285	3761	7417195267084138	circle.exe	798a9874e9a71e5c
 670	3788	7417003130386957	CMakeFiles/circle.dir/mainwindow.cpp.obj	eabb9e46ad9acb37
-36	188	7417008076616486	circle_autogen/timestamp	dbc959eac0bdb3de
+934	3555	7416932926417926	CMakeFiles/circle.dir/displaywindow.cpp.obj	b149841bb6ecf8e3
+130	424	7417195235534384	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
 667	3168	7417003130356940	CMakeFiles/circle.dir/main.cpp.obj	4b8337e4358856cd
-36	188	7417008076616486	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-36	188	7417008076616486	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-36	188	7417008076616486	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
-674	3266	7417003130437008	CMakeFiles/circle.dir/easyxcodegenerator.cpp.obj	e8c2207318933bd0
+130	424	7417195235534384	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
+130	424	7417195235534384	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
+197	2035	7417019455385257	CMakeFiles/circle.dir/easyxcodegenerator.cpp.obj	e8c2207318933bd0
 664	3461	7417003130326947	CMakeFiles/circle.dir/circle_autogen/mocs_compilation.cpp.obj	d92e3ae663679bce
 921	1151	7416932926294783	CMakeFiles/circle.dir/canvas.cpp.obj	53bf500c71719f2f
 944	3164	7416932926522975	CMakeFiles/circle.dir/TextItem.cpp.obj	1dc10a459734eefe
-189	1820	7417008078147008	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
+425	3285	7417195238484176	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
 682	3248	7417003130516966	CMakeFiles/circle.dir/customgraphicsscene.cpp.obj	8f430c848e8919cf
-30	170	7417012986496552	circle_autogen/timestamp	dbc959eac0bdb3de
-30	170	7417012986496552	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-30	170	7417012986496552	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
-30	170	7417012986496552	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-171	1766	7417012987903563	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
-1766	1989	7417013003849746	circle.exe	798a9874e9a71e5c
-40	196	7417017551680003	circle_autogen/timestamp	dbc959eac0bdb3de
-40	196	7417017551680003	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-40	196	7417017551680003	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
-40	196	7417017551680003	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-197	1933	7417017553247956	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
-1933	2213	7417017570607403	circle.exe	798a9874e9a71e5c
-41	203	7417018813038704	circle_autogen/timestamp	dbc959eac0bdb3de
-41	203	7417018813038704	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-41	203	7417018813038704	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
-41	203	7417018813038704	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-204	1766	7417018814663684	CMakeFiles/circle.dir/easyxcodegenerator.cpp.obj	e8c2207318933bd0
-1766	2004	7417018830287350	circle.exe	798a9874e9a71e5c
-40	197	7417019453810428	circle_autogen/timestamp	dbc959eac0bdb3de
-40	197	7417019453810428	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-40	197	7417019453810428	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
-40	197	7417019453810428	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-197	2035	7417019455385257	CMakeFiles/circle.dir/easyxcodegenerator.cpp.obj	e8c2207318933bd0
-2035	2265	7417019473755791	circle.exe	798a9874e9a71e5c
-13	182	7417022888418023	circle_autogen/timestamp	dbc959eac0bdb3de
-13	182	7417022888418023	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-13	182	7417022888418023	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
-13	182	7417022888418023	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-183	2135	7417022890117919	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
-2135	2393	7417022909637942	circle.exe	798a9874e9a71e5c
-39	214	7417024851946078	circle_autogen/timestamp	dbc959eac0bdb3de
-39	214	7417024851946078	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-39	214	7417024851946078	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
-39	214	7417024851946078	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-215	2020	7417024853715257	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
-2021	2255	7417024871770076	circle.exe	798a9874e9a71e5c
-49	318	7417178963419520	circle_autogen/timestamp	dbc959eac0bdb3de
-49	318	7417178963419520	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-49	318	7417178963419520	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
-49	318	7417178963419520	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-319	3712	7417178966125123	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
-3713	4172	7417179000063457	circle.exe	798a9874e9a71e5c
-42	288	7417179799318900	circle_autogen/timestamp	dbc959eac0bdb3de
-42	288	7417179799318900	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-42	288	7417179799318900	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
-42	288	7417179799318900	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-289	3110	7417179801782430	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
-3110	3607	7417179829997216	circle.exe	798a9874e9a71e5c
-73	296	7417186387823504	circle_autogen/timestamp	dbc959eac0bdb3de
-73	296	7417186387823504	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-73	296	7417186387823504	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
-73	296	7417186387823504	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-297	3158	7417186390070294	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
-3159	3664	7417186418681124	circle.exe	798a9874e9a71e5c
-47	269	7417188588773781	circle_autogen/timestamp	dbc959eac0bdb3de
-47	269	7417188588773781	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-47	269	7417188588773781	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
-47	269	7417188588773781	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-270	3091	7417188591004897	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
-3091	3582	7417188619217159	circle.exe	798a9874e9a71e5c
-50	259	7417189010452284	circle_autogen/timestamp	dbc959eac0bdb3de
-50	259	7417189010452284	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-50	259	7417189010452284	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
-50	259	7417189010452284	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-260	2989	7417189012543947	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
-2989	3527	7417189039837317	circle.exe	798a9874e9a71e5c
-49	265	7417189572863242	circle_autogen/timestamp	dbc959eac0bdb3de
-49	265	7417189572863242	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-49	265	7417189572863242	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
-49	265	7417189572863242	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-266	2944	7417189575034216	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
-2944	3449	7417189601815982	circle.exe	798a9874e9a71e5c
-46	255	7417190629330120	circle_autogen/timestamp	dbc959eac0bdb3de
-46	255	7417190629330120	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-46	255	7417190629330120	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
-46	255	7417190629330120	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
-256	3072	7417190631431216	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
-3072	3556	7417190659591036	circle.exe	798a9874e9a71e5c
+141	414	7417195944667216	circle_autogen/timestamp	dbc959eac0bdb3de
+141	414	7417195944667216	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
+141	414	7417195944667216	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
+141	414	7417195944667216	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
+416	3102	7417195947421993	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
+3102	3591	7417195974280498	circle.exe	798a9874e9a71e5c
+47	273	7417198702463623	circle_autogen/timestamp	dbc959eac0bdb3de
+47	273	7417198702463623	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
+47	273	7417198702463623	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
+47	273	7417198702463623	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
+274	3075	7417198704731811	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
+3075	3592	7417198732742371	circle.exe	798a9874e9a71e5c
+17	227	7417199848779214	circle_autogen/timestamp	dbc959eac0bdb3de
+17	227	7417199848779214	circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
+17	227	7417199848779214	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/timestamp	dbc959eac0bdb3de
+17	227	7417199848779214	D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/mocs_compilation.cpp	dbc959eac0bdb3de
+228	3157	7417199850888403	CMakeFiles/circle.dir/customcircleitem.cpp.obj	d3a772ef0db673ac
+3157	3669	7417199880187392	circle.exe	798a9874e9a71e5c
