@@ -22,6 +22,7 @@ private slots:
     void handleTextAdded(const QString &text, const QPointF &pos);
 
 private:
+
     CustomGraphicsScene *scene;
     QGraphicsView *view;
     QPushButton *addCircleButton;
