@@ -83,6 +83,8 @@ void CustomCircleItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     radiusPoint->setRect(rect().center().x() + radius - 12, rect().center().y() - 6, 12, 12);  // 更新半径端点标记的位置和大小
     radiusLine->setLine(QLineF(centerPoint->rect().center(), radiusPoint->rect().center()));  // 更新半径线条的位置和方向
     qDebug() <<mapFromScene(centerPoint->rect().center()) << Qt::endl;
+    selected=false;
+
     update();
     QGraphicsEllipseItem::mouseReleaseEvent(event);  // 调用基类的鼠标释放事件处理函数
 }

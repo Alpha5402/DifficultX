@@ -34,7 +34,6 @@ D:/QTtasks/prictical training/circle/customgraphicsscene.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qcontainerinfo.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qcontainertools_impl.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qcontiguouscache.h
- mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qcoreevent.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qdarwinhelpers.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qdatastream.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qdebug.h
@@ -123,12 +122,21 @@ D:/QTtasks/prictical training/circle/customgraphicsscene.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qversiontagging.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qxptype_traits.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtCore/qyieldcpu.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qaction.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qbitmap.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qbrush.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qcolor.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qcursor.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qfont.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qfontinfo.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qfontmetrics.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qicon.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qimage.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qkeysequence.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qpaintdevice.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qpainter.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qpainterpath.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qpalette.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qpen.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qpixelformat.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qpixmap.h
@@ -136,22 +144,27 @@ D:/QTtasks/prictical training/circle/customgraphicsscene.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qregion.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qrgb.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qrgba64.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qtextoption.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qtgui-config.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qtguiexports.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qtguiglobal.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qtransform.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qwindowdefs.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qwindowdefs_win.h
- mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsEllipseItem
- mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsItemGroup
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsLineItem
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsScene
- mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsSceneMouseEvent
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsView
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qabstractscrollarea.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qframe.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsitem.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsscene.h
- mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicssceneevent.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qgraphicsview.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qscrollarea.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qsizepolicy.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qtwidgets-config.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qtwidgetsexports.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qtwidgetsglobal.h
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/qwidget.h
  mdp:C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed/limits.h
  mdp:C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed/syslimits.h
  mdp:C:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/algorithm
@@ -352,7 +365,6 @@ D:/QTtasks/prictical training/circle/customgraphicsscene.h
  mdp:C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/vadefs.h
  mdp:C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wchar.h
  mdp:D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/moc_predefs.h
- mdp:D:/QTtasks/prictical training/circle/customcircleitem.h
  mdp:D:/QTtasks/prictical training/circle/customgraphicsscene.h
 D:/QTtasks/prictical training/circle/displaywindow.h
  mmc:Q_OBJECT
@@ -872,6 +884,7 @@ D:/QTtasks/prictical training/circle/mainwindow.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtGui/qwindowdefs_win.h
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsEllipseItem
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsItemGroup
+ mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsLineItem
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsScene
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsSceneMouseEvent
  mdp:C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsView
@@ -1095,7 +1108,6 @@ D:/QTtasks/prictical training/circle/mainwindow.h
  mdp:D:/QTtasks/prictical training/circle/customcircleitem.h
  mdp:D:/QTtasks/prictical training/circle/customgraphicsscene.h
  mdp:D:/QTtasks/prictical training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/moc_predefs.h
- mdp:D:/QTtasks/prictical training/circle/customcircleitem.h
  mdp:D:/QTtasks/prictical training/circle/easyxcodegenerator.h
  mdp:D:/QTtasks/prictical training/circle/mainwindow.h
 D:/QTtasks/prictical training/circle/canvas.cpp
@@ -1105,3 +1117,5 @@ D:/QTtasks/prictical training/circle/customgraphicsscene.cpp
 D:/QTtasks/prictical training/circle/displaywindow.cpp
 D:/QTtasks/prictical training/circle/easyxcodegenerator.cpp
 D:/QTtasks/prictical training/circle/mainwindow.cpp
+D:/QTtasks/prictical training/circle/customlineitem.h
+D:/QTtasks/prictical training/circle/customlineitem.cpp

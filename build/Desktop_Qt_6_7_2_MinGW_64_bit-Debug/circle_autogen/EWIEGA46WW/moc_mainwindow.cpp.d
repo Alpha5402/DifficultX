@@ -152,6 +152,7 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/6.7.2/mingw_64/include/QtGui/qwindowdefs_win.h \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsEllipseItem \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsItemGroup \
+  C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsLineItem \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsScene \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsSceneMouseEvent \
   C:/Qt/6.7.2/mingw_64/include/QtWidgets/QGraphicsView \
@@ -374,5 +375,4 @@ D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wchar.h \
   D:/QTtasks/prictical\ training/circle/CustomCircleItem.h \
   D:/QTtasks/prictical\ training/circle/CustomGraphicsScene.h \
-  D:/QTtasks/prictical\ training/circle/customcircleitem.h \
   D:/QTtasks/prictical\ training/circle/easyxcodegenerator.h

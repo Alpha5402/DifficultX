@@ -20,6 +20,7 @@ private slots:
     void onGenerateCodeButtonClicked();
     void handleCircleAdded(QPointF center,qreal r);
     void handleTextAdded(const QString &text, const QPointF &pos);
+    void onAddLineButtonClicked();  // 新增：添加直线按钮点击事件处理
 
 private:
 
@@ -28,9 +29,14 @@ private:
     QPushButton *addCircleButton;
     QPushButton *addTextButton;
     QPushButton *generateCodeButton;
+    QPushButton *addLineButton;
     EasyXCodeGenerator generator;
+
+    //点击状态控制
     bool isAddingCircle;
     bool isAddingText;
+    bool isAddingLine;
+
 };
 
 #endif // MAINWINDOW_H

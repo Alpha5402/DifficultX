@@ -23,6 +23,13 @@ public:
     CircleItem(QPointF c,qreal r):center(c),radius(r){}
 };
 
+class LineItem
+{
+public:
+    QPointF p1;
+    QPointF p2;
+    LineItem(QPointF p11,QPointF p22):p1(p11),p2(p22){}
+};
 
 
 class EasyXCodeGenerator
@@ -35,6 +42,7 @@ public:
     void clear();
     void addCircle(QPointF c,qreal r);
     void addText(const QString &text, const QPointF &position);
+    void addLine(QPointF p1,QPointF p2);
     void generateCode(const QString &filename,const CustomGraphicsScene *scene);
     QString getCode() const;  // 新增的方法
 

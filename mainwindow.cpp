@@ -16,15 +16,19 @@ MainWindow::MainWindow(QWidget *parent)
     scene = new CustomGraphicsScene(this);  // 创建自定义图形场景
     view = new QGraphicsView(scene, this);  // 创建图形视图，并将场景设置为中心部件
     setCentralWidget(view);  // 设置中心部件为图形视图
+    view->setScene(scene);
+     qDebug() << "Scene set to view:" << view->scene();
 
     addCircleButton = new QPushButton("Add Circle", this);  // 创建添加圆形按钮
     addTextButton = new QPushButton("Add Text", this);  // 创建添加文本按钮
     generateCodeButton = new QPushButton("Generate Code", this);  // 创建生成代码按钮
+    addLineButton = new QPushButton("Add Line", this);
 
     QToolBar *toolBar = new QToolBar(this);  // 创建工具栏
+    toolBar->addWidget(generateCodeButton);  // 将生成代码按钮添加到工具栏
     toolBar->addWidget(addCircleButton);  // 将添加圆形按钮添加到工具栏
     toolBar->addWidget(addTextButton);  // 将添加文本按钮添加到工具栏
-    toolBar->addWidget(generateCodeButton);  // 将生成代码按钮添加到工具栏
+    toolBar->addWidget(addLineButton); //将生成直线按钮添加到工具栏
     addToolBar(toolBar);  // 添加工具栏到主窗口
 
     connect(addCircleButton, &QPushButton::clicked, this, &MainWindow::onAddCircleButtonClicked);  // 连接添加圆形按钮点击事件
@@ -32,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(generateCodeButton, &QPushButton::clicked, this, &MainWindow::onGenerateCodeButtonClicked);  // 连接生成代码按钮点击事件
     connect(scene, &CustomGraphicsScene::circleAdded, this, &MainWindow::handleCircleAdded);  // 连接图形场景的圆形添加信号
     connect(scene, &CustomGraphicsScene::textAdded, this, &MainWindow::handleTextAdded);  // 连接图形场景的文本添加信号
+    connect(addLineButton, &QPushButton::clicked, this, &MainWindow::onAddLineButtonClicked);  // 新增：连接添加直线按钮点击信号
 
     setFixedSize(640, 480);  // 设置主窗口固定大小
 }
@@ -60,6 +65,15 @@ void MainWindow::onGenerateCodeButtonClicked() {
         DisplayWindow *displayWindow = new DisplayWindow(filename);  // 创建显示窗口
         displayWindow->show();  // 显示显示窗口
     }
+}
+
+// 添加直线按钮点击事件处理
+void MainWindow::onAddLineButtonClicked()
+{
+    isAddingLine = !isAddingLine;  // 切换是否添加直线的状态
+    isAddingCircle = false;  // 确保不在添加圆状态
+    isAddingText = false;  // 确保不在添加文字状态
+    scene->setAddingLine(isAddingLine);  // 通知场景开始/停止添加直线
 }
 
 void MainWindow::handleCircleAdded(QPointF center,qreal r) {
