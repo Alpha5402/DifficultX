@@ -1,6 +1,7 @@
 circle_autogen/timestamp: \
 	C:/Qt/6.7.2/mingw_64/include/QtCore/QPointF \
 	C:/Qt/6.7.2/mingw_64/include/QtCore/QString \
+	C:/Qt/6.7.2/mingw_64/include/QtCore/QTextStream \
 	C:/Qt/6.7.2/mingw_64/include/QtCore/q20functional.h \
 	C:/Qt/6.7.2/mingw_64/include/QtCore/q20memory.h \
 	C:/Qt/6.7.2/mingw_64/include/QtCore/q20type_traits.h \

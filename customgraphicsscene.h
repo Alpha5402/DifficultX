@@ -2,6 +2,8 @@
 #define CUSTOMGRAPHICSSCENE_H
 
 #include <QGraphicsScene>
+#include<QPointF>
+#include<vector>
 #include"customcircleitem.h"
 
 QT_BEGIN_NAMESPACE
@@ -15,6 +17,7 @@ public:
     explicit CustomGraphicsScene(QObject *parent = nullptr);
     void setAddingCircle(bool condition);
     void setAddingText(bool condition);
+    std::vector<std::pair<QPointF, qreal>> getCircles()const;
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;

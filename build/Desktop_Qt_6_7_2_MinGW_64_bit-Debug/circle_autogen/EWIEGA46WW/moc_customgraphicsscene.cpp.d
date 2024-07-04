@@ -1,5 +1,6 @@
 D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/EWIEGA46WW/moc_customgraphicsscene.cpp: D:/QTtasks/prictical\ training/circle/customgraphicsscene.h \
   D:/QTtasks/prictical\ training/circle/build/Desktop_Qt_6_7_2_MinGW_64_bit-Debug/circle_autogen/moc_predefs.h \
+  C:/Qt/6.7.2/mingw_64/include/QtCore/QPointF \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20functional.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20memory.h \
   C:/Qt/6.7.2/mingw_64/include/QtCore/q20type_traits.h \

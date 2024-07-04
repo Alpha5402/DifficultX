@@ -57,7 +57,7 @@ void CustomCircleItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
         radius = QLineF(mapFromScene(center), newPoint).length();  // 计算新的半径
         setRect(tempcenter.x() - radius, tempcenter.y() - radius, radius * 2, radius * 2);  // 更新圆形项的位置和大小
         centerPoint->setRect(rect().center().x()-6, rect().center().y()-6, 12, 12);
-        radiusPoint->setRect(newPoint.x() - 9, newPoint.y() - 9, 18, 18);  // 更新半径端点标记的位置和大小
+        radiusPoint->setRect(newPoint.x() - 12, newPoint.y() - 12, 24, 24);  // 更新半径端点标记的位置和大小
         radiusLine->setLine(QLineF(tempcenter, newPoint));  // 更新半径线条的位置和方向
         test_is_code_right_circleitems<<"centre is: "<<newPoint.x()<<','<<newPoint.y()<<','<<radius<<endl;
         update();

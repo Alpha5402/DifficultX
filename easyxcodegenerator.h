@@ -1,11 +1,16 @@
 #ifndef EASYXCODEGENERATOR_H
 #define EASYXCODEGENERATOR_H
 
-#include"customcircleitem.h"
+
 
 #include <QString>
 #include <QPointF>
 #include <vector>
+#include <QTextStream>
+#include <QGraphicsScene>
+#include "CustomGraphicsScene.h"
+#include "CustomCircleItem.h"
+
 
 using std::vector;
 
@@ -30,7 +35,7 @@ public:
     void clear();
     void addCircle(QPointF c,qreal r);
     void addText(const QString &text, const QPointF &position);
-    void generateCode(const QString &filename);
+    void generateCode(const QString &filename,const CustomGraphicsScene *scene);
     QString getCode() const;  // 新增的方法
 
 private:

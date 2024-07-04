@@ -5,6 +5,8 @@
 #include <QInputDialog>
 #include <QLineEdit>
 #include <QTextStream>
+#include "CustomGraphicsScene.h"
+#include "EasyXCodeGenerator.h"
 
 QTextStream test_is_code_right(stdout);
 using Qt::endl;
@@ -53,7 +55,7 @@ void MainWindow::onAddTextButtonClicked() {
 void MainWindow::onGenerateCodeButtonClicked() {
     QString filename = QFileDialog::getSaveFileName(this, "Save Code", "", "Text Files (*.txt)");  // 获取保存文件名
     if (!filename.isEmpty()) {  // 如果文件名非空
-        generator.generateCode(filename);  // 生成代码文件
+        generator.generateCode(filename,scene);  // 生成代码文件
         test_is_code_right << "ready to display" << endl;  // 输出调试信息
         DisplayWindow *displayWindow = new DisplayWindow(filename);  // 创建显示窗口
         displayWindow->show();  // 显示显示窗口

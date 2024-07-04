@@ -76,3 +76,13 @@ void CustomGraphicsScene::setAddingCircle(bool condition) {
 void CustomGraphicsScene::setAddingText(bool condition) {
     isAddingText = condition;  // 设置是否正在添加文本的标志
 }
+
+std::vector<std::pair<QPointF, qreal>> CustomGraphicsScene::getCircles()const {
+    std::vector<std::pair<QPointF, qreal>> circles;
+    for (QGraphicsItem *item : items()) {
+        if (CustomCircleItem *circle = dynamic_cast<CustomCircleItem*>(item)) {
+            circles.push_back(std::make_pair(circle->center, circle->radius));
+        }
+    }
+    return circles;
+}

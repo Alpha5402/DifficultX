@@ -24,7 +24,7 @@ public:
     QGraphicsLineItem *radiusLine;
     bool selected;
 
-    void updateCircle();
+    // void updateCircle();
 
 };
 
