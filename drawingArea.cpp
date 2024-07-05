@@ -1,15 +1,19 @@
 #include "drawingArea.h"
 #include "imageEditor.h"
 
-DrawingArea::DrawingArea(QWidget *parent) : QWidget(parent) {
+DrawingArea::DrawingArea(QPen color, QWidget *parent) : QWidget(parent) {
     setMouseTracking(true);
     // scene = new CustomGraphicsScene(this);  // 创建自定义图形场景
     // view = new QGraphicsView(scene);  // 创建图形视图，并将场景设置为中心部件
 
     QVBoxLayout *layout = new QVBoxLayout(this);
-
-    scene = new CustomGraphicsScene(this);  // 创建自定义图形场景
+    setFixedSize(720, 540);
+    //resize(640, 480);
+    scene = new CustomGraphicsScene(this, color);  // 创建自定义图形场景
     view = new QGraphicsView(scene);  // 创建图形视图，并将场景设置为中心部件
+    scene->setSceneRect(0, 0, 640, 480);
+    // view->resize(640, 480);
+    view->centerOn(scene->sceneRect().center());
 
     layout->addWidget(view);
     setLayout(layout);

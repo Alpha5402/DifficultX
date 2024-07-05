@@ -68,6 +68,7 @@ void ColorPickerWidget::onSendColorData() {
                         // .arg(BackColor)
                         // .arg(LineColor)
                         // .arg(FillColor);
+    qDebug() << "[INFO] colorPickerWidget sending" << Qt::endl;
     emit sendColorData(data); // 发射信号将数据传回A窗口
     qDebug() << "[INFO] colorPickerWidget sended " << data << Qt::endl;
     this->close(); // 关闭B窗口

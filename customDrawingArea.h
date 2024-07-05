@@ -8,7 +8,7 @@ class CustomDrawingArea : public DrawingArea {
     Q_OBJECT
 
 public:
-    CustomDrawingArea(QWidget *parent = nullptr);
+    CustomDrawingArea(QPen color = QPen(RGB(255, 255, 255)), QWidget *parent = nullptr);
     void drawShapes(QPainter &painter);
     bool isPointOnShape(const QPoint &point) override;
 protected:
