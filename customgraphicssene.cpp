@@ -73,6 +73,10 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             qreal radius = QLineF(firstPoint, event->scenePos()).length();  // 计算半径
             circle = new CustomCircleItem(firstPoint.x(), firstPoint.y(), radius * 2);  // 创建自定义圆形项
             circle->setPen(LineColor);
+            //
+            circle->R=LineColor.color().red();
+            circle->G=this->LineColor.color().green();
+            circle->B=this->LineColor.color().blue();
             Radius = radius;
             addItem(circle);  // 添加圆形项到场景
             removeItem(centerPoint);  // 移除中心点标记

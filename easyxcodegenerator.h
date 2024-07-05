@@ -33,7 +33,7 @@ public:
     void clear();
     void addCircle(QPointF c,qreal r);
     void addText(const QString &text, const QPointF &position);
-    void generateCode(const QString &filename,const CustomGraphicsScene *scene);
+    void generateCode(const CustomGraphicsScene *scene);
     QString getCode() const;  // 新增的方法
 
 private:

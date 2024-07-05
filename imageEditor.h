@@ -41,6 +41,7 @@ private slots:
 
     void onAddCircleButtonClicked();
     void onAddLineButtonClicked();
+    void onGenerateCodeButtonClicked();
 
     void receiveColorData(const QString &data);
     void onSendData();

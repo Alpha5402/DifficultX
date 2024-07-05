@@ -25,9 +25,7 @@ CustomCircleItem::CustomCircleItem(qreal x, qreal y, qreal diameter, QGraphicsIt
     //radiusLine->setPen(QPen(RGB(255, 255, 255)));  // 设置半径线条的颜色为蓝色
     radiusLine->setVisible(false);  // 初始隐藏半径线条
 
-    R=pen().color().red();
-    G=pen().color().green();
-    B=pen().color().blue();
+
 
     test_is_code_right_circleitems<<"centre is: "<<x<<','<<y<<endl;
 

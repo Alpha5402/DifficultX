@@ -1,6 +1,7 @@
 #include "imageEditor.h"
 #include "colorpickerwidget.h"
 
+
 void ImageEditor::onShapeSelected(const QString &shapeInfo) {
     qDebug() << shapeInfo << Qt::endl;
 }
@@ -60,6 +61,17 @@ void ImageEditor::onAddLineButtonClicked()
     drawingArea->scene->setAddingLine(isAddingLine);  // 通知场景开始/停止添加直线
 }
 
+//点击生成代码触发
+void ImageEditor::onGenerateCodeButtonClicked()
+{
+    // QString filename = QFileDialog::getSaveFileName(this, "Save Code", "", "Text Files (*.txt)");  // 获取保存文件名
+    // if (!filename.isEmpty()) {  // 如果文件名非空
+        generator.generateCode(drawingArea->scene);  // 生成代码文件
+        // test_is_code_right << "ready to display" << endl;  // 输出调试信息
+        // DisplayWindow *displayWindow = new DisplayWindow(filename);  // 创建显示窗口
+        // displayWindow->show();  // 显示显示窗口
+    // }
+}
 
 void ImageEditor::handleCircleAdded(QPointF center,qreal r) {
     generator.addCircle(center,r);  // 将圆形添加到生成器中
@@ -103,6 +115,7 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
     //链接按钮槽和信号
     connect(insertCircleButton, &QPushButton::clicked, this, &ImageEditor::onAddCircleButtonClicked);
     connect(insertLineButton, &QPushButton::clicked, this, &ImageEditor::onAddLineButtonClicked);
+    connect(insertRectButton, &QPushButton::clicked, this, &ImageEditor::onGenerateCodeButtonClicked);//临时链接
 
     connect(drawingArea->scene, &CustomGraphicsScene::circleAdded, this, &ImageEditor::handleCircleAdded);
 
