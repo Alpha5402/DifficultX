@@ -15,8 +15,12 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), isAddingCircle(false), isAddingText(false) {
     scene = new CustomGraphicsScene(this);  // 创建自定义图形场景
     view = new QGraphicsView(scene, this);  // 创建图形视图，并将场景设置为中心部件
+    ;
     setCentralWidget(view);  // 设置中心部件为图形视图
     view->setScene(scene);
+    scene->setSceneRect(0, 0, 640, 480);
+    // view->resize(640, 480);
+    view->centerOn(scene->sceneRect().center());
      qDebug() << "Scene set to view:" << view->scene();
 
     addCircleButton = new QPushButton("Add Circle", this);  // 创建添加圆形按钮
@@ -38,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(scene, &CustomGraphicsScene::textAdded, this, &MainWindow::handleTextAdded);  // 连接图形场景的文本添加信号
     connect(addLineButton, &QPushButton::clicked, this, &MainWindow::onAddLineButtonClicked);  // 新增：连接添加直线按钮点击信号
 
-    setFixedSize(640, 480);  // 设置主窗口固定大小
+    setFixedSize(650, 490);  // 设置主窗口固定大小
 }
 
 MainWindow::~MainWindow() {}  // 析构函数为空实现

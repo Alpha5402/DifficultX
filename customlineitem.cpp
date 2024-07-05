@@ -12,13 +12,13 @@ CustomLineItem::CustomLineItem(const QLineF &line, QGraphicsItem *parent)
     point1=mapToScene(line.p1());
     point2=mapToScene(line.p2());
     // 创建起点和终点的绿色标记
-    startPoint = new QGraphicsEllipseItem(-5, -5, 10, 10, this);
-    startPoint->setBrush(QBrush(Qt::green));
-    qDebug()<<line.center();
-    endPoint = new QGraphicsEllipseItem(-5, -5, 10, 10, this);
-    endPoint->setBrush(QBrush(Qt::green));
-    startPoint->setVisible(false);
-    endPoint->setVisible(false);
+    // startPoint = new QGraphicsEllipseItem(-5, -5, 10, 10, this);
+    // startPoint->setBrush(QBrush(Qt::green));
+    // qDebug()<<line.center();
+    // endPoint = new QGraphicsEllipseItem(-5, -5, 10, 10, this);
+    // endPoint->setBrush(QBrush(Qt::green));
+    // startPoint->setVisible(false);
+    // endPoint->setVisible(false);
 
     updateEndpoints();
 }
@@ -47,11 +47,11 @@ void CustomLineItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 
     switch (dragState) {
     case DraggingEndPoint:
-        line.setP2(mapFromScene(mousePos));
-        point2=mapToScene(line.p2());
+        // line.setP2(mapFromScene(mousePos));
+        point2=mousePos;
         break;
     case DraggingStartPoint:
-        line.setP1(mapFromScene(mousePos));
+        // line.setP1(mapFromScene(mousePos));
         point1=mapToScene(line.p1());
         break;
     case DraggingLine:
@@ -75,7 +75,7 @@ void CustomLineItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     update();
     // updateEndpoints();
     lastMousePos = mousePos;
-    // qDebug()<<dragState<<"line"<<line.p1()<<mapFromScene(mapToScene(line.p1()))<<','<<mapToParent(line.p2())<<',,'<<event->pos()<<",,"<<event->scenePos();
+    qDebug()<<dragState<<"line"<<line.p1()<<mapToScene(line.p1())<<','<<mapToParent(line.p2())<<',,'<<event->pos()<<",,"<<event->scenePos();
     QGraphicsLineItem::mouseMoveEvent(event);
 }
 
@@ -93,7 +93,7 @@ QVariant CustomLineItem::itemChange(GraphicsItemChange change, const QVariant &v
 
 void CustomLineItem::updateEndpoints() {//这里
     QLineF line = this->line();
-    startPoint->setPos(line.p1());
-    endPoint->setPos(line.p2());
+    // startPoint->setPos(line.p1());
+    // endPoint->setPos(line.p2());
 }
 

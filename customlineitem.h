@@ -21,8 +21,8 @@ public:
     QPointF lastMousePos;
     QPointF point1;
     QPointF point2;//获取point1和point2
-    QGraphicsEllipseItem *startPoint;
-    QGraphicsEllipseItem *endPoint;
+    // QGraphicsEllipseItem *startPoint;
+    // QGraphicsEllipseItem *endPoint;
     void updateEndpoints();
 };
 
