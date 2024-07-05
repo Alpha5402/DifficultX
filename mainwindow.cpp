@@ -89,6 +89,7 @@ Operation extractVariables(const QString &input) {
     } else {
         qDebug() << "No match found.";
     }
+    return ans;
 }
 
 void MainWindow::openImageEditor(){
@@ -99,6 +100,18 @@ void MainWindow::openImageEditor(){
 
     // 获取A窗口的位置并设置给B窗口
     imageditor->move(this->pos());
+
+    std::list<Operation> Handle = ReadCodes();
+    qDebug() << "[INFO] Handle size " << Handle.size();
+
+    for (auto element = Handle.begin(); element != Handle.end(); ++element) {
+        qDebug() << "type: " << (*element).type << " para1: " << (*element).parameter_1 << " para2: " << (*element).parameter_2 << " para3: " << (*element).parameter_3;
+
+        if ((*element).type == "circle") {
+            qDebug() << "[INFO] Circle detected";
+            imageditor->drawingArea->scene->DrawCircle((*element).parameter_1, (*element).parameter_2, (*element).parameter_3);
+        }
+    }
 
     connect(imageditor, &ImageEditor::sendData, this, &MainWindow::receiveData);
 
@@ -125,10 +138,11 @@ std::list<Operation> MainWindow::ReadCodes(){
             qDebug() << "Has find all of them";
             break;
         } else {
+            Operation temp = extractVariables(lineText);
             ans.push_back(extractVariables(lineText));
+            qDebug() << "[INFO] Parameter " << temp.type << " " << temp.parameter_1 << " " << temp.parameter_2 << " " << temp.parameter_3;
         }
     }
-
     return ans;
 }
 

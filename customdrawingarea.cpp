@@ -1,6 +1,8 @@
 #include "customDrawingArea.h"
 
-CustomDrawingArea::CustomDrawingArea(QWidget *parent) : DrawingArea(parent) {}
+CustomDrawingArea::CustomDrawingArea(QPen color, QWidget *parent) : DrawingArea(color, parent) {
+    qDebug() << "[INFO] CustomDrawingArea: Set Pen to " << color;
+}
 
 void CustomDrawingArea::drawShapes(QPainter &painter) {
     // 具体图形绘制代码，例如绘制线段

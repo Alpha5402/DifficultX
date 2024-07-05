@@ -3,14 +3,9 @@
 
 #include "communal.h"
 #include "customDrawingArea.h"
+#include "easyxcodegenerator.h"
 
-struct Operation{
-    QString type;
-    double parameter_1;
-    double parameter_2;
-    double parameter_3;
-    double parameter_4;
-};
+
 
 struct Line{
     QPoint Point1;
