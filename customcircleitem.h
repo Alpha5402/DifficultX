@@ -11,6 +11,7 @@ public:
     //void changeByLineedit(QPointF c,double r);
     void changeByLineedit(double cx,double cy,double r);
 
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
@@ -25,6 +26,9 @@ public:
     QGraphicsEllipseItem *radiusPoint;
     QGraphicsLineItem *radiusLine;
     bool selected;
+    int R;
+    int G;
+    int B;
 
     // void updateCircle();
 //signals:

@@ -24,9 +24,14 @@ CustomCircleItem::CustomCircleItem(qreal x, qreal y, qreal diameter, QGraphicsIt
     radiusLine = new QGraphicsLineItem(QLineF(center, QPointF(x + radius, y)), this);  // 创建半径线条项
     //radiusLine->setPen(QPen(RGB(255, 255, 255)));  // 设置半径线条的颜色为蓝色
     radiusLine->setVisible(false);  // 初始隐藏半径线条
+
+    R=pen().color().red();
+    G=pen().color().green();
+    B=pen().color().blue();
+
     test_is_code_right_circleitems<<"centre is: "<<x<<','<<y<<endl;
 
-    QString msg = QString("%1, %2, %3").arg(x).arg(y).arg(radius);
+    // QString msg = QString("%1, %2, %3").arg(x).arg(y).arg(radius);
     //emit drawingFinished(msg);
 
 }
