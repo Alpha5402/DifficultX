@@ -27,13 +27,16 @@ void CustomLineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     QPointF mousePos = event->pos();
     QLineF line = this->line();
 
-    if (QLineF(line.p1(), mousePos).length() < 25) {
+    if (QLineF(line.p1(), mousePos).length() < 5)
+    {
         dragState = DraggingStartPoint;
-    } else if (QLineF(line.p2(), mousePos).length() < 25) {
+    } else if (QLineF(line.p2(), mousePos).length() < 5)
+    {
         dragState = DraggingEndPoint;
     } else if (this->isSelected()) {
         dragState = DraggingLine;
-    } else {
+    } else
+    {
         dragState = NoDrag;
     }
 
@@ -89,6 +92,19 @@ QVariant CustomLineItem::itemChange(GraphicsItemChange change, const QVariant &v
         updateEndpoints();
     }
     return QGraphicsLineItem::itemChange(change, value);
+}
+
+void CustomLineItem::changeByLineedit(double x1,double y1,double x2,double y2)
+{
+    if (!isSelected()) {  // 如果未选中
+        return;
+    }
+    QPointF p1=QPointF{x1,y1};
+    QPointF p2=QPointF{x2,y2};
+    point1=p1;
+    point2=p2;
+    setLine(QLineF(mapFromScene(point1),mapFromScene(point2)));  // 更新圆形项的位置和大小
+    update();
 }
 
 void CustomLineItem::updateEndpoints() {//这里

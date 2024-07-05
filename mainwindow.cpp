@@ -18,9 +18,9 @@ MainWindow::MainWindow(QWidget *parent)
     ;
     setCentralWidget(view);  // 设置中心部件为图形视图
     view->setScene(scene);
-    scene->setSceneRect(0, 0, 640, 480);
+    // scene->setSceneRect(0, 0, 640, 480);
     // view->resize(640, 480);
-    view->centerOn(scene->sceneRect().center());
+    // view->centerOn(scene->sceneRect().center());
      qDebug() << "Scene set to view:" << view->scene();
 
     addCircleButton = new QPushButton("Add Circle", this);  // 创建添加圆形按钮

@@ -71,6 +71,7 @@ void CustomCircleItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 
 void CustomCircleItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 
+    qDebug()<<"mouserealease Event"<<endl;
     qreal initialRadius = rect().width() / 2;
 
     QPointF initialPos = QPointF(rect().x() + rect().width() / 2, rect().y() + rect().height() / 2);
@@ -84,9 +85,21 @@ void CustomCircleItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     radiusLine->setLine(QLineF(centerPoint->rect().center(), radiusPoint->rect().center()));  // 更新半径线条的位置和方向
     qDebug() <<mapFromScene(centerPoint->rect().center()) << Qt::endl;
     selected=false;
-
     update();
     QGraphicsEllipseItem::mouseReleaseEvent(event);  // 调用基类的鼠标释放事件处理函数
+}
+
+
+void CustomCircleItem::changeByLineedit(double cx,double cy,double r)
+{
+    if (!isSelected()) {  // 如果未选中
+        return;
+    }
+    QPointF c=QPointF{cx,cy};
+        center=c;
+        radius = r;  // 计算新的半径
+        setRect(center.x() - radius, center.y() - radius, radius * 2, radius * 2);  // 更新圆形项的位置和大小
+        update();
 }
 
 // void CustomCircleItem::updateCircle() {//没用

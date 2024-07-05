@@ -23,7 +23,7 @@ public:
     QGraphicsEllipseItem *radiusPoint;
     QGraphicsLineItem *radiusLine;
     bool selected;
-
+    void changeByLineedit(double cx,double cy,double r);
     // void updateCircle();
 
 };

@@ -24,6 +24,7 @@ public:
     // QGraphicsEllipseItem *startPoint;
     // QGraphicsEllipseItem *endPoint;
     void updateEndpoints();
+    void changeByLineedit(double x1,double y1,double x2,double y2);
 };
 
 #endif // CUSTOMLINEITEM_H
