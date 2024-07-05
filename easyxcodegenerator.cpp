@@ -32,28 +32,58 @@ void EasyXCodeGenerator::addText(const QString &text, const QPointF &position)
     test_is_code_right_generator << "add text." << code << Qt::endl;
 }
 
+
 void EasyXCodeGenerator::generateCode(const QString &filename, const CustomGraphicsScene *scene)
 {//点击genecode后遍历scene的所有item并添加到code在点击genecode后才能正常获取code
+
+    int ini_R=0;
+    int ini_G=0;
+    int ini_B=0;
+
     code.clear();
 
-    std::vector<std::pair<QPointF, qreal>> circles = scene->getCircles();
-    for (const auto &circle : circles)
-    {
-        addCircle(circle.first, circle.second); // 使用圆心坐标和半径生成代码
-    }
-    // for (const CircleItem &circle : circles) {
-    //     code+=QString("circle(%1,%2,%3);\n").arg(circle.center.x()).arg(circle.center.y() - 6).arg(circle.radius);
-    //      // 将圆的信息写入qstring
-    // }
-    QFile file(filename);
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        QTextStream out(&file);
+    //预设信息
+    code+="setBKcolor(WIGHT)";
+    code+="setcolor(BLACK)";
 
-        test_is_code_right_generator << "code is: " << code << Qt::endl; // 将字符串输出到标准输出
-        out << code;
-        file.close();
+    //大一统
+    for (QGraphicsItem *item : scene->items())
+    {
+        if (CustomCircleItem *circle = dynamic_cast<CustomCircleItem*>(item))
+        {
+            if(circle->R!=ini_R||circle->G!=ini_G||circle->B!=ini_B)
+            {
+                code+=QString("setcolor(RGB(%1,%2,%3));\n").arg(circle->R).arg(circle->G).arg(circle->B);//如果有颜色，改画笔
+            }
+            QString circle_code = QString("circle(%1,%2,%3);\n").arg(circle->center.x()).arg(circle->center.x()).arg(circle->radius);
+        }
+        else if (CustomLineItem *line = dynamic_cast<CustomLineItem*>(item))
+        {
+            if(line->R!=ini_R||line->G!=ini_G||line->B!=ini_B)
+            {
+                code+=QString("setcolor(RGB(%1,%2,%3));\n").arg(circle->R).arg(circle->G).arg(circle->B);//如果有颜色，改画笔
+            }
+            code+= QString("line(%1,%2,%3,%4);\n").arg(line->point1.x()).arg(line->point1.y()).arg(line->point2.x()).arg(line->point2.y());
+        }
     }
+    // std::vector<std::pair<QPointF, qreal>> circles = scene->getCircles();
+    // for (const auto &circle : circles)
+    // {
+    //     addCircle(circle.first, circle.second); // 使用圆心坐标和半径生成代码
+    // }
+    // // for (const CircleItem &circle : circles) {
+    // //     code+=QString("circle(%1,%2,%3);\n").arg(circle.center.x()).arg(circle.center.y() - 6).arg(circle.radius);
+    // //      // 将圆的信息写入qstring
+    // // }
+    // QFile file(filename);
+    // if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+    // {
+    //     QTextStream out(&file);
+
+    //     test_is_code_right_generator << "code is: " << code << Qt::endl; // 将字符串输出到标准输出
+    //     out << code;
+    //     file.close();
+    // }
 }
 
 QString EasyXCodeGenerator::getCode() const

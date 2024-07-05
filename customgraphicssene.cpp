@@ -145,12 +145,20 @@ void CustomGraphicsScene::setAddingLine(bool condition)
     isAddingLine=condition;
 }
 
-std::vector<std::pair<QPointF, qreal>> CustomGraphicsScene::getCircles()const {
-    std::vector<std::pair<QPointF, qreal>> circles;
-    for (QGraphicsItem *item : items()) {
-        if (CustomCircleItem *circle = dynamic_cast<CustomCircleItem*>(item)) {
-            circles.push_back(std::make_pair(circle->center, circle->radius));
-        }
-    }
-    return circles;
+std::vector<std::pair<QPointF, qreal>> CustomGraphicsScene::getCircles()const
+{
+    // using namespace std;
+    // std::vector<pair<vector<int>,pair<QPointF, qreal>>> circles;
+    // for (QGraphicsItem *item : items()) {
+    //     if (CustomCircleItem *circle = dynamic_cast<CustomCircleItem*>(item))
+    //     {
+    //         circles.push_back(circle->R)
+    //         circles.push_back(make_pair(,make_pair(circle->center, circle->radius));
+    //     }
+    //     else if ()
+    //     {
+
+    //     }
+    // }
+    // return circles;
 }
