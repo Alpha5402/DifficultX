@@ -8,6 +8,8 @@ class CustomCircleItem : public QGraphicsEllipseItem {
     //Q_OBJECT
 public:
     CustomCircleItem(qreal x, qreal y, qreal diameter, QGraphicsItem *parent = nullptr);
+    //void changeByLineedit(QPointF c,double r);
+    void changeByLineedit(double cx,double cy,double r);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
