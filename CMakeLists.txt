@@ -34,6 +34,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         customcircleitem.h customcircleitem.cpp
         customgraphicssene.h customgraphicssene.cpp
         easyxcodegenerator.h easyxcodegenerator.cpp
+        customlineitem.h customlineitem.cpp
 
 
     )

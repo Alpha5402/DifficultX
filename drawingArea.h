@@ -9,7 +9,7 @@ class DrawingArea : public QWidget {
     Q_OBJECT
 
 public:
-    DrawingArea(QWidget *parent = nullptr);
+    DrawingArea(QPen color = QPen(RGB(255, 255, 255)), QWidget *parent = nullptr);
     virtual QString checkShapeSelection(const QPoint &point) {};
     virtual void drawShapes(QPainter &painter) {};
     virtual bool isPointOnShape(const QPoint &point) {};

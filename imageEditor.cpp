@@ -16,7 +16,7 @@ void ImageEditor::openColorPickerWidget(){
     colorPicker->show();
 }
 
-void ImageEditor::handleDrawingFinished(const QString& message) {
+void ImageEditor::handleDrawingCircleFinished(const QString& message) {
     //qDebug() << "[INFO] ImageEditor has received the msg " << message;
 
     QStringList dataList = message.split(',');
@@ -38,6 +38,30 @@ void ImageEditor::handleDrawingFinished(const QString& message) {
     //qDebug() << "[INFO] ImageEditor has received the msg " << x << "," << y << "," << Radius;
 }
 
+void ImageEditor::handleDrawingLineFinished(const QString& message) {
+    //qDebug() << "[INFO] ImageEditor has received the msg " << message;
+
+    QStringList dataList = message.split(',');
+
+    double x1, y1, x2, y2;
+
+    if (dataList.size() == 4) {
+        bool ok1, ok2, ok3, ok4;
+        x1 = dataList[0].toDouble(&ok1);
+        y1 = dataList[1].toDouble(&ok2);
+        x2 = dataList[2].toDouble(&ok3);
+        y2 = dataList[3].toDouble(&ok4);
+    } else {
+        qDebug() << "Incorrect format.";
+    }
+
+    lineEdit_1->setText(QString::number(x1));
+    lineEdit_2->setText(QString::number(y1));
+    lineEdit_3->setText(QString::number(x2));
+    lineEdit_4->setText(QString::number(y2));
+    //qDebug() << "[INFO] ImageEditor has received the msg " << x << "," << y << "," << Radius;
+}
+
 void ImageEditor::updateLineEdit(const QString& message) {
     //qDebug() << "[INFO] ImageEditor has received the msg " << message;
 }
@@ -51,6 +75,25 @@ void ImageEditor::onAddCircleButtonClicked() {
     //qDebug() << "[INFO] Success";
 }
 
+void ImageEditor::onAddLineButtonClicked()
+{
+    isAddingLine = !isAddingLine;  // 切换是否添加直线的状态
+    isAddingCircle = false;  // 确保不在添加圆状态
+    isAddingText = false;  // 确保不在添加文字状态
+    drawingArea->scene->setAddingLine(isAddingLine);  // 通知场景开始/停止添加直线
+}
+
+//点击生成代码触发
+void ImageEditor::onGenerateCodeButtonClicked()
+{
+    // QString filename = QFileDialog::getSaveFileName(this, "Save Code", "", "Text Files (*.txt)");  // 获取保存文件名
+    // if (!filename.isEmpty()) {  // 如果文件名非空
+    generator.generateCode(drawingArea->scene);  // 生成代码文件
+    // test_is_code_right << "ready to display" << endl;  // 输出调试信息
+    // DisplayWindow *displayWindow = new DisplayWindow(filename);  // 创建显示窗口
+    // displayWindow->show();  // 显示显示窗口
+    // }
+}
 void ImageEditor::handleCircleAdded(QPointF center,qreal r) {
     generator.addCircle(center,r);  // 将圆形添加到生成器中
 }
@@ -68,9 +111,16 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
     //QVBoxLayout *layout = new QVBoxLayout(this);
     //QLabel *label = new QLabel("这是一个嵌入的子窗口", this);
 
-    drawingArea = new CustomDrawingArea(this);
+    drawingArea = new CustomDrawingArea(LineColor, this);
+    drawingArea->scene->setSceneRect(0, 0, 640, 480);
+    qDebug() << "[INFO] DrawingArea: Set Pen to " << LineColor;
+
+
     connect(drawingArea, &DrawingArea::shapeSelected, this, &ImageEditor::onShapeSelected);
-    connect(drawingArea->scene, &CustomGraphicsScene::drawingFinished, this, &ImageEditor::handleDrawingFinished);
+    connect(drawingArea->scene, &CustomGraphicsScene::drawingCircleFinished, this, &ImageEditor::handleDrawingCircleFinished);
+    connect(drawingArea->scene, &CustomGraphicsScene::drawingLineFinished, this, &ImageEditor::handleDrawingLineFinished);
+
+
     //connect(drawingArea->scene->circle, &CustomCircleItem::drawingFinished, this, &ImageEditor::handleDrawingFinished);
     //connect(drawingArea->scene->circle, &CustomGraphicsScene::drawingFinished, this, &ImageEditor::handleDrawingFinished);
     //connect(drawingArea->scene, &DrawingArea::drawingFinished, this, &ImageEditor::updateLineEdit);
@@ -85,8 +135,13 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
     QPushButton *insertLineButton = new QPushButton("插入 直线", this);
     QPushButton *insertRectButton = new QPushButton("插入 矩形", this);
     QPushButton *insertCircleButton = new QPushButton("插入 圆", this);
+    //链接按钮槽和信号
     connect(insertCircleButton, &QPushButton::clicked, this, &ImageEditor::onAddCircleButtonClicked);
+    connect(insertLineButton, &QPushButton::clicked, this, &ImageEditor::onAddLineButtonClicked);
+    connect(insertRectButton, &QPushButton::clicked, this, &ImageEditor::onGenerateCodeButtonClicked);//临时链接
+
     connect(drawingArea->scene, &CustomGraphicsScene::circleAdded, this, &ImageEditor::handleCircleAdded);
+
 
 
     QPushButton *insertEllipticButton = new QPushButton("插入 椭圆", this);
@@ -100,12 +155,14 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
     QVBoxLayout *para_box_1 = new QVBoxLayout(parameter_1);
     QLabel *parameterLabel_1 = new QLabel("参数 1", this);
     lineEdit_1 = new QLineEdit(this);
-    lineEdit_1->setText("Value 1");  // 设置默认值
+    lineEdit_1->setPlaceholderText("Value 1");  // 设置默认值
     int buttonHeight = lineEdit_1->sizeHint().height();
     parameterLabel_1->setFixedHeight(buttonHeight);
     lineEdit_1->setValidator(validator);
     para_box_1->addWidget(parameterLabel_1, 1);
     para_box_1->addWidget(lineEdit_1, 1);
+    connect(lineEdit_1, &QLineEdit::editingFinished, this, &ImageEditor::handlePara1EditingFinished);
+    QObject::connect(this, &ImageEditor::Para1Changed, drawingArea->scene, &CustomGraphicsScene::ReceivePara1ValueChanged);
 
     parameterTitle->setFixedHeight(buttonHeight);
 
@@ -113,38 +170,64 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
     QVBoxLayout *para_box_2 = new QVBoxLayout(parameter_2);
     QLabel *parameterLabel_2 = new QLabel("参数 2", this);
     lineEdit_2 = new QLineEdit(this);
-    lineEdit_2->setText("Value 2");  // 设置默认值
+    lineEdit_2->setPlaceholderText("Value 2");  // 设置默认值
     parameterLabel_2->setFixedHeight(buttonHeight);
     lineEdit_2->setValidator(validator);
     para_box_2->addWidget(parameterLabel_2, 1);
     para_box_2->addWidget(lineEdit_2, 1);
+    connect(lineEdit_2, &QLineEdit::editingFinished, this, &ImageEditor::handlePara2EditingFinished);
+    QObject::connect(this, &ImageEditor::Para2Changed, drawingArea->scene, &CustomGraphicsScene::ReceivePara2ValueChanged);
 
     QWidget *parameter_3 = new QWidget(this);
     QVBoxLayout *para_box_3 = new QVBoxLayout(parameter_3);
     QLabel *parameterLabel_3 = new QLabel("参数 3", this);
     lineEdit_3 = new QLineEdit(this);
-    lineEdit_3->setText("Value 3");  // 设置默认值
+    lineEdit_3->setPlaceholderText("Value 3");  // 设置默认值
     parameterLabel_3->setFixedHeight(buttonHeight);
     lineEdit_3->setValidator(validator);
     para_box_3->addWidget(parameterLabel_3, 1);
     para_box_3->addWidget(lineEdit_3, 1);
+    connect(lineEdit_3, &QLineEdit::editingFinished, this, &ImageEditor::handlePara3EditingFinished);
+    QObject::connect(this, &ImageEditor::Para3Changed, drawingArea->scene, &CustomGraphicsScene::ReceivePara3ValueChanged);
+
+    QWidget *parameter_4 = new QWidget(this);
+    QVBoxLayout *para_box_4 = new QVBoxLayout(parameter_4);
+    QLabel *parameterLabel_4 = new QLabel("参数 4", this);
+    lineEdit_4 = new QLineEdit(this);
+    lineEdit_4->setPlaceholderText("Value 4");  // 设置默认值
+    parameterLabel_4->setFixedHeight(buttonHeight);
+    lineEdit_4->setValidator(validator);
+    para_box_4->addWidget(parameterLabel_4, 1);
+    para_box_4->addWidget(lineEdit_4, 1);
+    connect(lineEdit_4, &QLineEdit::editingFinished, this, &ImageEditor::handlePara4EditingFinished);
+    QObject::connect(this, &ImageEditor::Para4Changed, drawingArea->scene, &CustomGraphicsScene::ReceivePara4ValueChanged);
 
     QPushButton *closeButton = new QPushButton("关闭", this);
     layout->addWidget(parameter_1, 1);
     layout->addWidget(parameter_2, 1);
     layout->addWidget(parameter_3, 1);
+    layout->addWidget(parameter_4, 1);
 
     QLabel *ColorTitle = new QLabel("调色区", this);
     ColorTitle->setAlignment(Qt::AlignCenter);
-    ColorTitle->setFixedHeight(3*buttonHeight);
+    ColorTitle->setFixedHeight(2 * buttonHeight);
     QPushButton *ColorButton = new QPushButton("选取颜色", this);
     colorPicker = new ColorPickerWidget();
 
     QObject::connect(ColorButton, &QPushButton::clicked, this, &ImageEditor::openColorPickerWidget);
 
-
-    layout->addWidget(ColorTitle, 3);
+    layout->addWidget(ColorTitle, 1);
     layout->addWidget(ColorButton, 1);
+
+    QLabel *StyleTitle = new QLabel("样式区", this);
+    StyleTitle->setAlignment(Qt::AlignCenter);
+    StyleTitle->setFixedHeight(2 * buttonHeight);
+    QPushButton *FontButton = new QPushButton("设置字体", this);
+    QPushButton *BrushButton = new QPushButton("设置笔刷", this);
+
+    layout->addWidget(StyleTitle, 1);
+    layout->addWidget(FontButton, 1);
+    layout->addWidget(BrushButton, 1);
 
     QLabel *ButtonsTitle = new QLabel("插入区", this);
     ButtonsTitle->setFixedHeight(buttonHeight);
@@ -172,11 +255,85 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
 
 void ImageEditor::receiveColorData(const QString &data) {
     ToHandle += data;
-    //qDebug() << "[INFO] imageEditor received " << data << Qt::endl;
+
+    QRegularExpression regex("RGB\\((\\d+),\\s*(\\d+),\\s*(\\d+)\\)");
+    QRegularExpressionMatchIterator i = regex.globalMatch(data);
+
+    QList<QList<int>> colors;
+
+    while (i.hasNext()) {
+        QRegularExpressionMatch match = i.next();
+        if (match.hasMatch()) {
+            QList<int> color;
+            color.append(match.captured(1).toInt());
+            color.append(match.captured(2).toInt());
+            color.append(match.captured(3).toInt());
+            colors.append(color);
+        } else {
+            QList<int> color;
+            color.append(255);
+            color.append(255);
+            color.append(255);
+            colors.append(color);
+        }
+    }
+
+    if (!colors.isEmpty()) {
+        QList<int> backColor = colors.at(0);
+        BackColor = QPen(QColor(backColor.at(0), backColor.at(1), backColor.at(2)));
+
+        if (colors.size() > 1) {
+            QList<int> lineColor = colors.at(1);
+            LineColor = QPen(QColor(lineColor.at(0), lineColor.at(1), lineColor.at(2)));
+            drawingArea->scene->LineColor = LineColor;
+        }
+
+        if (colors.size() > 2) {
+            QList<int> fillColor = colors.at(2);
+            FillColor = QPen(QColor(fillColor.at(0), fillColor.at(1), fillColor.at(2)));
+        }
+    }
 }
 
 void ImageEditor::onSendData() {
     emit sendData(ToHandle); // 发射信号将数据传回A窗口
-    //qDebug() << "[INFO] ImageEditor sended " << ToHandle << Qt::endl;
     this->close(); // 关闭B窗口
 }
+
+void ImageEditor::handlePara1EditingFinished()
+{
+    bool ok;
+    double value = lineEdit_1->text().toDouble(&ok);
+
+    if (ok)
+        emit Para1Changed(value);
+    //LineColor.color()
+}
+
+void ImageEditor::handlePara2EditingFinished()
+{
+    bool ok;
+    double value = lineEdit_2->text().toDouble(&ok);
+
+    if (ok)
+        emit Para2Changed(value);
+}
+
+void ImageEditor::handlePara3EditingFinished()
+{
+    bool ok;
+    double value = lineEdit_3->text().toDouble(&ok);
+
+    if (ok)
+        emit Para3Changed(value);
+}
+
+void ImageEditor::handlePara4EditingFinished()
+{
+    bool ok;
+    double value = lineEdit_4->text().toDouble(&ok);
+
+    if (ok)
+        emit Para4Changed(value);
+}
+
