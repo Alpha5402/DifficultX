@@ -89,6 +89,7 @@ Operation extractVariables(const QString &input) {
     } else {
         qDebug() << "No match found.";
     }
+    return ans;
 }
 
 void MainWindow::openImageEditor(){
@@ -99,6 +100,18 @@ void MainWindow::openImageEditor(){
 
     // 获取A窗口的位置并设置给B窗口
     imageditor->move(this->pos());
+
+    std::list<Operation> Handle = ReadCodes();
+    qDebug() << "[INFO] Handle size " << Handle.size();
+
+    for (auto element = Handle.begin(); element != Handle.end(); ++element) {
+        qDebug() << "type: " << (*element).type << " para1: " << (*element).parameter_1 << " para2: " << (*element).parameter_2 << " para3: " << (*element).parameter_3;
+
+        if ((*element).type == "circle") {
+            qDebug() << "[INFO] Circle detected";
+            imageditor->drawingArea->scene->DrawCircle((*element).parameter_1, (*element).parameter_2, (*element).parameter_3);
+        }
+    }
 
     connect(imageditor, &ImageEditor::sendData, this, &MainWindow::receiveData);
 
@@ -125,10 +138,11 @@ std::list<Operation> MainWindow::ReadCodes(){
             qDebug() << "Has find all of them";
             break;
         } else {
+            Operation temp = extractVariables(lineText);
             ans.push_back(extractVariables(lineText));
+            qDebug() << "[INFO] Parameter " << temp.type << " " << temp.parameter_1 << " " << temp.parameter_2 << " " << temp.parameter_3;
         }
     }
-
     return ans;
 }
 
@@ -324,9 +338,6 @@ protected:
     }
 };
 
-
-
-
 // 主窗口类
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), textEdit(new QTextEdit(this))
 {
@@ -374,74 +385,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), textEdit(new QText
     textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     mainLayout->addWidget(textEdit, 2);
 
-    // 创建右侧按钮布局
-    QWidget *buttonContainer1 = new QWidget(this);
-    QVBoxLayout *buttonLayout1 = new QVBoxLayout(buttonContainer1);
-
-    QPushButton *button1 = new QPushButton("插入 圆", buttonContainer1);
-    connect(button1, &QPushButton::clicked, this, &MainWindow::ReadCodes);
-    QPushButton *button2 = new QPushButton("绘制 直线", buttonContainer1);
-
-    //QPushButton *openPickerButton = new QPushButton("Pick Points", this);
-    connect(button2, &QPushButton::clicked, this, [this]() {
-        PickPointsWidget *picker = new pickLineWidget();
-        picker->setAttribute(Qt::WA_DeleteOnClose); // 确保窗口关闭时释放资源
-        picker->show();
-    });
-    QPushButton *button3 = new QPushButton("绘制 矩形", buttonContainer1);
-    connect(button3, &QPushButton::clicked, this, [this]() {
-        PickPointsWidget *picker = new pickRectangleWidget(true, true);
-        picker->setAttribute(Qt::WA_DeleteOnClose); // 确保窗口关闭时释放资源
-        picker->show();
-    });
-    buttonLayout1->addWidget(button1);
-    buttonLayout1->addWidget(button2);
-    buttonLayout1->addWidget(button3);
-    buttonLayout1->addStretch();
-
-    // 右边三分之一添加按钮布局
-    buttonContainer1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    mainLayout->addWidget(buttonContainer1, 1);
-
-    QWidget *buttonContainer2 = new QWidget(this);
-    QVBoxLayout *buttonLayout2 = new QVBoxLayout(buttonContainer2);
-
-    QPushButton *button4 = new QPushButton("绘制 圆", buttonContainer2);
-    connect(button4, &QPushButton::clicked, this, [this]() {
-        PickPointsWidget *picker = new pickCircleWidget(true, true);
-        picker->setAttribute(Qt::WA_DeleteOnClose); // 确保窗口关闭时释放资源
-        picker->show();
-    });
-    QPushButton *button5 = new QPushButton("打开编辑器", buttonContainer2);
-    //ImageEditor *imageEditor = new ImageEditor();
-
-    // 将按钮和子窗口添加到主窗口的布局中
-    //mainLayout->addWidget(button5);
-    //mainLayout->addWidget(imageEditor);
-
-    // 默认隐藏子窗口
-    // imageEditor->resize(size());
-    // imageEditor->move(pos());
-    // imageEditor->hide();
-
-    // 连接按钮的 clicked 信号到子窗口的 show 槽
-    QObject::connect(button5, &QPushButton::clicked, this, &MainWindow::openImageEditor);
-    QPushButton *button6 = new QPushButton("按钮6", buttonContainer2);
-
-    buttonLayout2->addWidget(button4);
-    buttonLayout2->addWidget(button5);
-    buttonLayout2->addWidget(button6);
-    buttonLayout2->addStretch();
-
-    buttonContainer2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    mainLayout->addWidget(buttonContainer2, 1);
-
-    //QWidget *TempContainer = new QWidget(this);
-    //QVBoxLayout *TempLayout = new QVBoxLayout(TempContainer);
-    //mainLayout->addWidget(TempContainer, 4);
-
-    // 创建菜单栏
-    QMenu *fileMenu = menuBar()->addMenu(tr("文件"));
+    QWidget *buttonContainer = new QWidget(this);
+    QVBoxLayout *buttonLayout = new QVBoxLayout(buttonContainer);
 
     // 创建打开文件操作
     QAction *openAction = new QAction(tr("打开"), this);
@@ -458,9 +403,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), textEdit(new QText
             }
         }
     });
-
-
-
     // 创建保存文件操作
     QAction *saveAction = new QAction(tr("保存"), this);
     saveAction->setShortcuts(QKeySequence::Save);
@@ -492,12 +434,47 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), textEdit(new QText
     exitAction->setShortcuts(QKeySequence::Quit);
     connect(exitAction, &QAction::triggered, this, &QWidget::close);
 
+    QPushButton *openEditor = new QPushButton("打开编辑器", buttonContainer);
+    openEditor->setMinimumHeight(64);
+    QObject::connect(openEditor, &QPushButton::clicked, this, &MainWindow::openImageEditor);
+
+    QPushButton *Save = new QPushButton("保存", buttonContainer);
+    Save->setMinimumHeight(64);
+    connect(Save, &QPushButton::clicked, saveAction, &QAction::trigger);
+
+    QPushButton *openFiles = new QPushButton("打开文件", buttonContainer);
+    openFiles->setMinimumHeight(64);
+    connect(openFiles, &QPushButton::clicked, openAction, &QAction::trigger);
+
+    QPushButton *setStyle = new QPushButton("设置文本字体", buttonContainer);
+    setStyle->setMinimumHeight(64);
+    connect(setStyle, &QPushButton::clicked, setFontAction, &QAction::trigger);
+
+    QPushButton *exits = new QPushButton("退出", buttonContainer);
+    exits->setMinimumHeight(64);
+    connect(exits, &QPushButton::clicked, exitAction, &QAction::trigger);
+
+    buttonLayout->addWidget(openFiles);
+    buttonLayout->addWidget(setStyle);
+    buttonLayout->addWidget(openEditor);
+    buttonLayout->addWidget(Save);
+    buttonLayout->addWidget(exits);
+    //buttonLayout->addWidget(button6);
+    //buttonLayout->addStretch();
+
+    //buttonContainer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    mainLayout->addWidget(buttonContainer, 1);
+
+    //QWidget *TempContainer = new QWidget(this);
+    //QVBoxLayout *TempLayout = new QVBoxLayout(TempContainer);
+    //mainLayout->addWidget(TempContainer, 4);
+
     // 将操作添加到菜单中
-    fileMenu->addAction(openAction);
-    fileMenu->addAction(saveAction);
-    fileMenu->addAction(setFontAction);
-    fileMenu->addSeparator();
-    fileMenu->addAction(exitAction);
+    // fileMenu->addAction(openAction);
+    // fileMenu->addAction(saveAction);
+    // fileMenu->addAction(setFontAction);
+    // fileMenu->addSeparator();
+    // fileMenu->addAction(exitAction);
 
     // 应用语法高亮器
     Highlighter *highlighter = new Highlighter(textEdit->document());

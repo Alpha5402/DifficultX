@@ -18,24 +18,44 @@ public:
 private:
     bool isAddingCircle;
     bool isAddingText;
+    bool isAddingLine;
+
     EasyXCodeGenerator generator;
     QLineEdit *lineEdit_1;
     QLineEdit *lineEdit_2;
     QLineEdit *lineEdit_3;
+    QLineEdit *lineEdit_4;
+    QPen LineColor;
+    QPen FillColor;
+    QPen BackColor;
 
 
 signals:
     void sendData(const QString &data);
     void drawingFinished(const QString &message);
+    void Para1Changed(double newValue);
+    void Para2Changed(double newValue);
+    void Para3Changed(double newValue);
+    void Para4Changed(double newValue);
 
 private slots:
     void onShapeSelected(const QString &shapeInfo);
+
     void onAddCircleButtonClicked();
+    void onAddLineButtonClicked();
+    void onGenerateCodeButtonClicked();
+
     void receiveColorData(const QString &data);
     void onSendData();
     void handleCircleAdded(QPointF center,qreal r);
-    void handleDrawingFinished(const QString& message);
+    void handleDrawingCircleFinished(const QString& message);
+    void handleDrawingLineFinished(const QString& message);
+
     void updateLineEdit(const QString& message);
+    void handlePara1EditingFinished();
+    void handlePara2EditingFinished();
+    void handlePara3EditingFinished();
+    void handlePara4EditingFinished();
 };
 
 #endif // IMAGEEDITOR_H
