@@ -70,6 +70,9 @@ void ImageEditor::onAddCircleButtonClicked() {
     //qDebug() << "[INFO] Adding circle";
     isAddingCircle = !isAddingCircle;  // 切换添加圆形状态
     isAddingText = false;  // 确保添加文本状态为false
+    isAddingRectangle=false;
+    isAddingLine = false;
+    isAddingRectangle=false;
     drawingArea->scene->setAddingCircle(isAddingCircle);  // 通知场景更新添加圆形状态
     drawingArea->scene->setAddingText(false);  // 确保场景的添加文本状态为false
     //qDebug() << "[INFO] Success";
@@ -80,7 +83,18 @@ void ImageEditor::onAddLineButtonClicked()
     isAddingLine = !isAddingLine;  // 切换是否添加直线的状态
     isAddingCircle = false;  // 确保不在添加圆状态
     isAddingText = false;  // 确保不在添加文字状态
+    isAddingRectangle=false;
     drawingArea->scene->setAddingLine(isAddingLine);  // 通知场景开始/停止添加直线
+}
+
+//矩形按钮响应函数
+void ImageEditor::onAddRectangleButtonClicked()
+{
+    isAddingRectangle=!isAddingRectangle;//切换添加矩形状态
+    isAddingLine = false;  // 确保不在添加直线的状态
+    isAddingCircle = false;  // 确保不在添加圆状态
+    isAddingText = false;  // 确保不在添加文字状态
+    drawingArea->scene->setAddingRectangle(isAddingRectangle);  // 通知场景开始/停止添加矩形
 }
 
 //点击生成代码触发
@@ -138,7 +152,7 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
     //链接按钮槽和信号
     connect(insertCircleButton, &QPushButton::clicked, this, &ImageEditor::onAddCircleButtonClicked);
     connect(insertLineButton, &QPushButton::clicked, this, &ImageEditor::onAddLineButtonClicked);
-    connect(insertRectButton, &QPushButton::clicked, this, &ImageEditor::onGenerateCodeButtonClicked);//临时链接
+    connect(insertRectButton, &QPushButton::clicked, this, &ImageEditor::onAddRectangleButtonClicked);
 
     connect(drawingArea->scene, &CustomGraphicsScene::circleAdded, this, &ImageEditor::handleCircleAdded);
 

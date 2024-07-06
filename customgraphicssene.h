@@ -4,6 +4,7 @@
 #include "communal.h"
 #include "customcircleitem.h"
 #include "customlineitem.h"
+#include"customrectangleitem.h"
 
 QT_BEGIN_NAMESPACE
 class QGraphicsEllipseItem;
@@ -17,6 +18,7 @@ public:
     void setAddingCircle(bool condition);
     void setAddingText(bool condition);
     void setAddingLine(bool condition);
+    void setAddingRectangle(bool condition);
 
     std::vector<std::pair<QPointF, qreal>> getCircles()const;
     void updateData();
@@ -40,6 +42,8 @@ private:
     bool isAddingCircle;
     bool isAddingText;
     bool isAddingLine;
+    bool isAddingRectangle;
+
     QPointF firstPoint;
     double Radius;
 

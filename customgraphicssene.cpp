@@ -123,7 +123,8 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             isAddingText = false;  // 结束添加文本
             emit textAdded(text, event->scenePos());  // 发送文本添加信号，传递文本内容和位置
         }
-    } else if (isAddingLine)
+    }
+    else if (isAddingLine)
     {  // 新增：如果正在添加直线
         if (firstPoint.isNull())
         {
@@ -144,6 +145,25 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             isAddingLine = false;
             line->setCursor(Qt::PointingHandCursor); // 当鼠标在图形上时，改变指针样式
             updateData();
+        }
+    }
+    else if (isAddingRectangle) { // 处理新增的矩形
+        qDebug()<<"isAddingRec";
+        if (firstPoint.isNull()) {
+            firstPoint = event->scenePos();
+            centerPoint=addEllipse(firstPoint.x() - 2, firstPoint.y() - 2, 4, 4, QPen(Qt::NoPen), QBrush(Qt::red));
+            drawing = true;
+        }
+        else {
+            removeItem(tempLine);
+            removeItem(centerPoint);  // 移除中心点标记
+            centerPoint = nullptr;  // 中心点标记置为空
+            QRectF rect(firstPoint, event->scenePos());
+            CustomRectangleItem *rectangle = new CustomRectangleItem(rect);
+            addItem(rectangle);
+            firstPoint = QPointF();
+            drawing = false;
+            isAddingRectangle = false;
         }
     }
     QGraphicsScene::mousePressEvent(event);  // 调用基类的鼠标按下事件处理函数
@@ -177,7 +197,7 @@ void CustomGraphicsScene::setAddingLine(bool condition)
     isAddingLine=condition;
 }
 
-std::vector<std::pair<QPointF, qreal>> CustomGraphicsScene::getCircles()const {
+std::vector<std::pair<QPointF, qreal>> CustomGraphicsScene::getCircles()const {//遍历获取所有圆坐标和半径，已废置
     std::vector<std::pair<QPointF, qreal>> circles;
     for (QGraphicsItem *item : items()) {
         if (CustomCircleItem *circle = dynamic_cast<CustomCircleItem*>(item)) {
@@ -185,4 +205,9 @@ std::vector<std::pair<QPointF, qreal>> CustomGraphicsScene::getCircles()const {
         }
     }
     return circles;
+}
+
+void CustomGraphicsScene::setAddingRectangle(bool condition)
+{ // 新增的设置函数实现
+    isAddingRectangle = condition;
 }

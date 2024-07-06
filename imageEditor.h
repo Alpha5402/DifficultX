@@ -19,6 +19,7 @@ private:
     bool isAddingCircle;
     bool isAddingText;
     bool isAddingLine;
+    bool isAddingRectangle;
 
     EasyXCodeGenerator generator;
     QLineEdit *lineEdit_1;
@@ -44,6 +45,7 @@ private slots:
     void onAddCircleButtonClicked();
     void onAddLineButtonClicked();
     void onGenerateCodeButtonClicked();
+    void onAddRectangleButtonClicked();
 
     void receiveColorData(const QString &data);
     void onSendData();
