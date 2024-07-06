@@ -3,6 +3,10 @@
 
 #include "communal.h"
 #include <QWheelEvent>
+#include <QGraphicsEllipseItem>
+#include <QGraphicsItemGroup>
+#include <QGraphicsScene>
+#include <QGraphicsSceneMouseEvent>
 
 class CustomCircleItem : public QGraphicsEllipseItem {
     //Q_OBJECT
