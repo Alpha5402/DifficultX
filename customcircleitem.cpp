@@ -45,7 +45,7 @@ void CustomCircleItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         selected = !selected;  // 切换选中状态
         presstimes=0;
     }
-    centerPoint->setVisible(selected);  // 设置圆心标记可见性
+    centerPoint->setVisible(false);  // 设置圆心标记可见性
     radiusPoint->setVisible(selected);  // 设置半径端点标记可见性
     radiusLine->setVisible(selected);  // 设置半径线条可见性
 
@@ -59,7 +59,7 @@ void CustomCircleItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     //     QGraphicsEllipseItem::mouseMoveEvent(event);  // 调用基类的鼠标移动事件处理函数
     //     return;
     // }
-    if (isSelected()&&radiusPoint->isUnderMouse() )
+    if (selected&&radiusPoint->isUnderMouse() )
     {  // 如果选中并且鼠标位于半径端点标记上&& radiusPoint->isUnderMouse()
 
 
@@ -119,14 +119,24 @@ void CustomCircleItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     {
         qreal initialRadius = rect().width() / 2;
         QPointF initialPos = QPointF(rect().x() + rect().width() / 2, rect().y() + rect().height() / 2);
+        if(QLineF(mapToScene(initialPos),center).length()>5)
+        {
+            qDebug()<<QLineF(initialPos,center).length()<<endl;
+
+            presstimes=0;
+        }
         center=mapToScene(initialPos);
         radius=initialRadius;        // 更新圆形项的位置和大小
     }
-
+    else
+    {
+        presstimes=0;
+    }
+    hasChanged=false;
     centerPoint->setRect(mapFromScene(center).x()-6, mapFromScene(center).y()-6, 12, 12);
     radiusPoint->setRect(mapFromScene(center).x()+radius-6, mapFromScene(center).y()-6, 12, 12);  // 更新半径端点标记的位置和大小
     radiusLine->setLine(QLineF(mapFromScene(center), radiusPoint->rect().center()));  // 更新半径线条的位置和方向
-
+    qDebug()<<presstimes<<endl;
     update();
     QGraphicsEllipseItem::mouseReleaseEvent(event);  // 调用基类的鼠标释放事件处理函数
 }
