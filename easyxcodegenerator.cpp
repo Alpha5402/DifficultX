@@ -86,7 +86,7 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
             if(circle->R!=ini_R||circle->G!=ini_G||circle->B!=ini_B)
             {
                 code+=QString("setcolor(RGB(%1,%2,%3));\n").arg(circle->R).arg(circle->G).arg(circle->B);
-                // colorcode.push_back(QString("setcolor(RGB(%1,%2,%3));\n").arg(circle->R).arg(circle->G).arg(circle->B));//如果有颜色，改画笔
+                colorcode.push_back(QString("setcolor(RGB(%1,%2,%3));\n").arg(circle->R).arg(circle->G).arg(circle->B));//如果有颜色，改画笔
                 ini_R=circle->R;
                 ini_G=circle->G;
                 ini_B=circle->B;
@@ -96,14 +96,18 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
         }
         else if (CustomLineItem *line = dynamic_cast<CustomLineItem*>(item))
         {
-            // if(line->R!=ini_R||line->G!=ini_G||line->B!=ini_B)
-            // {
-            //     code+=QString("setcolor(RGB(%1,%2,%3));\n").arg(circle->R).arg(circle->G).arg(circle->B);//如果有颜色，改画笔
-            // ini_R=line->R;
-            // ini_G=line->G;
-            // ini_B=line->B;
-            // }
+            qDebug()<<line->R<<"sdinjfni";
+
+            if(line->R!=ini_R||line->G!=ini_G||line->B!=ini_B)
+            {
+                qDebug()<<"222"<<line->G;
+                code+=QString("setcolor(RGB(%1,%2,%3));\n").arg(line->R).arg(line->G).arg(line->B);//如果有颜色，改画笔
+                ini_R=line->R;
+                ini_G=line->G;
+                ini_B=line->B;
+            }
             code+= QString("line(%1,%2,%3,%4);\n").arg(line->point1.x()).arg(line->point1.y()).arg(line->point2.x()).arg(line->point2.y());
+            qDebug()<< QString("line(%1,%2,%3,%4);\n").arg(line->point1.x()).arg(line->point1.y()).arg(line->point2.x()).arg(line->point2.y());
         }
     }
     qDebug()<<code;
@@ -129,5 +133,6 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
 
 QString EasyXCodeGenerator::getCode() const
 {
+    qDebug()<<111<<code<<endl;
     return code;
 }
