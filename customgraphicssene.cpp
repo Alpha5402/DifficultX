@@ -16,7 +16,7 @@ void CustomGraphicsScene::updateData(){
         } else if (CustomLineItem *lineItem = dynamic_cast<CustomLineItem*>(item)) {  // 更新圆形项的位置和大小
             //circleItem->center.setX(value);
             QString msg = QString("%1, %2, %3, %4").arg(lineItem->point1.x()).arg(lineItem->point1.y()).arg(lineItem->point2.x()).arg(lineItem->point2.y());
-            qDebug() << "[INFO] Pass the msg " << msg;
+            //qDebug() << "[INFO] Pass the msg " << msg;
             emit drawingLineFinished(msg);
         }
     }
@@ -102,6 +102,9 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             circle = new CustomCircleItem(firstPoint.x(), firstPoint.y(), radius * 2);  // 创建自定义圆形项
             LineColor.setWidth(2);
             circle->setPen(LineColor);
+            circle->R=LineColor.color().red();
+            circle->G=LineColor.color().green();
+            circle->B=LineColor.color().blue();
             Radius = radius;
             addItem(circle);  // 添加圆形项到场景
             removeItem(centerPoint);  // 移除中心点标记
@@ -137,6 +140,9 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             removeItem(tempLine);
             line = new CustomLineItem(QLineF(firstPoint, event->scenePos()));
             line->setPen(LineColor);
+            line->R=LineColor.color().red();
+            line->G=LineColor.color().green();
+            line->B=LineColor.color().blue();
             addItem(line);
             removeItem(centerPoint);  // 移除中心点标记
             centerPoint = nullptr;  // 中心点标记置为空

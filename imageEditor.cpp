@@ -156,8 +156,6 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
 
     connect(drawingArea->scene, &CustomGraphicsScene::circleAdded, this, &ImageEditor::handleCircleAdded);
 
-
-
     QPushButton *insertEllipticButton = new QPushButton("插入 椭圆", this);
     QPushButton *insertTextButton = new QPushButton("插入 文本", this);
 
@@ -165,6 +163,8 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
     validator->setNotation(QDoubleValidator::StandardNotation);
     // 设置输入验证器，只允许输入整数或浮点数
 
+    QWidget *para_line_1 = new QWidget(this);
+    QHBoxLayout *para_line_box_1 = new QHBoxLayout(para_line_1);
     QWidget *parameter_1 = new QWidget(this);
     QVBoxLayout *para_box_1 = new QVBoxLayout(parameter_1);
     QLabel *parameterLabel_1 = new QLabel("参数 1", this);
@@ -177,6 +177,7 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
     para_box_1->addWidget(lineEdit_1, 1);
     connect(lineEdit_1, &QLineEdit::editingFinished, this, &ImageEditor::handlePara1EditingFinished);
     QObject::connect(this, &ImageEditor::Para1Changed, drawingArea->scene, &CustomGraphicsScene::ReceivePara1ValueChanged);
+    para_line_box_1->addWidget(parameter_1, 1);
 
     parameterTitle->setFixedHeight(buttonHeight);
 
@@ -191,7 +192,10 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
     para_box_2->addWidget(lineEdit_2, 1);
     connect(lineEdit_2, &QLineEdit::editingFinished, this, &ImageEditor::handlePara2EditingFinished);
     QObject::connect(this, &ImageEditor::Para2Changed, drawingArea->scene, &CustomGraphicsScene::ReceivePara2ValueChanged);
+    para_line_box_1->addWidget(parameter_2, 1);
 
+    QWidget *para_line_2 = new QWidget(this);
+    QHBoxLayout *para_line_box_2 = new QHBoxLayout(para_line_2);
     QWidget *parameter_3 = new QWidget(this);
     QVBoxLayout *para_box_3 = new QVBoxLayout(parameter_3);
     QLabel *parameterLabel_3 = new QLabel("参数 3", this);
@@ -203,6 +207,7 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
     para_box_3->addWidget(lineEdit_3, 1);
     connect(lineEdit_3, &QLineEdit::editingFinished, this, &ImageEditor::handlePara3EditingFinished);
     QObject::connect(this, &ImageEditor::Para3Changed, drawingArea->scene, &CustomGraphicsScene::ReceivePara3ValueChanged);
+    para_line_box_2->addWidget(parameter_3, 1);
 
     QWidget *parameter_4 = new QWidget(this);
     QVBoxLayout *para_box_4 = new QVBoxLayout(parameter_4);
@@ -215,12 +220,15 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
     para_box_4->addWidget(lineEdit_4, 1);
     connect(lineEdit_4, &QLineEdit::editingFinished, this, &ImageEditor::handlePara4EditingFinished);
     QObject::connect(this, &ImageEditor::Para4Changed, drawingArea->scene, &CustomGraphicsScene::ReceivePara4ValueChanged);
+    para_line_box_2->addWidget(parameter_4, 1);
 
     QPushButton *closeButton = new QPushButton("关闭", this);
-    layout->addWidget(parameter_1, 1);
-    layout->addWidget(parameter_2, 1);
-    layout->addWidget(parameter_3, 1);
-    layout->addWidget(parameter_4, 1);
+    layout->addWidget(para_line_1, 1);
+    layout->addWidget(para_line_2, 1);
+    //para_line_box_1->addWidget(parameter_1, 1);
+    //layout->addWidget(parameter_2, 1);
+    //layout->addWidget(parameter_3, 1);
+    //layout->addWidget(parameter_4, 1);
 
     QLabel *ColorTitle = new QLabel("调色区", this);
     ColorTitle->setAlignment(Qt::AlignCenter);
@@ -236,12 +244,57 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
     QLabel *StyleTitle = new QLabel("样式区", this);
     StyleTitle->setAlignment(Qt::AlignCenter);
     StyleTitle->setFixedHeight(2 * buttonHeight);
-    QPushButton *FontButton = new QPushButton("设置字体", this);
-    QPushButton *BrushButton = new QPushButton("设置笔刷", this);
+    fontComboBox = new QComboBox(this);
+    QFontDatabase fontDatabase;
+    fontComboBox->addItems(fontDatabase.families());
+
+    QWidget * brushBox = new QWidget(this);
+    QVBoxLayout * brushBoxLayout = new QVBoxLayout(brushBox);
+    QSlider* brushSlider(new QSlider(Qt::Horizontal, this));
+    styleLabel = new QLabel("设置笔刷大小: 1", this);
+    brushSlider->setMinimum(1);
+    brushSlider->setMaximum(16);
+    brushSlider->setValue(1);
+    brushSlider->setTickPosition(QSlider::TicksBelow);
+    brushSlider->setTickInterval(1);
+    brushBoxLayout->addWidget(styleLabel, 1);
+    brushBoxLayout->addWidget(brushSlider, 1);
+
+    QComboBox* fontSizeComboBox(new QComboBox(this));
+    for (int i = 8; i <= 48; i += 2) {
+        fontSizeComboBox->addItem(QString::number(i));
+    }
+    fontSizeComboBox->setCurrentText("12");
+
+    //setCentralWidget(centralWidget);
+
+    fontLabel = new QLabel("设置文本字体: 微软雅黑", this);
+    QString defaultFont = "微软雅黑"; // 预设的字体名称
+    int defaultIndex = fontComboBox->findText(defaultFont);
+    if (defaultIndex != -1) {
+        fontComboBox->setCurrentIndex(defaultIndex);
+        QFont font(defaultFont);
+        fontLabel->setFont(font); // 设置 label 的初始字体
+    }
+    fontLabel->setFont(QFont("微软雅黑"));
+
+    QWidget * FontBox = new QWidget(this);
+    QVBoxLayout * fontBoxLayout = new QVBoxLayout(FontBox);
+    QWidget * FontComboBox = new QWidget(this);
+    QHBoxLayout * fontComboBoxLayout = new QHBoxLayout(FontComboBox);
+    fontComboBox->setMinimumSize(QSize(16, 16));
+    fontComboBoxLayout->addWidget(fontComboBox, 3);
+    fontComboBoxLayout->addWidget(fontSizeComboBox, 1);
+    fontBoxLayout->addWidget(fontLabel, 1);
+    fontBoxLayout->addWidget(FontComboBox, 1);
+
+    connect(brushSlider, &QSlider::valueChanged, this, &ImageEditor::onSliderValueChanged);
+    connect(fontComboBox, &QComboBox::currentTextChanged, this, &ImageEditor::onFontChanged);
+    connect(fontSizeComboBox, &QComboBox::currentTextChanged, this, &ImageEditor::onFontSizeChanged);
 
     layout->addWidget(StyleTitle, 1);
-    layout->addWidget(FontButton, 1);
-    layout->addWidget(BrushButton, 1);
+    layout->addWidget(brushBox, 1);
+    layout->addWidget(FontBox, 1);
 
     QLabel *ButtonsTitle = new QLabel("插入区", this);
     ButtonsTitle->setFixedHeight(buttonHeight);
@@ -263,8 +316,8 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
     painter.setPen(Qt::blue);
     drawingArea->drawShapes(painter);
 
+    connect(closeButton, &QPushButton::clicked, this, &ImageEditor::onGenerateCodeButtonClicked);
     connect(closeButton, &QPushButton::clicked, this, &ImageEditor::onSendData);
-
 }
 
 void ImageEditor::receiveColorData(const QString &data) {
@@ -310,6 +363,7 @@ void ImageEditor::receiveColorData(const QString &data) {
 }
 
 void ImageEditor::onSendData() {
+    ToHandle += generator.getCode();
     emit sendData(ToHandle); // 发射信号将数据传回A窗口
     this->close(); // 关闭B窗口
 }
@@ -351,3 +405,20 @@ void ImageEditor::handlePara4EditingFinished()
         emit Para4Changed(value);
 }
 
+void ImageEditor::onSliderValueChanged(int value)
+{
+    styleLabel->setText(QString("设置笔刷大小: %1").arg(value));
+}
+
+void ImageEditor::onFontChanged(const QString &fontName)
+{
+    QFont font(fontName);
+    fontLabel->setText(QString("设置文本字体: %1").arg(fontName));
+    fontLabel->setFont(font);
+    //label->setFont(font);
+}
+
+void ImageEditor::onFontSizeChanged(const QString &fontSize)
+{
+    QFont font(fontComboBox->currentText(), fontSize.toInt());
+}

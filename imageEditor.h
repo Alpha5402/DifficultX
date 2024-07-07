@@ -29,6 +29,9 @@ private:
     QPen LineColor;
     QPen FillColor;
     QPen BackColor;
+    QLabel *styleLabel;
+    QLabel *fontLabel;
+    QComboBox *fontComboBox;
 
 
 signals:
@@ -58,6 +61,10 @@ private slots:
     void handlePara2EditingFinished();
     void handlePara3EditingFinished();
     void handlePara4EditingFinished();
+
+    void onSliderValueChanged(int value);
+    void onFontChanged(const QString &fontName);
+    void onFontSizeChanged(const QString &fontSize);
 };
 
 #endif // IMAGEEDITOR_H
