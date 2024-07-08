@@ -25,6 +25,7 @@ public:
     void updateData();
     CustomCircleItem *circle;
     CustomLineItem *line;
+    CustomTextItem *text;
 
     QPen LineColor;
     void DrawCircle(double x, double y, double Radius);

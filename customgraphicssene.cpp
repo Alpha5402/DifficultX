@@ -119,12 +119,12 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         }
     } else if (isAddingText) {  // 如果正在添加文本
         bool ok;
-        QString text = QInputDialog::getText(nullptr, "输入文字", "请输入文字:", QLineEdit::Normal, "", &ok);
-        if (ok && !text.isEmpty()) {
-            CustomTextItem *textItem = new CustomTextItem(text);
-            textItem->setPos(event->scenePos());
-            addItem(textItem);
-            textItem->setMovable(true);  // 设置文本项可移动
+        QString textcontent = QInputDialog::getText(nullptr, "输入文字", "请输入文字:", QLineEdit::Normal, "", &ok);
+        if (ok && !textcontent.isEmpty()) {
+            text = new CustomTextItem(textcontent);
+            text->setPos(event->scenePos());
+            addItem(text);
+            text->setMovable(true);  // 设置文本项可移动
             isAddingText = false;
         }
     }

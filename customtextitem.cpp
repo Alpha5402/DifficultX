@@ -16,9 +16,9 @@ CustomTextItem::CustomTextItem(const QString &text, QGraphicsItem *parent)
 // 参数：font - 要设置的QFont对象
 void CustomTextItem::setFont(const QFont &font)
 {
+    textstyle=font.family();
+    textsize=font.pixelSize();
     QGraphicsTextItem::setFont(font); // 调用基类的方法设置字体
-    textstyle=font.styleName();
-
 }
 
 // 设置文本内容
