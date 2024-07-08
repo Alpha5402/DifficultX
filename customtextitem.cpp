@@ -17,7 +17,11 @@ CustomTextItem::CustomTextItem(const QString &text, QGraphicsItem *parent)
 void CustomTextItem::setFont(const QFont &font)
 {
     textstyle=font.family();
-    textsize=font.pixelSize();
+    textsize=-font.pixelSize();
+    QRectF boundingRect = this->boundingRect();
+    textRectWidth=boundingRect.x();
+    textRectHight=boundingRect.y();
+    qDebug()<<textstyle;
     QGraphicsTextItem::setFont(font); // 调用基类的方法设置字体
 }
 
@@ -37,28 +41,29 @@ void CustomTextItem::setMovable(bool movable) {
 // 鼠标按下事件处理函数
 // 参数：event - QGraphicsSceneMouseEvent对象，包含鼠标事件信息
 void CustomTextItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    if(isSelected())
-    {
-        isMovable=true;
-    }
+    // if(isSelected())
+    // {
+    //     isMovable=true;
+    // }
     QGraphicsTextItem::mousePressEvent(event); // 调用基类的方法处理鼠标按下事件
 }
 
 // 鼠标移动事件处理函数
 void CustomTextItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
-    if (isMovable)
-    { // 只有当文本项可移动时，才处理移动
-        QPointF newPoint=event->scenePos();
-        position=newPoint;
-        setPos(position);
-    }
+    // if (isMovable)
+    // { // 只有当文本项可移动时，才处理移动
+    //     QPointF newPoint=event->scenePos();
+    //     position=newPoint;
+    //     setPos(position);
+    // }
+    position=this->scenePos();
     QGraphicsTextItem::mouseMoveEvent(event); // 调用基类的方法处理鼠标移动事件
 }
 
 // 鼠标释放事件处理函数
 // 参数：event - QGraphicsSceneMouseEvent对象，包含鼠标事件信息
 void CustomTextItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
-    isMovable=false;
+    // isMovable=false;
     qDebug()<<position;
     QGraphicsTextItem::mouseReleaseEvent(event); // 调用基类的方法处理鼠标释放事件
 }

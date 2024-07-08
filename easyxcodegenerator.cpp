@@ -28,29 +28,29 @@ void EasyXCodeGenerator::clear()
 
 void EasyXCodeGenerator::addCircle(QPointF c,qreal r)
 {
-    CircleItem circle(c,r);//存个数据，没啥用
-    circles_gen.push_back(circle);
-    QString circle_code = QString("circle(%1,%2,%3);\n").arg(c.x()).arg(c.y()).arg(r);
-    test_is_code_right_generator << circle_code << Qt::endl; // test code
-    code.append(circle_code);
-    test_is_code_right_generator << "add circle." << code << Qt::endl; // test code
+    // CircleItem circle(c,r);//存个数据，没啥用
+    // circles_gen.push_back(circle);
+    // QString circle_code = QString("circle(%1,%2,%3);\n").arg(c.x()).arg(c.y()).arg(r);
+    // test_is_code_right_generator << circle_code << Qt::endl; // test code
+    // code.append(circle_code);
+    // test_is_code_right_generator << "add circle." << code << Qt::endl; // test code
 }
 
 void EasyXCodeGenerator::addText(const QString &text, const QPointF &position)
 {
-    QString text_code = QString("outtextxy(%1, %2,_T(\"%3\"));\n").arg(position.x()).arg(position.y()).arg(text);
-    test_is_code_right_generator << text_code << Qt::endl; // test code
-    code.append(text_code);
-    test_is_code_right_generator << "add text." << code << Qt::endl;
+    // QString text_code = QString("outtextxy(%1, %2,_T(\"%3\"));\n").arg(position.x()).arg(position.y()).arg(text);
+    // test_is_code_right_generator << text_code << Qt::endl; // test code
+    // code.append(text_code);
+    // test_is_code_right_generator << "add text." << code << Qt::endl;
 }
 void EasyXCodeGenerator::addLine(QPointF p1,QPointF p2)//增加一个线段
 {
-    LineItem line(p1,p2);//存个数据，没啥用
-    lines_gen.push_back(line);
-    QString line_code = QString("line(%1,%2,%3,%4);\n").arg(p1.x()).arg(p1.y()).arg(p2.x()).arg(p2.y());
-    test_is_code_right_generator << line_code << Qt::endl; // test code
-    code.append(line_code);
-    test_is_code_right_generator << "add line." << code << Qt::endl; // test code
+    // LineItem line(p1,p2);//存个数据，没啥用
+    // lines_gen.push_back(line);
+    // QString line_code = QString("line(%1,%2,%3,%4);\n").arg(p1.x()).arg(p1.y()).arg(p2.x()).arg(p2.y());
+    // test_is_code_right_generator << line_code << Qt::endl; // test code
+    // code.append(line_code);
+    // test_is_code_right_generator << "add line." << code << Qt::endl; // test code
 }
 
 void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
@@ -59,13 +59,24 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
     int ini_R=0;
     int ini_G=0;
     int ini_B=0;
+    QColor initextColor;//第一次调用时初始化
 
-    code.clear();
+    QFont initial_font;
+    initial_font.setFamily("000");
+    initial_font.setPixelSize(-100);
+
+    bool hasTextsyleChanged=false;
+
+    code.clear();//清空缓存
 
     //预设信息
-    code+="setBKcolor(WIGHT);\n";
-    code+="setcolor(BLACK);\n";
+    code+="\tsetBKcolor(RGB(255,255,255));\n";
+    code+="\tsetcolor(RGB(0,0,0));\n";
     code+="\tcleardevice()\n";
+    code+="\tLOGFONT f;\n";
+    code+="\tgettextstyle(&f);\n";
+
+
     vector<QGraphicsItem *>Item;
     vector<QString>tempcode;
     vector<QString>colorcode;
@@ -119,6 +130,42 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
             //     ini_B=rec->B;//无初始化与声明定义
             // }
             code+= QString("\trectangle(%1,%2,%3,%4);\n").arg(rec->LT.x()).arg(rec->LT.y()).arg(rec->RB.x()).arg(rec->RB.y());
+        }
+        else if(CustomTextItem *text=dynamic_cast<CustomTextItem*>(item))
+        {
+            if(text->font().family()!=initial_font.family())
+            {
+                code+=QString("\t_tcscpy_(f.lfFaceName, _T(\"%1\"));\n").arg(text->font().family());
+                initial_font.setFamily(text->font().family());
+                hasTextsyleChanged=true;
+            }
+            if(text->font().pixelSize()!=initial_font.pixelSize())
+            {
+                code+=QString("\tf.lfHeight = %1;\n").arg(-text->font().pixelSize());
+                hasTextsyleChanged=true;
+            }
+
+            if(hasTextsyleChanged)
+            {
+                code+="\tsettextstyle(&f);\n";
+                hasTextsyleChanged=false;//重置更改布尔值
+            }
+
+            if(!(initextColor.isValid()))
+            {
+                initextColor=text->defaultTextColor();//初始化，颜色没有初始化是无效值
+                code+=QString("\tsettextcolor(RGB(%1,%2,%3));\n")
+                            .arg(text->defaultTextColor().red()).arg(text->defaultTextColor().green()).arg(text->defaultTextColor().blue());
+            }
+            else if(initextColor!=text->defaultTextColor())
+            {
+                initextColor=text->defaultTextColor();//重置当前颜色
+                code+=QString("\tsettextcolor(RGB(%1,%2,%3));\n")
+                            .arg(text->defaultTextColor().red()).arg(text->defaultTextColor().green()).arg(text->defaultTextColor().blue());
+            }
+
+            code+=QString("\touttextxy(%1, %2, _T(\"%3\"));\n").arg(text->position.x()).arg(text->position.y()).arg(text->toPlainText());
+
         }
     }
     qDebug()<<code;

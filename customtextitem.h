@@ -20,10 +20,12 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
 
-private:
+public:
     bool isMovable;
     QString textstyle;//没初始化
     int textsize;
+    int textRectWidth;
+    int textRectHight;
     QPointF position;//左上位置
     // QString text;
 };

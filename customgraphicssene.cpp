@@ -125,8 +125,8 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             text->setPos(event->scenePos());
             addItem(text);
             text->setMovable(true);  // 设置文本项可移动
-            isAddingText = false;
         }
+        isAddingText = false;
     }
     else if (isAddingLine)
     {  // 新增：如果正在添加直线
@@ -216,5 +216,6 @@ std::vector<std::pair<QPointF, qreal>> CustomGraphicsScene::getCircles()const {/
 
 void CustomGraphicsScene::setAddingRectangle(bool condition)
 { // 新增的设置函数实现
+    isAddingLine=false;
     isAddingRectangle = condition;
 }
