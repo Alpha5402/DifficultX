@@ -16,7 +16,7 @@ void CustomGraphicsScene::updateData(){
         } else if (CustomLineItem *lineItem = dynamic_cast<CustomLineItem*>(item)) {  // 更新圆形项的位置和大小
             //circleItem->center.setX(value);
             QString msg = QString("%1, %2, %3, %4").arg(lineItem->point1.x()).arg(lineItem->point1.y()).arg(lineItem->point2.x()).arg(lineItem->point2.y());
-            qDebug() << "[INFO] Pass the msg " << msg;
+            //qDebug() << "[INFO] Pass the msg " << msg;
             emit drawingLineFinished(msg);
         }
     }
@@ -100,8 +100,11 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             removeItem(tempLine);  // 移除临时线条
             qreal radius = QLineF(firstPoint, event->scenePos()).length();  // 计算半径
             circle = new CustomCircleItem(firstPoint.x(), firstPoint.y(), radius * 2);  // 创建自定义圆形项
-            LineColor.setWidth(2);
+            //LineColor.setWidth(2);
             circle->setPen(LineColor);
+            circle->R=LineColor.color().red();
+            circle->G=LineColor.color().green();
+            circle->B=LineColor.color().blue();
             Radius = radius;
             addItem(circle);  // 添加圆形项到场景
             removeItem(centerPoint);  // 移除中心点标记
@@ -111,17 +114,18 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             isAddingCircle = false;  // 结束添加圆形
             circle->setCursor(Qt::PointingHandCursor); // 当鼠标在图形上时，改变指针样式
 
-            emit circleAdded(circle->rect().center(),radius);  // 发送圆形添加信号，传递圆形的中心点
+           // emit circleAdded(circle->rect().center(),radius);  // 发送圆形添加信号，传递圆形的中心点
             updateData();
         }
     } else if (isAddingText) {  // 如果正在添加文本
         bool ok;
-        QString text = QInputDialog::getText(nullptr, "输入文字", "请输入文字:", QLineEdit::Normal, "", &ok);  // 弹出输入对话框获取文本
-        if (ok && !text.isEmpty()) {  // 如果用户确认输入且文本非空
-            QGraphicsTextItem *textItem = addText(text);  // 添加文本项到场景
-            textItem->setPos(event->scenePos());  // 设置文本项位置为鼠标事件的场景位置
-            isAddingText = false;  // 结束添加文本
-            emit textAdded(text, event->scenePos());  // 发送文本添加信号，传递文本内容和位置
+        QString textcontent = QInputDialog::getText(nullptr, "输入文字", "请输入文字:", QLineEdit::Normal, "", &ok);
+        if (ok && !textcontent.isEmpty()) {
+            text = new CustomTextItem(textcontent);
+            text->setPos(event->scenePos());
+            addItem(text);
+            text->setMovable(true);  // 设置文本项可移动
+            isAddingText = false;
         }
     }
     else if (isAddingLine)
@@ -137,6 +141,9 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             removeItem(tempLine);
             line = new CustomLineItem(QLineF(firstPoint, event->scenePos()));
             line->setPen(LineColor);
+            line->R=LineColor.color().red();
+            line->G=LineColor.color().green();
+            line->B=LineColor.color().blue();
             addItem(line);
             removeItem(centerPoint);  // 移除中心点标记
             centerPoint = nullptr;  // 中心点标记置为空
