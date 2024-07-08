@@ -20,10 +20,12 @@ private:
     void SetLineColor();
     void SetFillColor();
     void SetBackColor();
+    void SetTextColor();
     QLabel *colorLabel;
     QString LineColor;
     QString FillColor;
     QString BackColor;
+    QString TextColor;
     QString CurrentColor;
 };
 #endif // COLORPICKERWIDGET_H
