@@ -8,6 +8,8 @@
 #include <QGraphicsItemGroup>
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
+#include <QRectF>
+#include "communal.h"
 
 class CustomRectangleItem : public QGraphicsRectItem {
 public:

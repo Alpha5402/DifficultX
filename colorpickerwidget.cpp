@@ -11,15 +11,19 @@ ColorPickerWidget::ColorPickerWidget(QWidget *parent) : QWidget(parent) {
     connect(setlinecolor, &QPushButton::clicked, this, &ColorPickerWidget::SetLineColor);
     QPushButton *setfillcolor = new QPushButton("设置为填充颜色", this);
     connect(setfillcolor, &QPushButton::clicked, this, &ColorPickerWidget::SetFillColor);
+    QPushButton *settextcolor = new QPushButton("设置为字体颜色", this);
+    connect(settextcolor, &QPushButton::clicked, this, &ColorPickerWidget::SetTextColor);
     QWidget *SetColor = new QWidget(this);
     QHBoxLayout *ButtonSet = new QHBoxLayout(SetColor);
     ButtonSet->addWidget(setbkcolor, 1);
     ButtonSet->addWidget(setlinecolor, 1);
     ButtonSet->addWidget(setfillcolor, 1);
+    ButtonSet->addWidget(settextcolor, 1);
 
     QPushButton *getbkcolor = new QPushButton("获取背景颜色", this);
     QPushButton *getlinecolor = new QPushButton("获取线条颜色", this);
     QPushButton *getfillcolor = new QPushButton("获取填充颜色", this);
+    QPushButton *gettextcolor = new QPushButton("获取字体颜色", this);
     QPushButton *confirm = new QPushButton("确定", this);
     connect(confirm, &QPushButton::clicked, this, &ColorPickerWidget::onSendColorData);
     QWidget *GetColor = new QWidget(this);
@@ -27,8 +31,7 @@ ColorPickerWidget::ColorPickerWidget(QWidget *parent) : QWidget(parent) {
     ButtonGet->addWidget(getbkcolor, 1);
     ButtonGet->addWidget(getlinecolor, 1);
     ButtonGet->addWidget(getfillcolor, 1);
-
-
+    ButtonGet->addWidget(gettextcolor, 1);
 
     layout->addWidget(button);
     layout->addWidget(GetColor);
@@ -82,4 +85,7 @@ void ColorPickerWidget::SetFillColor(){
 }
 void ColorPickerWidget::SetBackColor(){
     BackColor = CurrentColor;
+}
+void ColorPickerWidget::SetTextColor(){
+    TextColor = CurrentColor;
 }

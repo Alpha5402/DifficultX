@@ -28,7 +28,11 @@ private:
     QLineEdit *lineEdit_4;
     QPen LineColor;
     QPen FillColor;
+    QFont textFont;
     QPen BackColor;
+    QLabel *styleLabel;
+    QLabel *fontLabel;
+    QComboBox *fontComboBox;
 
 
 signals:
@@ -46,6 +50,7 @@ private slots:
     void onAddLineButtonClicked();
     void onGenerateCodeButtonClicked();
     void onAddRectangleButtonClicked();
+    void onAddTextButtonClicked();
 
     void receiveColorData(const QString &data);
     void onSendData();
@@ -58,6 +63,10 @@ private slots:
     void handlePara2EditingFinished();
     void handlePara3EditingFinished();
     void handlePara4EditingFinished();
+
+    void onSliderValueChanged(int value);
+    void onFontChanged(const QString &fontName);
+    void onFontSizeChanged(const QString &fontSize);
 };
 
 #endif // IMAGEEDITOR_H

@@ -4,7 +4,8 @@
 #include "communal.h"
 #include "customcircleitem.h"
 #include "customlineitem.h"
-#include"customrectangleitem.h"
+#include "customrectangleitem.h"
+#include "customtextitem.h"
 
 QT_BEGIN_NAMESPACE
 class QGraphicsEllipseItem;
@@ -24,8 +25,10 @@ public:
     void updateData();
     CustomCircleItem *circle;
     CustomLineItem *line;
+    CustomTextItem *text;
 
     QPen LineColor;
+    QPen TextColor;
     void DrawCircle(double x, double y, double Radius);
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
