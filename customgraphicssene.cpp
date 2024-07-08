@@ -114,17 +114,18 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             isAddingCircle = false;  // 结束添加圆形
             circle->setCursor(Qt::PointingHandCursor); // 当鼠标在图形上时，改变指针样式
 
-            emit circleAdded(circle->rect().center(),radius);  // 发送圆形添加信号，传递圆形的中心点
+            // emit circleAdded(circle->rect().center(),radius);  // 发送圆形添加信号，传递圆形的中心点
             updateData();
         }
     } else if (isAddingText) {  // 如果正在添加文本
         bool ok;
-        QString text = QInputDialog::getText(nullptr, "输入文字", "请输入文字:", QLineEdit::Normal, "", &ok);  // 弹出输入对话框获取文本
-        if (ok && !text.isEmpty()) {  // 如果用户确认输入且文本非空
-            QGraphicsTextItem *textItem = addText(text);  // 添加文本项到场景
-            textItem->setPos(event->scenePos());  // 设置文本项位置为鼠标事件的场景位置
-            isAddingText = false;  // 结束添加文本
-            emit textAdded(text, event->scenePos());  // 发送文本添加信号，传递文本内容和位置
+        QString text = QInputDialog::getText(nullptr, "输入文字", "请输入文字:", QLineEdit::Normal, "", &ok);
+        if (ok && !text.isEmpty()) {
+            CustomTextItem *textItem = new CustomTextItem(text);
+            textItem->setPos(event->scenePos());
+            addItem(textItem);
+            textItem->setMovable(true);  // 设置文本项可移动
+            isAddingText = false;
         }
     }
     else if (isAddingLine)

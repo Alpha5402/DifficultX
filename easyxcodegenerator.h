@@ -6,7 +6,7 @@
 #include <vector>
 #include <QTextStream>
 #include "communal.h"
-#include "customgraphicssene.h""
+#include "customgraphicssene.h"
 #include "customcircleitem.h"
 
 using std::vector;

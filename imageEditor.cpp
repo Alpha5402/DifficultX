@@ -97,6 +97,16 @@ void ImageEditor::onAddRectangleButtonClicked()
     drawingArea->scene->setAddingRectangle(isAddingRectangle);  // 通知场景开始/停止添加矩形
 }
 
+//文字按钮响应函数
+void ImageEditor::onAddTextButtonClicked()
+{
+    isAddingText=!isAddingText;
+    isAddingRectangle=false;//切换添加矩形状态
+    isAddingLine = false;  // 确保不在添加直线的状态
+    isAddingCircle = false;  // 确保不在添加圆状态
+    drawingArea->scene->setAddingText(isAddingText);  // 通知场景开始/停止添加矩形
+}
+
 //点击生成代码触发
 void ImageEditor::onGenerateCodeButtonClicked()
 {
@@ -149,15 +159,18 @@ ImageEditor::ImageEditor(QWidget *parent) : QWidget(parent) {
     QPushButton *insertLineButton = new QPushButton("插入 直线", this);
     QPushButton *insertRectButton = new QPushButton("插入 矩形", this);
     QPushButton *insertCircleButton = new QPushButton("插入 圆", this);
+    QPushButton *insertEllipticButton = new QPushButton("插入 椭圆", this);
+    QPushButton *insertTextButton = new QPushButton("插入 文本", this);
+
     //链接按钮槽和信号
     connect(insertCircleButton, &QPushButton::clicked, this, &ImageEditor::onAddCircleButtonClicked);
     connect(insertLineButton, &QPushButton::clicked, this, &ImageEditor::onAddLineButtonClicked);
     connect(insertRectButton, &QPushButton::clicked, this, &ImageEditor::onAddRectangleButtonClicked);
+    connect(insertTextButton, &QPushButton::clicked, this, &ImageEditor::onAddTextButtonClicked);
 
     connect(drawingArea->scene, &CustomGraphicsScene::circleAdded, this, &ImageEditor::handleCircleAdded);
 
-    QPushButton *insertEllipticButton = new QPushButton("插入 椭圆", this);
-    QPushButton *insertTextButton = new QPushButton("插入 文本", this);
+
 
     QDoubleValidator *validator = new QDoubleValidator(this);
     validator->setNotation(QDoubleValidator::StandardNotation);

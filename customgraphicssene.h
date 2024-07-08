@@ -5,6 +5,7 @@
 #include "customcircleitem.h"
 #include "customlineitem.h"
 #include"customrectangleitem.h"
+#include"customtextitem.h"
 
 QT_BEGIN_NAMESPACE
 class QGraphicsEllipseItem;

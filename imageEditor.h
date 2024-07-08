@@ -49,6 +49,7 @@ private slots:
     void onAddLineButtonClicked();
     void onGenerateCodeButtonClicked();
     void onAddRectangleButtonClicked();
+    void onAddTextButtonClicked();
 
     void receiveColorData(const QString &data);
     void onSendData();
