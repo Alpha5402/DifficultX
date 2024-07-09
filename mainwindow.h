@@ -42,6 +42,7 @@ private slots:
 public slots:
     void DrawSomeThing(const QString& text);
     void receiveData(const QString &data);
+    void removeSolveFunction(QTextEdit *document);
 };
 
 #endif // MAINWINDOW_H

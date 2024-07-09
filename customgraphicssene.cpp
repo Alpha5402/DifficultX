@@ -5,26 +5,38 @@ void CustomGraphicsScene::DrawCircle(double x, double y, double Radius){
     addItem(circle);  // 添加圆形项到场景
 }
 
+void CustomGraphicsScene::DrawLine(double x1, double y1, double x2, double y2){
+
+}
+
+void CustomGraphicsScene::DrawText(double x, double y, QString text){
+
+}
+
+void CustomGraphicsScene::DrawRect(double x1, double y1, double x2, double y2){
+
+}
+
 void CustomGraphicsScene::updateData(){
     //QString msg = QString("%1, %2, %3").arg(firstPoint.x()).arg(firstPoint.y()).arg(Radius);
     auto items = selectedItems();
     for (auto item : items) {
         if (CustomCircleItem *circleItem = dynamic_cast<CustomCircleItem*>(item)) {  // 更新圆形项的位置和大小
-            //circleItem->center.setX(value);
             QString msg = QString("%1, %2, %3").arg(circleItem->center.x()).arg(circleItem->center.y()).arg(circleItem->radius);
             emit drawingCircleFinished(msg);
         } else if (CustomLineItem *lineItem = dynamic_cast<CustomLineItem*>(item)) {  // 更新圆形项的位置和大小
-            //circleItem->center.setX(value);
             QString msg = QString("%1, %2, %3, %4").arg(lineItem->point1.x()).arg(lineItem->point1.y()).arg(lineItem->point2.x()).arg(lineItem->point2.y());
-            qDebug() << "[INFO] Pass the msg " << msg;
             emit drawingLineFinished(msg);
+        } else if (CustomRectangleItem *rectItem = dynamic_cast<CustomRectangleItem*>(item)) {  // 更新圆形项的位置和大小
+            QString msg = QString("%1, %2, %3, %4").arg(rectItem->LT.x()).arg(rectItem->LT.y()).arg(rectItem->RB.x()).arg(rectItem->RB.y());
+            emit drawingRectFinished(msg);
         }
     }
     //itemAt()
 }
 
 void CustomGraphicsScene::ReceivePara1ValueChanged(double value){
-    qDebug() << "[INFO] CGS received value " << value << Qt::endl;
+    //qDebug() << "[INFO] CGS received value " << value << Qt::endl;
     auto items = selectedItems();
     for (auto item : items) {
         //auto circleItem = dynamic_cast<CustomCircleItem *>(item);
@@ -33,6 +45,8 @@ void CustomGraphicsScene::ReceivePara1ValueChanged(double value){
             circleItem->changeByLineedit(value, circleItem->center.y(), circleItem->radius);
         } else if (CustomLineItem *lineItem = dynamic_cast<CustomLineItem*>(item)) {
             lineItem->changeByLineedit(value, lineItem->point1.y(), lineItem->point2.x(), lineItem->point2.y());
+        } else if (CustomRectangleItem *rectItem = dynamic_cast<CustomRectangleItem*>(item)) {
+            rectItem->changeByLineedit(value, rectItem->LT.y(), rectItem->RB.x(), rectItem->RB.y());
         }
     }
 }
@@ -47,12 +61,14 @@ void CustomGraphicsScene::ReceivePara2ValueChanged(double value){
             circleItem->changeByLineedit(circleItem->center.x(), value, circleItem->radius);
         } else if (CustomLineItem *lineItem = dynamic_cast<CustomLineItem*>(item)) {
             lineItem->changeByLineedit(lineItem->point1.x(), value, lineItem->point2.x(), lineItem->point2.y());
+        } else if (CustomRectangleItem *rectItem = dynamic_cast<CustomRectangleItem*>(item)) {
+            rectItem->changeByLineedit(rectItem->LT.x(), value, rectItem->RB.x(), rectItem->RB.y());
         }
     }
 }
 
 void CustomGraphicsScene::ReceivePara3ValueChanged(double value){
-    qDebug() << "[INFO] CGS received value " << value << Qt::endl;
+    //qDebug() << "[INFO] CGS received value " << value << Qt::endl;
     auto items = selectedItems();
     for (auto item : items) {
         //auto circleItem = dynamic_cast<CustomCircleItem *>(item);
@@ -61,17 +77,21 @@ void CustomGraphicsScene::ReceivePara3ValueChanged(double value){
             circleItem->changeByLineedit(circleItem->center.x(), circleItem->center.y(), value);
         } else if (CustomLineItem *lineItem = dynamic_cast<CustomLineItem*>(item)) {
             lineItem->changeByLineedit(lineItem->point1.x(), lineItem->point1.y(), value, lineItem->point2.y());
+        } else if (CustomRectangleItem *rectItem = dynamic_cast<CustomRectangleItem*>(item)) {
+            rectItem->changeByLineedit(rectItem->LT.x(), rectItem->LT.y(), value, rectItem->RB.y());
         }
     }
 }
 
 void CustomGraphicsScene::ReceivePara4ValueChanged(double value){
-    qDebug() << "[INFO] CGS received value " << value << Qt::endl;
+    //qDebug() << "[INFO] CGS received value " << value << Qt::endl;
     auto items = selectedItems();
     for (auto item : items) {
         //auto circleItem = dynamic_cast<CustomCircleItem *>(item);
         if (CustomLineItem *lineItem = dynamic_cast<CustomLineItem*>(item)) {
             lineItem->changeByLineedit(lineItem->point1.x(), lineItem->point1.y(), lineItem->point2.x(), value);
+        } else if (CustomRectangleItem *rectItem = dynamic_cast<CustomRectangleItem*>(item)) {
+            rectItem->changeByLineedit(rectItem->LT.x(), rectItem->LT.y(), rectItem->RB.x(), value);
         }
     }
 }
@@ -88,6 +108,7 @@ CustomGraphicsScene::CustomGraphicsScene(QObject *parent, QPen color)
     LineColor(color)
 {
     setSceneRect(0, 0, 640, 480); // 设置场景大小为640x480
+    usingFill = false;
 }
 
 void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
@@ -100,8 +121,13 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             removeItem(tempLine);  // 移除临时线条
             qreal radius = QLineF(firstPoint, event->scenePos()).length();  // 计算半径
             circle = new CustomCircleItem(firstPoint.x(), firstPoint.y(), radius * 2);  // 创建自定义圆形项
-            LineColor.setWidth(2);
+            if (usingFill)
+                circle->setBrush(QColor(FillColor.color().red(), FillColor.color().green(), FillColor.color().blue()));
+
             circle->setPen(LineColor);
+            circle->R=LineColor.color().red();
+            circle->G=LineColor.color().green();
+            circle->B=LineColor.color().blue();
             Radius = radius;
             addItem(circle);  // 添加圆形项到场景
             removeItem(centerPoint);  // 移除中心点标记
@@ -111,18 +137,21 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             isAddingCircle = false;  // 结束添加圆形
             circle->setCursor(Qt::PointingHandCursor); // 当鼠标在图形上时，改变指针样式
 
-            emit circleAdded(circle->rect().center(),radius);  // 发送圆形添加信号，传递圆形的中心点
+           // emit circleAdded(circle->rect().center(),radius);  // 发送圆形添加信号，传递圆形的中心点
             updateData();
+            if (usingFill)
+                usingFill = false;
         }
     } else if (isAddingText) {  // 如果正在添加文本
         bool ok;
-        QString text = QInputDialog::getText(nullptr, "输入文字", "请输入文字:", QLineEdit::Normal, "", &ok);  // 弹出输入对话框获取文本
-        if (ok && !text.isEmpty()) {  // 如果用户确认输入且文本非空
-            QGraphicsTextItem *textItem = addText(text);  // 添加文本项到场景
-            textItem->setPos(event->scenePos());  // 设置文本项位置为鼠标事件的场景位置
-            isAddingText = false;  // 结束添加文本
-            emit textAdded(text, event->scenePos());  // 发送文本添加信号，传递文本内容和位置
+        QString textcontent = QInputDialog::getText(nullptr, "输入文字", "请输入文字:", QLineEdit::Normal, "", &ok);
+        if (ok && !textcontent.isEmpty()) {
+            text = new CustomTextItem(textcontent);
+            text->setPos(event->scenePos());
+            addItem(text);
+            text->setMovable(true);  // 设置文本项可移动
         }
+        isAddingText = false;
     }
     else if (isAddingLine)
     {  // 新增：如果正在添加直线
@@ -137,6 +166,9 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             removeItem(tempLine);
             line = new CustomLineItem(QLineF(firstPoint, event->scenePos()));
             line->setPen(LineColor);
+            line->R=LineColor.color().red();
+            line->G=LineColor.color().green();
+            line->B=LineColor.color().blue();
             addItem(line);
             removeItem(centerPoint);  // 移除中心点标记
             centerPoint = nullptr;  // 中心点标记置为空
@@ -158,12 +190,20 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
             removeItem(tempLine);
             removeItem(centerPoint);  // 移除中心点标记
             centerPoint = nullptr;  // 中心点标记置为空
-            QRectF rect(firstPoint, event->scenePos());
+            //QRectF rect(firstPoint, event->scenePos());
+            QRectF rect(fmin(firstPoint.x(), event->scenePos().x()), fmin(firstPoint.y(), event->scenePos().y()),
+                        abs(firstPoint.x() - event->scenePos().x()), abs(firstPoint.y() - event->scenePos().y()));
             CustomRectangleItem *rectangle = new CustomRectangleItem(rect);
+            if (usingFill)
+                rectangle->setBrush(QColor(FillColor.color().red(), FillColor.color().green(), FillColor.color().blue()));
+            rectangle->setPen(LineColor);
             addItem(rectangle);
             firstPoint = QPointF();
             drawing = false;
             isAddingRectangle = false;
+            updateData();
+            if (usingFill)
+                usingFill = false;
         }
     }
     QGraphicsScene::mousePressEvent(event);  // 调用基类的鼠标按下事件处理函数
@@ -184,16 +224,26 @@ void CustomGraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     QGraphicsScene::mouseReleaseEvent(event);  // 调用基类的鼠标释放事件处理函数
 }
 
+void CustomGraphicsScene::valueClear(){
+    isAddingCircle = false;
+    isAddingText = false;
+    isAddingLine=false;
+    isAddingRectangle = false;
+}
+
 void CustomGraphicsScene::setAddingCircle(bool condition) {
+    valueClear();
     isAddingCircle = condition;  // 设置是否正在添加圆形的标志
 }
 
 void CustomGraphicsScene::setAddingText(bool condition) {
+    valueClear();
     isAddingText = condition;  // 设置是否正在添加文本的标志
 }
 
 void CustomGraphicsScene::setAddingLine(bool condition)
 {
+    valueClear();
     isAddingLine=condition;
 }
 
@@ -209,5 +259,6 @@ std::vector<std::pair<QPointF, qreal>> CustomGraphicsScene::getCircles()const {/
 
 void CustomGraphicsScene::setAddingRectangle(bool condition)
 { // 新增的设置函数实现
+    valueClear();
     isAddingRectangle = condition;
 }

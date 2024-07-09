@@ -8,6 +8,10 @@ class ColorPickerWidget : public QWidget {
 
 public:
     ColorPickerWidget(QWidget *parent = nullptr);
+    QString LineColor;
+    QString FillColor;
+    QString BackColor;
+    QString TextColor;
 
 signals:
     void sendColorData(const QString &data);
@@ -20,10 +24,13 @@ private:
     void SetLineColor();
     void SetFillColor();
     void SetBackColor();
+    void SetTextColor();
+    void getLineColor();
+    void getFillColor();
+    void getBackColor();
+    void getTextColor();
     QLabel *colorLabel;
-    QString LineColor;
-    QString FillColor;
-    QString BackColor;
+
     QString CurrentColor;
 };
 #endif // COLORPICKERWIDGET_H
