@@ -3,7 +3,7 @@
 #include <QBrush>
 
 CustomLineItem::CustomLineItem(const QLineF &line, QGraphicsItem *parent)
-    : QGraphicsLineItem(line, parent), dragState(NoDrag)
+    : QGraphicsLineItem(line, parent), dragState(NoDrag),R(0),B(0),G(0)
 {
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);

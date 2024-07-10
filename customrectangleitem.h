@@ -8,15 +8,19 @@
 #include <QGraphicsItemGroup>
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
+#include <QRectF>
+#include "communal.h"
 
 class CustomRectangleItem : public QGraphicsRectItem {
 public:
     CustomRectangleItem(const QRectF &rect, QGraphicsItem *parent = nullptr);
+    void changeByLineedit(double x1,double y1,double x2,double y2);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+
 
 private:
     QGraphicsEllipseItem *topLeftHandle;

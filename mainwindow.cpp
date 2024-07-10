@@ -14,15 +14,15 @@ Operation extractVariables(const QString &input) {
     // 定义不同的正则表达式模式
     Operation ans;
     QRegularExpression circleRegex(R"((circle)\(([^)]*)\))");
-    QRegularExpression lineRegex(R"((line)\(([^)]*)\))");
-    QRegularExpression rectRegex(R"((rectangle)\(([^)]*)\))");
+    QRegularExpression lineAndRectRegex(R"((line|rectangle)\(([^)]*)\))");
     QRegularExpression colorRegex(R"((setbkcolor|setlinecolor|setfillcolor)\(RGB\((\d+),\s*(\d+),\s*(\d+)\)\);)");
+    QRegularExpression lineStyleRegex(R"(setlinestyle\(PS_SOLID,\s*([^)]*)\);)");
 
     // 尝试匹配不同的操作类型
     QRegularExpressionMatch circleMatch = circleRegex.match(input);
-    QRegularExpressionMatch lineMatch = lineRegex.match(input);
-    QRegularExpressionMatch rectMatch = rectRegex.match(input);
+    QRegularExpressionMatch lineAndRectMatch = lineAndRectRegex.match(input);
     QRegularExpressionMatch colorMatch = colorRegex.match(input);
+    QRegularExpressionMatch lineStyleMatch = lineStyleRegex.match(input);
 
     if (circleMatch.hasMatch()) {
         QString operation = circleMatch.captured(1); // 匹配到的操作名称
@@ -47,9 +47,9 @@ Operation extractVariables(const QString &input) {
             qDebug() << "Invalid number of parameters for circle.";
         }
 
-    } else if (lineMatch.hasMatch() || rectMatch.hasMatch()) {
-        QString operation = lineMatch.captured(1); // 匹配到的操作名称
-        QString parameters = lineMatch.captured(2); // 匹配到的参数列表
+    } else if (lineAndRectMatch.hasMatch()) {
+        QString operation = lineAndRectMatch.captured(1); // 匹配到的操作名称
+        QString parameters = lineAndRectMatch.captured(2); // 匹配到的参数列表
 
         // 分割参数列表
         QStringList parameterList = parameters.split(",", Qt::SkipEmptyParts);
@@ -86,6 +86,11 @@ Operation extractVariables(const QString &input) {
         ans.parameter_1 = r.toDouble();
         ans.parameter_2 = g.toDouble();
         ans.parameter_3 = b.toDouble();
+    } else if (lineStyleMatch.hasMatch()) {
+        QString para_1 = lineStyleMatch.captured(1); // 匹配到的操作名称
+
+        ans.type = "setlinestyle";
+        ans.parameter_1 = para_1.toDouble();
     } else {
         qDebug() << "No match found.";
     }
@@ -109,7 +114,27 @@ void MainWindow::openImageEditor(){
 
         if ((*element).type == "circle") {
             qDebug() << "[INFO] Circle detected";
-            imageditor->drawingArea->scene->DrawCircle((*element).parameter_1, (*element).parameter_2, (*element).parameter_3);
+            imageditor->drawingArea->scene->DrawCircle((*element).parameter_1, (*element).parameter_2, (*element).parameter_3 * 2);
+        } else if ((*element).type == "line") {
+            qDebug() << "[INFO] Circle detected";
+            imageditor->drawingArea->scene->DrawLine((*element).parameter_1, (*element).parameter_2, (*element).parameter_3, (*element).parameter_4);
+        } else if ((*element).type == "rectangle") {
+            qDebug() << "[INFO] Circle detected";
+            imageditor->drawingArea->scene->DrawRect((*element).parameter_1, (*element).parameter_2, (*element).parameter_3, (*element).parameter_4);
+        } else if ((*element).type == "setbkcolor") {
+            qDebug() << "[INFO] Bkcolor detected";
+            imageditor->drawingArea->scene->BackColor.setColor(QColor((*element).parameter_1, (*element).parameter_2, (*element).parameter_3));
+        } else if ((*element).type == "setlinecolor") {
+            qDebug() << "[INFO] Bkcolor detected";
+            imageditor->drawingArea->scene->LineColor.setColor(QColor((*element).parameter_1, (*element).parameter_2, (*element).parameter_3));
+        } else if ((*element).type == "setfillcolor") {
+            qDebug() << "[INFO] Bkcolor detected";
+            imageditor->drawingArea->scene->FillColor.setColor(QColor((*element).parameter_1, (*element).parameter_2, (*element).parameter_3));
+        } else if ((*element).type == "setlinestyle") {
+            qDebug() << "[INFO] Bkcolor detected";
+            imageditor->drawingArea->scene->LineColor.setWidth((*element).parameter_1);
+            imageditor->LineColor.setWidth((*element).parameter_1);
+            //imageditor->drawingArea->scene->LineColor.setWidth((*element).parameter_1);
         }
     }
 
@@ -148,33 +173,31 @@ std::list<Operation> MainWindow::ReadCodes(){
 
 void MainWindow::DrawSomeThing(const QString& text){
     QTextCursor cursor = textEdit->textCursor();
-    bool found = false;
-    // 获取当前行号
-    int currentLineNumber = cursor.blockNumber();
-    // 移动到行尾部
-    cursor.movePosition(QTextCursor::EndOfBlock);
-    // 获取行文本
-    QString lineText = cursor.block().text();
+    cursor.movePosition(QTextCursor::Start);
+    cursor = textEdit->document()->find("void solve(){", cursor);
+    cursor.movePosition(QTextCursor::Down);
+    cursor.movePosition(QTextCursor::StartOfLine);
+    cursor.insertText(text + "\n");
 
-    if (lineText.lastIndexOf(';') != -1) {
-        cursor.movePosition(QTextCursor::NextBlock);
-        cursor.insertText("\t" + text + "\n");
-    } else if (lineText.lastIndexOf('{') != -1){
-        cursor.movePosition(QTextCursor::NextBlock);
-        cursor.insertText("\t" + text + "\n");
-    } else if (lineText.lastIndexOf('}') != -1){
-        cursor.movePosition(QTextCursor::End);
-        cursor.deletePreviousChar();
-        cursor.insertText("\t" + text + "\n}");
-    } else {
-        if (lineText == "\t")
-            cursor.insertText(text + "\n");
-        else if (lineText.isEmpty())
-            cursor.insertText("\t" + text + "\n");
-        else
-            cursor.insertText("\n" + text + "\t");
-        cursor.movePosition(QTextCursor::NextBlock);
-    }
+    // if (lineText.lastIndexOf(';') != -1) {
+    //     cursor.movePosition(QTextCursor::NextBlock);
+    //     cursor.insertText("\t" + text + "\n");
+    // } else if (lineText.lastIndexOf('{') != -1){
+    //     cursor.movePosition(QTextCursor::NextBlock);
+    //     cursor.insertText("\t" + text + "\n");
+    // } else if (lineText.lastIndexOf('}') != -1){
+    //     cursor.movePosition(QTextCursor::End);
+    //     cursor.deletePreviousChar();
+    //     cursor.insertText("\t" + text + "\n}");
+    // } else {
+    //     if (lineText == "\t")
+    //         cursor.insertText(text + "\n");
+    //     else if (lineText.isEmpty())
+    //         cursor.insertText("\t" + text + "\n");
+    //     else
+    //         cursor.insertText("\n" + text + "\t");
+    //     cursor.movePosition(QTextCursor::NextBlock);
+    // }
 }
 
 // 自定义语法高亮器类
@@ -338,6 +361,47 @@ protected:
     }
 };
 
+void MainWindow::removeSolveFunction(QTextEdit *document) {
+    QTextCursor cursor(textEdit->textCursor());
+
+    // 从文档的开始位置开始查找
+    cursor.movePosition(QTextCursor::Start);
+
+    while (true) {
+        cursor = textEdit->document()->find("void solve(){", cursor);
+         if (cursor.isNull()) {
+             break;
+         }
+
+        // 移动到匹配项的结尾，即函数体的起始大括号位置
+        cursor.movePosition(QTextCursor::NextBlock);
+        //cursor.insertText("begin");
+        int startPos = cursor.position();
+
+
+        // 找到匹配的结束大括号位置，并保留注释
+        QTextCursor endCursor = textEdit->document()->find("}// End Solves", cursor);
+        if (endCursor.isNull()) {
+            break;
+        }
+        //endCursor.insertText("end");
+
+        // 调整结束位置，保留 "} // End Solves"
+        endCursor.movePosition(QTextCursor::StartOfLine);
+
+        // 删除起始大括号与结束大括号之间的内容
+        cursor.setPosition(startPos, QTextCursor::MoveAnchor);
+        cursor.setPosition(endCursor.position(), QTextCursor::KeepAnchor);
+        cursor.removeSelectedText();
+
+        // 插入一个换行符，并将光标移动到空行处
+        cursor.insertText("\n");
+        //cursor.insertText("current");
+
+        cursor.movePosition(QTextCursor::Up);
+    }
+}
+
 // 主窗口类
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), textEdit(new QTextEdit(this))
 {
@@ -374,8 +438,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), textEdit(new QText
                       "\n"
                       "// Solves\n"
                       "void solve(){\n"
-                      "\t"
-                      "\n}"
+                      "\n"
+                      "}"
                       "// End Solves\n");
 
     // 创建布局
@@ -454,10 +518,15 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), textEdit(new QText
     exits->setMinimumHeight(64);
     connect(exits, &QPushButton::clicked, exitAction, &QAction::trigger);
 
+    QPushButton *compileButton = new QPushButton("使用本地 Windows 调试器编译并运行", buttonContainer);
+    compileButton->setMinimumHeight(64);
+    connect(compileButton, &QPushButton::clicked, this, &MainWindow::compileAndRunCode);
+
     buttonLayout->addWidget(openFiles);
     buttonLayout->addWidget(setStyle);
     buttonLayout->addWidget(openEditor);
     buttonLayout->addWidget(Save);
+    buttonLayout->addWidget(compileButton);
     buttonLayout->addWidget(exits);
     //buttonLayout->addWidget(button6);
     //buttonLayout->addStretch();
@@ -485,6 +554,106 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::receiveData(const QString &data) {
+    removeSolveFunction(textEdit);
     qDebug() << "[INFO] MainWindow received " << data << Qt::endl;
     DrawSomeThing(data);
+}
+
+QString MainWindow::createTempFilePath(const QString &fileName) {
+    QString docsPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    QString tempPath = docsPath + "/DifficultX";
+    QDir dir(tempPath);
+    if (!dir.exists()) {
+        if (!dir.mkpath(tempPath)) {
+            QMessageBox::critical(this, "Error", "Failed to create temporary directory.");
+            return QString();
+        }
+    }
+    return tempPath + "/" + fileName;
+}
+
+void MainWindow::compileAndRunCode() {
+    QString code = textEdit->toPlainText();
+    //qDebug() << "[DEBUG] The code " << code;
+    QString filePath = createTempFilePath("temp_code.cpp");
+
+    if (filePath.isEmpty()) {
+        return;
+    }
+
+    QFile file(filePath);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::critical(this, "Error", "Failed to open temporary file for writing.");
+        return;
+    }
+
+    QTextStream out(&file);
+    out << code;
+    file.close();
+
+
+    QProcess process;
+    QStringList args;
+
+    // QString vsDevCmdPath = "\"C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/Tools/VsDevCmd.bat\"";
+
+    // // 构建完整的cl命令行，注意使用双引号包围含有空格的路径
+    // QString clCommand = "cl temp_code.cpp /Fe:tempCode.exe /link /LIBPATH:\"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Auxiliary/VS/lib/x64\" /LIBPATH:\"C:/Program Files (x86)/Windows Kits/10/Lib/10.0.22621.0/um/x64\" /LIBPATH:\"C:/Program Files (x86)/Windows Kits/10/Lib/10.0.22621.0/ucrt/x64\" /LIBPATH:\"C:/EasyX/lib\" EasyXa.lib user32.lib gdi32.lib kernel32.lib shell32.lib /SUBSYSTEM:CONSOLE";
+
+    // // 准备命令行参数
+    // args << "/C" << vsDevCmdPath << "&&" << "cd C:/Users/Alpha.LAPTOP-O2RBBHUH/Documents/DifficultX &&" << clCommand;
+
+    //args << "ping www.baidu.com";
+    QString cmd1 = "cd C:/Users/Alpha.LAPTOP-O2RBBHUH/Documents/DifficultX\r\n";
+    QByteArray qbarr1 = cmd1.toLatin1();
+    char *ch1 = qbarr1.data();
+    qint64 len1 = cmd1.length();
+    QString cmd2 = "\"C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/Tools/VsDevCmd.bat\" -arch=amd64 && cl temp_code.cpp /Fe:tempCode.exe /link /LIBPATH:\"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Auxiliary/VS/lib/x64\" /LIBPATH:\"C:/Program Files (x86)/Windows Kits/10/Lib/10.0.22621.0/um/x64\" /LIBPATH:\"C:/Program Files (x86)/Windows Kits/10/Lib/10.0.22621.0/ucrt/x64\" /LIBPATH:\"C:/EasyX/lib\" EasyXa.lib user32.lib gdi32.lib kernel32.lib shell32.lib /SUBSYSTEM:CONSOLE\r\n";
+    QByteArray qbarr2 = cmd2.toLatin1();
+    char *ch2 = qbarr2.data();
+    qint64 len2 = cmd2.length();
+    QString cmd3 = "taskkill /IM tempCode.exe /F\r\n";
+    QByteArray qbarr3 = cmd3.toLatin1();
+    char *ch3 = qbarr3.data();
+    qint64 len3 = cmd3.length();
+    process.start("cmd.exe");
+    process.write(ch3, len3);
+    process.write(ch1, len1);
+    process.write(ch2, len2);
+
+    process.closeWriteChannel();
+
+    if (!process.waitForFinished(-1)) {
+        QMessageBox::critical(this, "Error 0", "Failed to compile and run the code.");
+        return;
+    }
+
+     QByteArray errorOutput = process.readAll();
+     QString errorString = QString::fromLocal8Bit(errorOutput);
+     qDebug().noquote() << errorString;
+
+    //qDebug() << process.readAll();
+    //QByteArray errorOutput = process.readAllStandardError();
+    //QString errorString = QString::fromLocal8Bit(errorOutput);
+
+
+    if (!process.error())
+        qDebug() << "[ERROR] return " << process.error();
+
+    if (process.exitStatus() != QProcess::NormalExit || process.exitCode() != 0) {
+
+        QByteArray errorOutput = process.readAllStandardError();
+        QString errorString = QString::fromLocal8Bit(errorOutput);
+        QMessageBox::critical(this, "Error 1", errorString);
+        return;
+    }
+
+    QString output = process.readAll();
+    qDebug() << process.readAllStandardError();
+
+    QString exePath = QFileInfo(filePath).absolutePath() + "/tempCode.exe";
+    if (!QProcess::startDetached(exePath)) {
+        QMessageBox::critical(this, "Error 2", "Failed to run the executable: " + exePath);
+    }
+    //QProcess::startDetached(exePath);
 }
