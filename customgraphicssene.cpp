@@ -148,6 +148,7 @@ void CustomGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         if (ok && !textcontent.isEmpty()) {
             text = new CustomTextItem(textcontent);
             text->setPos(event->scenePos());
+            text->position=event->scenePos();
             addItem(text);
             text->setMovable(true);  // 设置文本项可移动
         }

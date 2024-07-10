@@ -10,7 +10,6 @@ CustomTextItem::CustomTextItem(const QString &text, QGraphicsItem *parent)
 {
     setFlag(QGraphicsItem::ItemIsSelectable, true); // 设置文本项可以选择
     setFlag(QGraphicsItem::ItemIsFocusable, true); // 设置文本项可以获取焦点
-    position=this->scenePos();
 }
 
 // 设置字体大小和样式
