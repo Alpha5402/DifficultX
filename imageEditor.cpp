@@ -509,8 +509,8 @@ void ImageEditor::onFontChanged(const QString &fontName)
 
 void ImageEditor::onFontSizeChanged(const QString &fontSize)
 {
-    QFont font(fontComboBox->currentText(), fontSize.toInt());
-    //textFont.setPixelSize(fontSize.toInt());
+    QFont font(fontComboBox->currentText());
+    font.setPixelSize(fontSize.toInt());
     textFont = font;
     drawingArea->scene->text->setFont(textFont);
 }

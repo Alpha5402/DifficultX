@@ -65,7 +65,7 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
 
     QFont initial_font;
     initial_font.setFamily("000");
-    initial_font.setPixelSize(-100);
+    initial_font.setPixelSize(0);
 
     bool hasTextsyleChanged=false;
 
@@ -269,6 +269,7 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
         }
         else if(CustomTextItem *text=dynamic_cast<CustomTextItem*>(item))
         {
+            qDebug()<<"sizep"<<text->font().pixelSize();
             if(text->font().family()!=initial_font.family())
             {
                 code+=QString("\t_tcscpy_s(f.lfFaceName, _T(\"%1\"));\n").arg(text->font().family());
@@ -277,7 +278,9 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
             }
             if(text->font().pixelSize()!=initial_font.pixelSize())
             {
-                code+=QString("\tf.lfHeight = %1;\n").arg(-text->font().pixelSize());
+                int size=-(text->font().pixelSize());
+                code+=QString("\tf.lfHeight = %1;\n").arg(size);
+                initial_font.setPixelSize(text->font().pixelSize());
                 hasTextsyleChanged=true;
             }
 
@@ -291,16 +294,23 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
             {
                 initextColor=text->defaultTextColor();//初始化，颜色没有初始化是无效值
                 code+=QString("\tsettextcolor(RGB(%1,%2,%3));\n")
-                            .arg(text->defaultTextColor().red()).arg(text->defaultTextColor().green()).arg(text->defaultTextColor().blue());
+                            .arg(text->defaultTextColor().red())
+                            .arg(text->defaultTextColor().green())
+                            .arg(text->defaultTextColor().blue());
             }
             else if(initextColor!=text->defaultTextColor())
             {
                 initextColor=text->defaultTextColor();//重置当前颜色
                 code+=QString("\tsettextcolor(RGB(%1,%2,%3));\n")
-                            .arg(text->defaultTextColor().red()).arg(text->defaultTextColor().green()).arg(text->defaultTextColor().blue());
+                            .arg(text->defaultTextColor().red())
+                            .arg(text->defaultTextColor().green())
+                            .arg(text->defaultTextColor().blue());
             }
 
-            code+=QString("\touttextxy(%1, %2, _T(\"%3\"));\n").arg(text->position.x()+16).arg(text->position.y()+*).arg(text->toPlainText());
+            code+=QString("\touttextxy(%1, %2, _T(\"%3\"));\n")
+                        .arg((text->position.x())+16)
+                        .arg((text->position.y())+8)
+                        .arg(text->toPlainText());
 
         }
     }

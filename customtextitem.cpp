@@ -10,12 +10,14 @@ CustomTextItem::CustomTextItem(const QString &text, QGraphicsItem *parent)
 {
     setFlag(QGraphicsItem::ItemIsSelectable, true); // 设置文本项可以选择
     setFlag(QGraphicsItem::ItemIsFocusable, true); // 设置文本项可以获取焦点
+    position=this->scenePos();
 }
 
 // 设置字体大小和样式
 // 参数：font - 要设置的QFont对象
 void CustomTextItem::setFont(const QFont &font)
 {
+    qDebug()<<"font"<<font.pixelSize();
     textstyle=font.family();
     textsize=-font.pixelSize();
     QRectF boundingRect = this->boundingRect();
@@ -64,7 +66,7 @@ void CustomTextItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 // 参数：event - QGraphicsSceneMouseEvent对象，包含鼠标事件信息
 void CustomTextItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     isMovable=false;
-    qDebug()<<position;
+    // qDebug()<<position<<"size"<<this->font().pointSize();
     QGraphicsTextItem::mouseReleaseEvent(event); // 调用基类的方法处理鼠标释放事件
 }
 
