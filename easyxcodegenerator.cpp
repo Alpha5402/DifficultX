@@ -61,6 +61,8 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
     QColor initextColor;//第一次调用时初始化
     QColor iniFillcolor;
 
+    int initialPenWid=0;
+
     QFont initial_font;
     initial_font.setFamily("000");
     initial_font.setPixelSize(-100);
@@ -75,7 +77,7 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
     //预设信息
     code+="\tinitgraph(640, 480);\n";
     code+="\tsetbkcolor(RGB(255,255,255));\n";
-    code+="\tsetcolor(RGB(0,0,0));\n";
+    // code+="\tsetcolor(RGB(0,0,0));\n";
     code+="\tcleardevice();\n";
     code+="\tLOGFONT f;\n";
     code+="\tgettextstyle(&f);\n";
@@ -99,6 +101,12 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
         {
             QBrush brush = circle->brush();
             QPen pen=circle->pen();
+            if(pen.width()!=initialPenWid)
+            {
+                code+=QString("\tsetlinestyle(PS_SOLID, %1);\n")
+                            .arg(pen.width());
+                initialPenWid=pen.width();
+            }
             if (pen.style()!=Qt::NoPen)
             {
                 QColor currentColor=circle->pen().color();
@@ -124,7 +132,7 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
                 // 检查颜色是否有变化
                 if (iniFillcolor.isValid() && currentFillColor != iniFillcolor) {
                     // 如果填充颜色与iniFillColor不同，更新code
-                    code += QString("\tsetfillcolor(RGB(%1,%2,%3);\n")
+                    code += QString("\tsetfillcolor(RGB(%1,%2,%3));\n")
                                 .arg(currentFillColor.red())
                                 .arg(currentFillColor.green())
                                 .arg(currentFillColor.blue());
@@ -132,7 +140,7 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
                     // 如果这是第一次发现有填充颜色的圆，初始化iniFillColor
                     iniFillcolor = currentFillColor;
                     // 添加初始化代码到code字符串
-                    code += QString("\tsetfillcolor(RGB(%1,%2,%3);\n")
+                    code += QString("\tsetfillcolor(RGB(%1,%2,%3));\n")
                                 .arg(currentFillColor.red())
                                 .arg(currentFillColor.green())
                                 .arg(currentFillColor.blue());
@@ -185,7 +193,12 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
         else if(CustomRectangleItem *rec=dynamic_cast<CustomRectangleItem*>(item))
         {
             QBrush brush = rec->brush();
-
+            if(rec->pen().width()!=initialPenWid)
+            {
+                code+=QString("\tsetlinestyle(PS_SOLID, %1);\n")
+                            .arg(rec->pen().width());
+                initialPenWid=rec->pen().width();
+            }
             if (brush.style() == Qt::NoBrush)
             {
                 QColor currentColor=rec->pen().color();
@@ -201,7 +214,7 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
                 }
                 hasFrame=true;
             }
-            else
+            if (brush.style() != Qt::NoBrush)
             {
                 // 有填充，获取填充颜色
                 QColor currentFillColor = brush.color();
@@ -227,27 +240,30 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
             }
             if(hasFilling&&hasFrame)
             {
-                code+=QString("\tfillcircle(%1,%2,%3);\n")
-                            .arg(circle->center.x())
-                            .arg(circle->center.y())
-                            .arg(circle->radius);
+                code+=QString("\tfillrectangle(%1,%2,%3,%4);\n")
+                            .arg(rec->LT.x())
+                            .arg(rec->LT.y())
+                            .arg(rec->RB.x())
+                            .arg(rec->RB.y());
                 hasFilling=false;
                 hasFrame=false;
             }
             else if(hasFilling)
             {
-                code+=QString("\tsolidcircle(%1,%2,%3);\n")
-                            .arg(circle->center.x())
-                            .arg(circle->center.y())
-                            .arg(circle->radius);
+                code+=QString("\tsolidrectangle(%1,%2,%3,%4);\n")
+                            .arg(rec->LT.x())
+                            .arg(rec->LT.y())
+                            .arg(rec->RB.x())
+                            .arg(rec->RB.y());
                 hasFilling=false;
             }
             else if(hasFrame)
             {
-                code+=QString("\tcircle(%1,%2,%3);\n")
-                            .arg(circle->center.x())
-                            .arg(circle->center.x())
-                            .arg(circle->radius);
+                code+=QString("\trectangle(%1,%2,%3,%4);\n")
+                            .arg(rec->LT.x())
+                            .arg(rec->LT.y())
+                            .arg(rec->RB.x())
+                            .arg(rec->RB.y());
                 hasFrame=false;
             }
         }
@@ -284,7 +300,7 @@ void EasyXCodeGenerator::generateCode( const CustomGraphicsScene *scene)
                             .arg(text->defaultTextColor().red()).arg(text->defaultTextColor().green()).arg(text->defaultTextColor().blue());
             }
 
-            code+=QString("\touttextxy(%1, %2, _T(\"%3\"));\n").arg(text->position.x()).arg(text->position.y()).arg(text->toPlainText());
+            code+=QString("\touttextxy(%1, %2, _T(\"%3\"));\n").arg(text->position.x()+16).arg(text->position.y()+*).arg(text->toPlainText());
 
         }
     }
