@@ -6,19 +6,22 @@
 #include <vector>
 #include <QTextStream>
 #include "communal.h"
-#include "customgraphicssene.h""
+#include "customgraphicssene.h"
 #include "customcircleitem.h"
+
 
 using std::vector;
 
 struct Operation{
     Operation();
     QString type;
+    QString stringPara;
     QGraphicsItem * ptr;
     double parameter_1;
     double parameter_2;
     double parameter_3;
     double parameter_4;
+    bool usingFill;
 };
 
 class CircleItem

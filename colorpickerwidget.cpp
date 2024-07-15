@@ -1,8 +1,9 @@
 #include "colorpickerwidget.h"
 
 ColorPickerWidget::ColorPickerWidget(QWidget *parent) : QWidget(parent) {
+    setWindowTitle("DifficultX - 取色器");
     QVBoxLayout *layout = new QVBoxLayout(this);
-    resize(640, 160);
+    resize(800, 600);
 
     QPushButton *button = new QPushButton("选择颜色", this);
     QPushButton *setbkcolor = new QPushButton("设置为背景颜色", this);
@@ -11,15 +12,23 @@ ColorPickerWidget::ColorPickerWidget(QWidget *parent) : QWidget(parent) {
     connect(setlinecolor, &QPushButton::clicked, this, &ColorPickerWidget::SetLineColor);
     QPushButton *setfillcolor = new QPushButton("设置为填充颜色", this);
     connect(setfillcolor, &QPushButton::clicked, this, &ColorPickerWidget::SetFillColor);
+    QPushButton *settextcolor = new QPushButton("设置为字体颜色", this);
+    connect(settextcolor, &QPushButton::clicked, this, &ColorPickerWidget::SetTextColor);
     QWidget *SetColor = new QWidget(this);
     QHBoxLayout *ButtonSet = new QHBoxLayout(SetColor);
     ButtonSet->addWidget(setbkcolor, 1);
     ButtonSet->addWidget(setlinecolor, 1);
     ButtonSet->addWidget(setfillcolor, 1);
+    ButtonSet->addWidget(settextcolor, 1);
 
     QPushButton *getbkcolor = new QPushButton("获取背景颜色", this);
+    connect(getbkcolor, &QPushButton::clicked, this, &ColorPickerWidget::getBackColor);
     QPushButton *getlinecolor = new QPushButton("获取线条颜色", this);
+    connect(getlinecolor, &QPushButton::clicked, this, &ColorPickerWidget::getLineColor);
     QPushButton *getfillcolor = new QPushButton("获取填充颜色", this);
+    connect(getfillcolor, &QPushButton::clicked, this, &ColorPickerWidget::getFillColor);
+    QPushButton *gettextcolor = new QPushButton("获取字体颜色", this);
+    connect(gettextcolor, &QPushButton::clicked, this, &ColorPickerWidget::getTextColor);
     QPushButton *confirm = new QPushButton("确定", this);
     connect(confirm, &QPushButton::clicked, this, &ColorPickerWidget::onSendColorData);
     QWidget *GetColor = new QWidget(this);
@@ -27,8 +36,7 @@ ColorPickerWidget::ColorPickerWidget(QWidget *parent) : QWidget(parent) {
     ButtonGet->addWidget(getbkcolor, 1);
     ButtonGet->addWidget(getlinecolor, 1);
     ButtonGet->addWidget(getfillcolor, 1);
-
-
+    ButtonGet->addWidget(gettextcolor, 1);
 
     layout->addWidget(button);
     layout->addWidget(GetColor);
@@ -44,6 +52,7 @@ ColorPickerWidget::ColorPickerWidget(QWidget *parent) : QWidget(parent) {
 
 void ColorPickerWidget::chooseColor() {
     QColorDialog colorDialog(this);
+    colorDialog.setWindowTitle("DifficultX - 取色器");
     colorDialog.setOption(QColorDialog::DontUseNativeDialog, true); // 使用Qt对话框
     colorDialog.resize(800, 600); // 设置调色板对话框大小
     QColor color = colorDialog.getColor(Qt::white, this, "选择一个颜色");
@@ -82,4 +91,24 @@ void ColorPickerWidget::SetFillColor(){
 }
 void ColorPickerWidget::SetBackColor(){
     BackColor = CurrentColor;
+}
+void ColorPickerWidget::SetTextColor(){
+    TextColor = CurrentColor;
+}
+
+void ColorPickerWidget::getLineColor(){
+    CurrentColor = LineColor;
+    colorLabel->setText(CurrentColor);
+}
+void ColorPickerWidget::getFillColor(){
+    CurrentColor = FillColor;
+    colorLabel->setText(CurrentColor);
+}
+void ColorPickerWidget::getBackColor(){
+    CurrentColor = BackColor;
+    colorLabel->setText(CurrentColor);
+}
+void ColorPickerWidget::getTextColor(){
+    CurrentColor = TextColor;
+    colorLabel->setText(CurrentColor);
 }

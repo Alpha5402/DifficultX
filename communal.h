@@ -5,6 +5,7 @@
 #include <QMenuBar>
 #include <QAction>
 #include <QMenu>
+#include <QTimer>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QTextEdit>
@@ -28,7 +29,11 @@
 #include <QGraphicsLineItem>
 #include <QInputDialog>
 #include <QPen>
+#include <QComboBox>
+#include <QSlider>
 #include <QBrush>
+#include <QStandardPaths>
+#include <QProcess>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 

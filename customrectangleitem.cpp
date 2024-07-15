@@ -95,3 +95,16 @@ void CustomRectangleItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     isDraggingRect=false;
     QGraphicsRectItem::mouseReleaseEvent(event); // 调用基类的鼠标释放事件处理函数
 }
+
+void CustomRectangleItem::changeByLineedit(double x1,double y1,double x2,double y2)
+{
+    if (!isSelected()) {  // 如果未选中
+        return;
+    }
+    QPointF p1=QPointF{x1,y1};
+    QPointF p2=QPointF{x2,y2};
+    LT=p1;
+    RB=p2;
+    setRect(QRectF(mapFromScene(LT),mapFromScene(RB)));  // 更新圆形项的位置和大小
+    update();
+}

@@ -4,7 +4,9 @@
 #include "communal.h"
 #include "customcircleitem.h"
 #include "customlineitem.h"
-#include"customrectangleitem.h"
+#include "customrectangleitem.h"
+#include "customtextitem.h"
+#include "customrectangleitem.h"
 
 QT_BEGIN_NAMESPACE
 class QGraphicsEllipseItem;
@@ -24,9 +26,18 @@ public:
     void updateData();
     CustomCircleItem *circle;
     CustomLineItem *line;
+    CustomTextItem *text;
+    CustomRectangleItem *rectangle;
+    bool usingFill;
 
     QPen LineColor;
-    void DrawCircle(double x, double y, double Radius);
+    QPen BackColor;
+    QPen TextColor;
+    QBrush FillColor;
+    void DrawCircle(double x, double y, double Radius, bool usingFill);
+    void DrawLine(double x1, double y1, double x2, double y2);
+    void DrawRect(double x1, double y1, double x2, double y2, bool usingFill);
+    void DrawText(double x, double y, QString text);
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
@@ -34,7 +45,7 @@ protected:
 
 
 private:
-
+    void valueClear();
     QGraphicsEllipseItem *centerPoint;
     QGraphicsEllipseItem *edgePoint;
     QGraphicsLineItem *tempLine;
@@ -43,6 +54,7 @@ private:
     bool isAddingText;
     bool isAddingLine;
     bool isAddingRectangle;
+
 
     QPointF firstPoint;
     double Radius;
@@ -53,7 +65,7 @@ signals:
     void textAdded(const QString &text, const QPointF &pos);
     void drawingCircleFinished(const QString &msg);
     void drawingLineFinished(const QString &msg);
-
+    void drawingRectFinished(const QString &msg);
 public slots:
     void ReceivePara1ValueChanged(double value);
     void ReceivePara2ValueChanged(double value);

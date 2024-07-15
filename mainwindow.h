@@ -36,12 +36,17 @@ public:
 private:
     QTextEdit *textEdit;
     std::list<Operation> ReadCodes();
+    QString createTempFilePath(const QString &fileName);
+    QTimer* timer;
 private slots:
     void onCursorPositionChanged();
     void openImageEditor();
 public slots:
     void DrawSomeThing(const QString& text);
     void receiveData(const QString &data);
+    void removeSolveFunction(QTextEdit *document);
+    void compileAndRunCode();
+    void autoSaving();
 };
 
 #endif // MAINWINDOW_H
