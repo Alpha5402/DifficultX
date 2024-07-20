@@ -28,6 +28,8 @@
 #include <QGraphicsLineItem>
 #include <QInputDialog>
 #include <QPen>
+#include <QComboBox>
+#include <QSlider>
 #include <QBrush>
 #include <QGraphicsScene>
 #include <QGraphicsView>

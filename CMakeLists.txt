@@ -36,6 +36,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         easyxcodegenerator.h easyxcodegenerator.cpp
         customlineitem.h customlineitem.cpp
         customrectangleitem.h customrectangleitem.cpp
+        customtextitem.h customtextitem.cpp
 
 
     )

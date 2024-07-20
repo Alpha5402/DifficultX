@@ -109,7 +109,22 @@ void MainWindow::openImageEditor(){
 
         if ((*element).type == "circle") {
             qDebug() << "[INFO] Circle detected";
-            imageditor->drawingArea->scene->DrawCircle((*element).parameter_1, (*element).parameter_2, (*element).parameter_3);
+            imageditor->drawingArea->scene->DrawCircle((*element).parameter_1, (*element).parameter_2, (*element).parameter_3 * 2);
+        } else if ((*element).type == "line") {
+            qDebug() << "[INFO] Circle detected";
+            imageditor->drawingArea->scene->DrawLine((*element).parameter_1, (*element).parameter_2, (*element).parameter_3, (*element).parameter_4);
+        } else if ((*element).type == "rectangle") {
+            qDebug() << "[INFO] Circle detected";
+            imageditor->drawingArea->scene->DrawRect((*element).parameter_1, (*element).parameter_2, (*element).parameter_3, (*element).parameter_4);
+        } else if ((*element).type == "setbkcolor") {
+            qDebug() << "[INFO] Bkcolor detected";
+            imageditor->drawingArea->scene->BackColor = QPen(QColor((*element).parameter_1, (*element).parameter_2, (*element).parameter_3));
+        } else if ((*element).type == "setlinecolor") {
+            qDebug() << "[INFO] Bkcolor detected";
+            imageditor->drawingArea->scene->LineColor = QPen(QColor((*element).parameter_1, (*element).parameter_2, (*element).parameter_3));
+        } else if ((*element).type == "setfillcolor") {
+            qDebug() << "[INFO] Bkcolor detected";
+            imageditor->drawingArea->scene->FillColor = QBrush(QColor((*element).parameter_1, (*element).parameter_2, (*element).parameter_3));
         }
     }
 
@@ -148,33 +163,31 @@ std::list<Operation> MainWindow::ReadCodes(){
 
 void MainWindow::DrawSomeThing(const QString& text){
     QTextCursor cursor = textEdit->textCursor();
-    bool found = false;
-    // 获取当前行号
-    int currentLineNumber = cursor.blockNumber();
-    // 移动到行尾部
-    cursor.movePosition(QTextCursor::EndOfBlock);
-    // 获取行文本
-    QString lineText = cursor.block().text();
+    cursor.movePosition(QTextCursor::Start);
+    cursor = textEdit->document()->find("void solve(){", cursor);
+    cursor.movePosition(QTextCursor::Down);
+    cursor.movePosition(QTextCursor::StartOfLine);
+    cursor.insertText(text + "\n");
 
-    if (lineText.lastIndexOf(';') != -1) {
-        cursor.movePosition(QTextCursor::NextBlock);
-        cursor.insertText("\t" + text + "\n");
-    } else if (lineText.lastIndexOf('{') != -1){
-        cursor.movePosition(QTextCursor::NextBlock);
-        cursor.insertText("\t" + text + "\n");
-    } else if (lineText.lastIndexOf('}') != -1){
-        cursor.movePosition(QTextCursor::End);
-        cursor.deletePreviousChar();
-        cursor.insertText("\t" + text + "\n}");
-    } else {
-        if (lineText == "\t")
-            cursor.insertText(text + "\n");
-        else if (lineText.isEmpty())
-            cursor.insertText("\t" + text + "\n");
-        else
-            cursor.insertText("\n" + text + "\t");
-        cursor.movePosition(QTextCursor::NextBlock);
-    }
+    // if (lineText.lastIndexOf(';') != -1) {
+    //     cursor.movePosition(QTextCursor::NextBlock);
+    //     cursor.insertText("\t" + text + "\n");
+    // } else if (lineText.lastIndexOf('{') != -1){
+    //     cursor.movePosition(QTextCursor::NextBlock);
+    //     cursor.insertText("\t" + text + "\n");
+    // } else if (lineText.lastIndexOf('}') != -1){
+    //     cursor.movePosition(QTextCursor::End);
+    //     cursor.deletePreviousChar();
+    //     cursor.insertText("\t" + text + "\n}");
+    // } else {
+    //     if (lineText == "\t")
+    //         cursor.insertText(text + "\n");
+    //     else if (lineText.isEmpty())
+    //         cursor.insertText("\t" + text + "\n");
+    //     else
+    //         cursor.insertText("\n" + text + "\t");
+    //     cursor.movePosition(QTextCursor::NextBlock);
+    // }
 }
 
 // 自定义语法高亮器类
@@ -338,6 +351,47 @@ protected:
     }
 };
 
+void MainWindow::removeSolveFunction(QTextEdit *document) {
+    QTextCursor cursor(textEdit->textCursor());
+
+    // 从文档的开始位置开始查找
+    cursor.movePosition(QTextCursor::Start);
+
+    while (true) {
+        cursor = textEdit->document()->find("void solve(){", cursor);
+         if (cursor.isNull()) {
+             break;
+         }
+
+        // 移动到匹配项的结尾，即函数体的起始大括号位置
+        cursor.movePosition(QTextCursor::NextBlock);
+        //cursor.insertText("begin");
+        int startPos = cursor.position();
+
+
+        // 找到匹配的结束大括号位置，并保留注释
+        QTextCursor endCursor = textEdit->document()->find("}// End Solves", cursor);
+        if (endCursor.isNull()) {
+            break;
+        }
+        //endCursor.insertText("end");
+
+        // 调整结束位置，保留 "} // End Solves"
+        endCursor.movePosition(QTextCursor::StartOfLine);
+
+        // 删除起始大括号与结束大括号之间的内容
+        cursor.setPosition(startPos, QTextCursor::MoveAnchor);
+        cursor.setPosition(endCursor.position(), QTextCursor::KeepAnchor);
+        cursor.removeSelectedText();
+
+        // 插入一个换行符，并将光标移动到空行处
+        cursor.insertText("\n");
+        //cursor.insertText("current");
+
+        cursor.movePosition(QTextCursor::Up);
+    }
+}
+
 // 主窗口类
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), textEdit(new QTextEdit(this))
 {
@@ -374,8 +428,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), textEdit(new QText
                       "\n"
                       "// Solves\n"
                       "void solve(){\n"
-                      "\t"
-                      "\n}"
+                      "\n"
+                      "}"
                       "// End Solves\n");
 
     // 创建布局
@@ -485,6 +539,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::receiveData(const QString &data) {
+    removeSolveFunction(textEdit);
     qDebug() << "[INFO] MainWindow received " << data << Qt::endl;
     DrawSomeThing(data);
 }
